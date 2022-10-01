@@ -54,4 +54,10 @@ export default navbar([
       },
     ],
   },
+  {
+    text: "杂项",
+    icon: "any",
+    prefix: "/random/",
+    children: ["freq_urls"],
+  },
 ]);
