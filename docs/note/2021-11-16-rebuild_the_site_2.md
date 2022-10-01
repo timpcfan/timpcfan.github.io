@@ -5,7 +5,7 @@ isOriginal: true
 category:
   - 随笔
 tag:
-  - 工具
+  - 建站
 ---
 
 上周，无意间看到[左蓝大佬的一篇文章](https://zuolan.me)，教你如何使用Craft笔记软件来建立个人网站，看得我跃跃欲试，于是就有了这个网站。
