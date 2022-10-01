@@ -9,6 +9,9 @@ tag:
   - 胡言乱语
 ---
 
+![image](https://images.unsplash.com/photo-1646071206496-0d8288613824?crop=entropy&cs=tinysrgb&fit=max&fm=png&ixid=MnwxNDIyNzR8MHwxfGNvbGxlY3Rpb258OTV8MzE3MDk5fHx8fHwyfHwxNjUwODgyMDg1&ixlib=rb-1.2.1&q=80&w=1080)
+
+
 最近MBTI人格测试似乎挺火的，虽然被许多人称为“当代占星术”并质疑其科学性，但我觉得无论其是否科学，以娱乐的态度来玩一下也不坏吧。
 
 我就测试了一下，是INFP。
@@ -28,5 +31,4 @@ tag:
 
 （我似乎本来还要写什么来着？？刚刚走神去干其他事情了。。。算了，就写到这吧。。。）
 
-> > 小声的声明一下：其实，我这里说的INFP大多都指我自己，如果我的描述和其他INFP不一样的话，那就。。。那就非常尴尬了哈哈哈哈（反正也没人看，无所谓啦
-
+> 小声的声明一下：其实，我这里说的INFP大多都指我自己，如果我的描述和其他INFP不一样的话，那就。。。那就非常尴尬了哈哈哈哈（反正也没人看，无所谓啦
