@@ -3,7 +3,7 @@ import { defineUserConfig } from "vuepress";
 //import { webpackBundler } from "@vuepress/bundler-webpack";
 //import { defineUserConfig } from "@vuepress/cli";
 import { searchPlugin } from "@vuepress/plugin-search";
-import { docsearchPlugin } from "@vuepress/plugin-docsearch";
+// import { docsearchPlugin } from "@vuepress/plugin-docsearch";
 import { googleAnalyticsPlugin } from "@vuepress/plugin-google-analytics";
 import { feedPlugin } from "vuepress-plugin-feed2";
 import { path } from "@vuepress/utils";
@@ -41,12 +41,12 @@ export default defineUserConfig({
     }),
     //谷歌分析 ID
     googleAnalyticsPlugin({
-      id: "G-RWKZTY2P9R",
+      id: "G-KX30ZNTZ11",
     }),
     //rss 订阅描述
     feedPlugin({
-      hostname: "https://timpcfan.github.io",
-      rss: true,
+      hostname: "https://timpcfan.site",
+      json: true,
       count: 10,
     }),
   ],
