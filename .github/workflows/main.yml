@@ -44,3 +44,18 @@ jobs:
           branch: gh-pages
           folder: docs/.vuepress/dist
 
+      # 将页面更新到 Vercel
+      - name: Copy file to Vercel
+        if: always()
+        uses: andstor/copycat-action@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_TOKEN }}
+          src_path: /.
+          dst_path: /
+          # 你的用户名
+          dst_owner: timpcfan
+          # 与 Vercel 链接的仓库名，也就是 Vercel 部署时新建的仓库
+          dst_repo_name: blog-vercel
+          dst_branch: main
+          src_branch: gh-pages
+          clean: true
