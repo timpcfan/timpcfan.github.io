@@ -37,6 +37,7 @@ export default defineUserConfig({
     //本地搜索：默认情况下，该插件会将页面标题和小标题作为搜索索引。
     searchPlugin({
       // 你的选项
+      hotKeys: [],
     }),
     //谷歌分析 ID
     googleAnalyticsPlugin({
