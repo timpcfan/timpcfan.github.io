@@ -6,12 +6,60 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 02 Oct 2022 01:28:31 GMT</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2022 01:28:31 GMT</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2022 04:13:22 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2022 04:13:22 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
     <category>经验</category>
+    <item>
+      <title>公告栏</title>
+      <link>https://timpcfan.site/notice.html</link>
+      <guid>https://timpcfan.site/notice.html</guid>
+      <source url="https://timpcfan.site/rss.xml">公告栏</source>
+      <pubDate>Sun, 02 Oct 2022 03:59:17 GMT</pubDate>
+      <content:encoded><![CDATA[<div><p>公告</p>
+<p>本站处于<strong>初期建设</strong>阶段，内容将不断完善。</p>
+</div>
+<h2 id="网站日志" tabindex="-1"> 网站日志</h2>
+<ul>
+<li>2022/10/02: 实现了随笔页面侧边栏按照发布日期进行逆序排序。</li>
+<li>2022/10/01: 本网站建立于2022年10月1日，目前仍处于建设阶段，内容在不断完善中。。。</li>
+</ul>
+<h2 id="建站计划" tabindex="-1"> 建站计划</h2>
+<ul>
+<li><input type="checkbox" id="task-item-0" checked="checked" disabled="disabled"><label for="task-item-0"> 搭建并部署网站</label></li>
+<li><input type="checkbox" id="task-item-1" checked="checked" disabled="disabled"><label for="task-item-1"> 搬运历史随笔文章</label></li>
+<li><input type="checkbox" id="task-item-2" disabled="disabled"><label for="task-item-2"> 选择一个合适的图床</label></li>
+<li><input type="checkbox" id="task-item-3" disabled="disabled"><label for="task-item-3"> 完善「生活」板块</label>
+<ul>
+<li><input type="checkbox" id="task-item-4" disabled="disabled"><label for="task-item-4"> 生活习惯</label></li>
+<li><input type="checkbox" id="task-item-5" disabled="disabled"><label for="task-item-5"> 运动记录</label></li>
+<li><input type="checkbox" id="task-item-6" disabled="disabled"><label for="task-item-6"> 健康养生</label></li>
+<li><input type="checkbox" id="task-item-7" disabled="disabled"><label for="task-item-7"> 读书笔记</label></li>
+<li><input type="checkbox" id="task-item-8" disabled="disabled"><label for="task-item-8"> 软件安利</label></li>
+<li><input type="checkbox" id="task-item-9" disabled="disabled"><label for="task-item-9"> 游戏笔记</label></li>
+</ul>
+</li>
+<li><input type="checkbox" id="task-item-10" disabled="disabled"><label for="task-item-10"> 完善「代码笔记」板块</label>
+<ul>
+<li><input type="checkbox" id="task-item-11" disabled="disabled"><label for="task-item-11"> 代码笔记</label>
+<ul>
+<li><input type="checkbox" id="task-item-12" disabled="disabled"><label for="task-item-12"> Java笔记</label></li>
+<li><input type="checkbox" id="task-item-13" disabled="disabled"><label for="task-item-13"> Python笔记</label></li>
+<li><input type="checkbox" id="task-item-14" disabled="disabled"><label for="task-item-14"> Vue笔记</label></li>
+<li><input type="checkbox" id="task-item-15" disabled="disabled"><label for="task-item-15"> Linux笔记</label></li>
+</ul>
+</li>
+<li><input type="checkbox" id="task-item-16" disabled="disabled"><label for="task-item-16"> 算法笔记</label></li>
+</ul>
+</li>
+<li><input type="checkbox" id="task-item-17" disabled="disabled"><label for="task-item-17"> 优化笔记分区</label></li>
+<li><input type="checkbox" id="task-item-18" disabled="disabled"><label for="task-item-18"> 优化侧边栏体验</label></li>
+</ul>
+<p>内容积极填充中。。。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>2019/06/19 - 「杂」记一次网站搬家</title>
       <link>https://timpcfan.site/note/2019-06-19-rebuild_the_site.html</link>
@@ -19,7 +67,8 @@
       <source url="https://timpcfan.site/rss.xml">2019/06/19 - 「杂」记一次网站搬家</source>
       <category>随笔</category>
       <pubDate>Wed, 19 Jun 2019 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>今天又进行了一年一度的网站搬家。</p>
+      <content:encoded><![CDATA[<p><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=png&amp;ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwzOXx8c2VydmVyfGVufDB8fHx8MTYzNzA3NjM3OA&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=1080" alt="image" loading="lazy"></p>
+<p>今天又进行了一年一度的网站搬家。</p>
 <p>为什么要网站搬家呢？</p>
 <p>还不是因为要贪点小便宜，每年去找优惠价格的服务器，而这些服务器虽然价格便宜但是要续费就会比原来购买的价格贵上几倍甚至几十倍。</p>
 <p>于是快要到期的时候，我通常都会重新去找优惠的服务器，然后把整个网站都搬过去。</p>
@@ -31,6 +80,7 @@
 <p>现在又在考虑要不要把网站搬回阿里云ECS算了，学生优惠还有一年的时间，不过先用用看吧orz</p>
 <p>ps：这次搬家完以后顺便启用了https，百度云上的免费https申请非常方便（不是广告啦）</p>
 ]]></content:encoded>
+      <enclosure url="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=png&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwzOXx8c2VydmVyfGVufDB8fHx8MTYzNzA3NjM3OA&ixlib=rb-1.2.1&q=80&w=1080" type="image/"/>
     </item>
     <item>
       <title>2021/11/16 - 记重新建站</title>
@@ -138,28 +188,6 @@
 <p>于2018/12/4凌晨</p>
 ]]></content:encoded>
       <enclosure url="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?crop=entropy&cs=tinysrgb&fit=max&fm=png&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwxfHxzdG9ja3xlbnwwfHx8fDE2MzcwNzM5MjY&ixlib=rb-1.2.1&q=80&w=1080" type="image/"/>
-    </item>
-    <item>
-      <title>2019/06/19 -「杂」记一次网站搬家</title>
-      <link>https://timpcfan.site/note/2019-06-19.html</link>
-      <guid>https://timpcfan.site/note/2019-06-19.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2019/06/19 -「杂」记一次网站搬家</source>
-      <category>随笔</category>
-      <pubDate>Wed, 19 Jun 2019 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;fm=png&amp;ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwzOXx8c2VydmVyfGVufDB8fHx8MTYzNzA3NjM3OA&amp;ixlib=rb-1.2.1&amp;q=80&amp;w=1080" alt="image" loading="lazy"></p>
-<p>今天又进行了一年一度的网站搬家。</p>
-<p>为什么要网站搬家呢？</p>
-<p>还不是因为要贪点小便宜，每年去找优惠价格的服务器，而这些服务器虽然价格便宜但是要续费就会比原来购买的价格贵上几倍甚至几十倍。</p>
-<p>于是快要到期的时候，我通常都会重新去找优惠的服务器，然后把整个网站都搬过去。</p>
-<p>最初这个网站是部署在阿里云ECS上的，由于学生优惠还算比较便宜，配置也很好：2G的内存，独立ip，独占的1M宽带。</p>
-<p>一年后发现，百度云（不是网盘那个百度云）上面的虚拟主机太便宜了，当时是512m的内存，2M宽带，价格19.9一年。于是我毫不犹豫地将网站搬到了百度云上来。</p>
-<p>又过了一年，也就是到今天，服务器快到期了，我发现如果要续费，那就要付20倍的价格，也就是399，这比我在阿里云上租服务器还要贵，果断放弃。再找其他优惠，发现重新去买活动的服务器会便宜很多，还是百度云的内存128m，2m宽带，20块钱一年。</p>
-<p>配置稍微有点低，我以为是够用的，就买来试试，毕竟也不贵。买完部署完以后，发现128m的内存有点够呛，运行WordPress，如果只是浏览网页还好，要用什么附加的插件呀，或者甚至只是想更新一下WordPress的版本都会爆内存。</p>
-<p>这也算是贪小便宜的后果吧，于是现在我把多余的插件什么的都关闭了，统计服务、缓存之类的功能都没有开，这才勉强能跑的起来。</p>
-<p>现在又在考虑要不要把网站搬回阿里云ECS算了，学生优惠还有一年的时间，不过先用用看吧orz</p>
-<p>ps：这次搬家完以后顺便启用了https，百度云上的免费https申请非常方便（不是广告啦）</p>
-]]></content:encoded>
-      <enclosure url="https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=png&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwzOXx8c2VydmVyfGVufDB8fHx8MTYzNzA3NjM3OA&ixlib=rb-1.2.1&q=80&w=1080" type="image/"/>
     </item>
     <item>
       <title>2019/06/24 - 「水」用两只手表示1000多个数字</title>
