@@ -24,7 +24,7 @@ export default navbar([
         icon: "code",
         prefix: "/code/",
         children: [
-          { text: "代码笔记", icon: "code", link: "", activeMatch: "^/code/$" },
+          { text: "开发笔记", icon: "code", link: "", activeMatch: "^/code/$" },
           {
             text: "编程语言",
             icon: "language",
