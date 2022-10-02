@@ -120,7 +120,11 @@ tag:
 
 ![](http://timpcfan-site.cdn.bcebos.com/imgs/rLhMQT.jpg)
 
-其中字牌用1-7z表示：东南西北白发中
+- 1-9m: 表示万子（9m表示9万）
+- 1-9p: 表示饼子（7p表示7饼）
+- 1-9s: 表示索子（9s表示9索）
+- 0: 表示红宝牌（0m表示红5万，0p表示红5饼，0s表示红5索）
+- 1-7z：表示字牌（东南西北白发中）
 
 [https://tenhou.net/2/?q=24569m36p3479s24z8m](https://tenhou.net/2/?q=24569m36p3479s24z8m)
 
