@@ -8,8 +8,11 @@ tag:
   - 工具
 ---
 
+![](https://images.unsplash.com/photo-1501601962015-7f11b4445c43?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2371&q=80)
 
-> 本文是写给我朋友用于备考研究生的，分享了我考研时期使用Anki这个强大的记忆工具的一些心得体会，现在分享给大家。
+::: tip
+本文是写给我朋友用于备考研究生的，分享了我考研时期使用Anki这个强大的记忆工具的一些心得体会，现在分享给大家。
+:::
 
 - 使用OmniFocus（或者任意的任务管理软件）缓存新卡片
    - 在看视频或做题看到重点内容，先截图，写上相关内容，扔进OF的收件箱中
