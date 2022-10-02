@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 02 Oct 2022 08:54:28 GMT</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2022 08:54:28 GMT</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2022 10:47:11 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2022 10:47:11 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>笔记</category>
@@ -52,6 +52,16 @@
 <ul>
 <li><a href="https://github.com/wyt1215819315/autoplan" target="_blank" rel="noopener noreferrer">autoplan</a> （米游社自动签到）</li>
 </ul>
+<h2 id="速查表" tabindex="-1"> 速查表</h2>
+<h3 id="升级所需资源汇总" tabindex="-1"> 升级所需资源汇总</h3>
+<ul>
+<li>一周树脂恢复量：1260树脂（180树脂/天）</li>
+<li>升满一个天赋：820树脂</li>
+<li>0-90角色突破材料：920树脂</li>
+<li>0-90角色经验书：419紫书</li>
+<li>0-90武器突破材料：440树脂</li>
+<li>0-90武器经验矿：907大矿（5星），605大矿（4星）</li>
+</ul>
 ]]></content:encoded>
     </item>
     <item>
@@ -62,7 +72,7 @@
       <category>笔记</category>
       <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<div><p>注意</p>
-<p>本笔记非常零碎，没有进行系统整理，不适合零基础日麻新手，只是我在学习日麻的过程中将不熟悉的内容进行简单的汇总，若想系统学习日麻，推荐看以下几个教程。</p>
+<p>本笔记非常零碎，没有进行系统整理，不适合零基础日麻新手，只是我在学习日麻的过程中将不熟悉的内容进行简单的汇总，若想系统学习日麻，推荐看以下几个。</p>
 </div>
 <h2 id="日麻教程" tabindex="-1"> 日麻教程</h2>
 <ul>
@@ -237,10 +247,162 @@
       <source url="https://timpcfan.site/rss.xml">俄罗斯方块｜Tetris</source>
       <category>笔记</category>
       <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<div><p>相关信息</p>
-<p>施工中。。。</p>
+      <content:encoded><![CDATA[<h2 id="tetris99-基础" tabindex="-1"> Tetris99 基础</h2>
+<h3 id="键位" tabindex="-1"> 键位</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/KOuUXn.jpg" alt="" loading="lazy"></p>
+<h3 id="对于不同的战术" tabindex="-1"> 对于不同的战术</h3>
+<ul>
+<li>向上：追击（收残血）</li>
+<li>向下：反击（很多人狙击你的时候）</li>
+<li>向右：瞄准徽章（肛大佬）</li>
+<li>向左：随机（被很多徽章的人攻击，且徽章不够多，切换随机目标）</li>
+</ul>
+<h3 id="火力" tabindex="-1"> 火力</h3>
+<h4 id="普通消除" tabindex="-1"> 普通消除</h4>
+<ul>
+<li>1行：0</li>
+<li>2行：1</li>
+<li>3行：2</li>
+<li>4行：<strong>4</strong></li>
+</ul>
+<h4 id="tspin消除" tabindex="-1"> 消除</h4>
+<ul>
+<li>1行：2</li>
+<li>2行：4</li>
+<li>3行：6</li>
+</ul>
+<div><p>提示</p>
+<p>Tspin消除2行的火力就等于普通消除4行。</p>
 </div>
+<h4 id="连消-ren-combo" tabindex="-1"> 连消（REN/Combo）</h4>
+<ul>
+<li>1~3：1</li>
+<li>4~5：2</li>
+<li>6~7：3</li>
+<li>8~10：4</li>
+<li>11以上：5</li>
+</ul>
+<h3 id="棋盘" tabindex="-1"> 棋盘</h3>
+<ul>
+<li>高20</li>
+<li>宽10</li>
+</ul>
+<h3 id="死亡判定点" tabindex="-1"> 死亡判定点</h3>
+<ul>
+<li>中间4列的第21行</li>
+</ul>
+<h3 id="构筑的tips" tabindex="-1"> 构筑的tips</h3>
+<ul>
+<li>高低差不要超过3（否则要消耗一个I棒）</li>
+<li>面对别人的送的坑：不要搭在空气上</li>
+<li>面对自己的高低差：不要害怕搭出坑，平整第一</li>
+<li>地形 &gt; 火力</li>
+<li>要注意next</li>
+<li>妥协消除</li>
+</ul>
+<h2 id="如何堆叠整齐" tabindex="-1"> 如何堆叠整齐</h2>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/s9yFBv.jpg" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/TfzumV.jpg" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/EylXyr.jpg" alt="" loading="lazy"></p>
+<h2 id="tspin" tabindex="-1"> Tspin</h2>
+<div><p>什么是Tspin？</p>
+<p>Tspin又称T旋，是现代俄罗斯方块新加入的机制，具体的原理是「踢墙」机制，该机制可以使得方块卡入传统俄罗斯方块不能卡入的地方。由于Tspin机制的出现，现代俄罗斯方块趣味性增加了不少。</p>
+</div>
+<p>Tspin根据其消除的行数分为几类：</p>
+<ul>
+<li>Tspin mini：消除一行</li>
+<li>Tspin single：消除一行</li>
+<li>Tspin double：消除两行</li>
+<li>Tspin triple：消除三行</li>
+</ul>
+<h3 id="tspin-double" tabindex="-1"> Tspin double</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/kNMH0B.jpg" alt="" height="150" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/w3hWsc.gif" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/5Jl0S9.gif" alt="" loading="lazy"></p>
+<h3 id="tspin-triple-的例子" tabindex="-1"> Tspin triple 的例子</h3>
+<p>初始Tspin triple</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg" alt="" loading="lazy"></p>
+<p>Tspin triple捐赠</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/AVyIog.jpg" alt="" loading="lazy"></p>
+<p>如何操作</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/DrAyHr.jpg" alt="" loading="lazy"></p>
+<div><p>提示</p>
+<p>就是要摆出一个F的形状！！！（没有格子的部分）</p>
+</div>
+<h2 id="tspin-捐赠模版" tabindex="-1"> Tspin 捐赠模版 <sup></sup></h2>
+<h3 id="使用sz来连续搭t槽" tabindex="-1"> 使用SZ来连续搭T槽</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/RnDucI.jpg" alt="" loading="lazy"></p>
+<p>当有两个高度差时，右边放一个Z，上面放一个S当屋顶</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/dOUTCw.png" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/34tSFV.gif" alt="" loading="lazy"></p>
+<h3 id="楼梯捐赠" tabindex="-1"> 楼梯捐赠</h3>
+<p>有4级阶梯的地形，搭一个Z就可以形成T槽</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Fwlnm3.jpg" alt="" loading="lazy"></p>
+<p>之后再搭个屋顶</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/cquWGH.jpg" alt="" loading="lazy"></p>
+<div><p>好处都有啥？</p>
+<p>既可以平整地形，也可以打出伤害</p>
+</div>
+<h3 id="stsd-super-t-spin-double" tabindex="-1"> STSD（Super T-Spin Double）</h3>
+<p>有3格宽的空地</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/cQldFu.png" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/SiMiqH.gif" alt="" loading="lazy"></p>
+<h3 id="stmb-cave-三宽捐赠" tabindex="-1"> STMB-cave（三宽捐赠）</h3>
+<p>条件：左右高度相同，中间有三格空地</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/JDYdz9.jpg" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/pssJJS.png" alt="" loading="lazy"></p>
+<p>已经有了T槽的地形，在盖屋顶时，如果两边等高可以考虑STMB来形成2连T槽</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Tz2mD5.png" alt="" loading="lazy"></p>
+<h2 id="zspin与sspin" tabindex="-1"> Zspin与Sspin</h2>
+<h3 id="_1-无东西顶住" tabindex="-1"> 1 无东西顶住</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/GP5RlB.jpg" alt="" loading="lazy"></p>
+<p>该位置逆时针旋转进入</p>
+<h3 id="_2-有东西顶住" tabindex="-1"> 2 有东西顶住</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/AuX479.jpg" alt="" loading="lazy"></p>
+<p>该位置顺时针旋转进入</p>
+<h3 id="s块同理" tabindex="-1"> S块同理</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/oDNxDi.jpg" alt="" loading="lazy"></p>
+<p>此情况逆时针进入</p>
+<h2 id="c4w-s4w-连消" tabindex="-1"> C4W/S4W 连消</h2>
+<h3 id="消除o" tabindex="-1"> 消除o</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/WdMjjg.jpg" alt="" loading="lazy"></p>
+<p>1、将Z插下去，将O放右边，恢复原样</p>
+<p>2、把J插进去，右边放O</p>
+<p>3、把J插进去，右边放T，把O放中间</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/x7XVzC.jpg" alt="" loading="lazy"></p>
+<p>4、把I插进去，右边放L或J，再放O</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/HNDp4Y.jpg" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/0a3m2W.jpg" alt="" loading="lazy"></p>
+<p>这种地形，可以把L,Z,T放进去</p>
+<h3 id="组合" tabindex="-1"> 组合</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/qTDBUC.jpg" alt="" loading="lazy"></p>
+<p>J插进去，Sspin进去，L插进去，Zspin进去</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/eg23w3.jpg" alt="" loading="lazy"></p>
+<p>J插进去，S直接竖着下来（不spin），Zspin进去</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/bGJsVT.jpg" alt="" loading="lazy"></p>
+<div><p>提示</p>
+<p>使用T方块的时候要注意下一个SZ方块是哪个（因为会改变朝向）</p>
+</div>
+<h2 id="t3塔" tabindex="-1"> T3塔</h2>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/sG3fT6.jpg" alt="" loading="lazy"></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/K2iomi.jpg" alt="" loading="lazy"></p>
+<h2 id="lst堆叠" tabindex="-1"> LST堆叠</h2>
+<p><a href="https://www.bilibili.com/read/cv7946210" target="_blank" rel="noopener noreferrer">【FOUR翻译】LST堆叠（LST Stacking）</a></p>
+<h2 id="开局定式" tabindex="-1"> 开局定式</h2>
+<h3 id="开局tds定式" tabindex="-1"> 开局TDS定式</h3>
+<p>如果I先来，一般都能搭出定式来</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Y6mnoa.png" alt="" loading="lazy"></p>
+<h3 id="开局tspin-triple" tabindex="-1"> 开局Tspin triple</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg" alt="" loading="lazy"></p>
+<hr>
+<section>
+<ol>
+<li id="footnote1"><p><a href="https://www.bilibili.com/video/av81402631/?vd_source=944f74dda1952a351d159b78513214f7" target="_blank" rel="noopener noreferrer">【I凛】俄罗斯方块新手入门讲座 第四节 T-spin&quot;捐赠&quot;【中文字幕/Tetris99】</a> </p>
+</li>
+</ol>
+</section>
 ]]></content:encoded>
+      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/KOuUXn.jpg" type="image/jpeg"/>
     </item>
     <item>
       <title>2019/08/28 - 谈Costco进入中国市场</title>
