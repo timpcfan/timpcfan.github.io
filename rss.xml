@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 02 Oct 2022 10:47:11 GMT</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2022 10:47:11 GMT</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2022 10:56:46 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2022 10:56:46 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>笔记</category>
@@ -151,7 +151,13 @@
 </ul>
 <h3 id="手牌书面表示法" tabindex="-1"> 手牌书面表示法</h3>
 <p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/rLhMQT.jpg" alt="" loading="lazy"></p>
-<p>其中字牌用1-7z表示：东南西北白发中</p>
+<ul>
+<li>1-9m: 表示万子（9m表示9万）</li>
+<li>1-9p: 表示饼子（7p表示7饼）</li>
+<li>1-9s: 表示索子（9s表示9索）</li>
+<li>0: 表示红宝牌（0m表示红5万，0p表示红5饼，0s表示红5索）</li>
+<li>1-7z：表示字牌（东南西北白发中）</li>
+</ul>
 <p><a href="https://tenhou.net/2/?q=24569m36p3479s24z8m" target="_blank" rel="noopener noreferrer">https://tenhou.net/2/?q=24569m36p3479s24z8m</a></p>
 <h3 id="单骑好型改良" tabindex="-1"> 单骑好型改良</h3>
 <div><p>提示</p>
