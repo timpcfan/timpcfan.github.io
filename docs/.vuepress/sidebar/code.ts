@@ -19,12 +19,12 @@ export const code = arraySidebar([
     text: "后端开发",
     link: "backend/",
     prefix: "backend/",
-    children: [],
+    children: "structure",
   },
   {
     text: "系统设计",
     link: "system-design/",
     prefix: "system-design/",
-    children: [],
+    children: "structure",
   },
 ]);

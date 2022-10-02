@@ -9,6 +9,13 @@ tag:
 ---
 
 ## 目录
+
+### 玩游戏
 - [日麻笔记](mahjong.md)
 - [原神](genshin.md)
 - [Tetris](tetris.md)
+- Minecraft
+- 东方project
+
+### 做游戏
+- [游戏设计](design.md)

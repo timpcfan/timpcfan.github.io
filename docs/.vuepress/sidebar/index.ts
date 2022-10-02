@@ -5,6 +5,7 @@ import { code } from "./code";
 export default sidebar({
   "/code/": code,
   "/code/language/": "structure",
+  "/code/system-design/": "structure",
   "/note/": "structure",
   "/life/": "structure",
   "/algo/": "structure",
