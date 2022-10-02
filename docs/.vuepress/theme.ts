@@ -42,7 +42,7 @@ export default hopeTheme({
   // 是否在导航栏内显示仓库链接，默认为 `true`
   repoDisplay: true,
 
-  // docsDir: "demo/src",
+  docsDir: "docs/",
 
   // navbar
   navbar: navbar,
