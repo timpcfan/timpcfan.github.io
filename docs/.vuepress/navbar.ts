@@ -16,12 +16,11 @@ export default navbar([
     activeMatch: "^/life/",
   },
   {
-    text: "代码笔记",
-    icon: "code",
-    activeMatch: "^/code/",
+    text: "学习笔记",
+    icon: "edit",
     children: [
       {
-        text: "代码笔记",
+        text: "开发笔记",
         icon: "code",
         prefix: "/code/",
         children: [
@@ -51,6 +50,12 @@ export default navbar([
             activeMatch: "^/code/system-design/$",
           },
         ],
+      },
+      {
+        text: "算法笔记",
+        icon: "rank",
+        prefix: "/algo/",
+        children: [{ text: "算法笔记", icon: "rank", link: "", activeMatch: "^/algo/$" }],
       },
     ],
   },

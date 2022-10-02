@@ -3,6 +3,7 @@ sticky: true
 article: true
 title: 公告栏
 icon: info
+star: true
 ---
 
 ::: tip 公告
@@ -24,8 +25,8 @@ icon: info
   - [ ] 读书笔记
   - [ ] 软件安利
   - [ ] 游戏笔记
-- [ ] 完善「代码笔记」板块
-  - [ ] 代码笔记
+- [ ] 完善「学习笔记」板块
+  - [ ] 开发笔记
     - [ ] Java笔记
     - [ ] Python笔记
     - [ ] Vue笔记

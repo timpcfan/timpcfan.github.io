@@ -6,10 +6,16 @@
   // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
   // Placeholders with the same ids are connected.
   // Example:
-  "Print to console": {
+  "文章模板": {
     "scope": "markdown",
     "prefix": "post",
     "body": ["---", "title: $1 - $2", "date: ${1:date}", "isOriginal: true", "category:", "  - 随笔", "tag:", "  - 情感", "---"],
-    "description": "Log output to console"
+    "description": "文章模板"
+  },
+  "badge": {
+    "scope": "markdown",
+    "prefix": "badge",
+    "body": ["<Badge text=\"$0\" type=\"tip\" vertical=\"middle\" />"],
+    "description": "badge"
   }
 }

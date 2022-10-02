@@ -7,4 +7,5 @@ export default sidebar({
   "/code/language/": "structure",
   "/note/": "structure",
   "/life/": "structure",
+  "/algo/": "structure",
 });
