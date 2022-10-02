@@ -6,14 +6,1794 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 02 Oct 2022 15:25:35 GMT</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2022 15:25:35 GMT</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2022 16:53:30 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2022 16:53:30 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>笔记</category>
+    <category>API</category>
     <category>转载</category>
-    <category>随笔</category>
-    <category>生活</category>
+    <item>
+      <title>Python异步I/O与协程</title>
+      <link>https://timpcfan.site/code/language/python/python-asyncio.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-asyncio.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python异步I/O与协程</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<div><p>注意</p>
+<p>这里实际上就是官方文档的搬运，非常不完整，建议直接看<a href="https://docs.python.org/zh-cn/3.10/library/asyncio.html" target="_blank" rel="noopener noreferrer">官方文档</a>。</p>
+</div>
+<h2 id="asyncio-—-异步-i-o-协程" tabindex="-1"> asyncio — 异步 I/O &amp; 协程</h2>
+<p>协程运行的原理见： <a href="/code/language/python/python-concurrent.html#%E5%8D%8F%E7%A8%8B%E7%9A%84%E5%8E%9F%E7%90%86%E4%BB%A5%E5%8F%8A%E4%BB%A3%E7%A0%81">协程的原理以及代码</a></p>
+<p>asyncio 是用来编写  <strong>并发</strong>  代码的库，使用  <strong>async/await</strong>  语法。</p>
+<p>asyncio 被用作多个提供高性能 Python 异步框架的基础，包括网络和网站服务，数据库连接库，分布式任务队列等等。</p>
+<p>asyncio 往往是构建 IO 密集型和高层级  <strong>结构化</strong>  网络代码的最佳选择。</p>
+<p>asyncio 提供一组  <strong>高层级</strong> API 用于:</p>
+<ul>
+<li>并发地  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#coroutine" target="_blank" rel="noopener noreferrer">运行 Python 协程</a>  并对其执行过程实现完全控制;</li>
+<li>执行  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-stream.html#asyncio-streams" target="_blank" rel="noopener noreferrer">网络 IO 和 IPC</a>;</li>
+<li>控制  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-subprocess.html#asyncio-subprocess" target="_blank" rel="noopener noreferrer">子进程</a>;</li>
+<li>通过  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio-queues" target="_blank" rel="noopener noreferrer">队列</a>  实现分布式任务;</li>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio-sync" target="_blank" rel="noopener noreferrer">同步</a>  并发代码;</li>
+</ul>
+<p>此外，还有一些  <strong>低层级</strong> API 以支持  <em>库和框架的开发者</em>  实现:</p>
+<ul>
+<li>创建和管理  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-eventloop.html#asyncio-event-loop" target="_blank" rel="noopener noreferrer">事件循环</a>，以提供异步 API 用于  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-eventloop.html#asyncio.loop.create_server" target="_blank" rel="noopener noreferrer">网络化</a>, 运行  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-eventloop.html#asyncio.loop.subprocess_exec" target="_blank" rel="noopener noreferrer">子进程</a>，处理  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-eventloop.html#asyncio.loop.add_signal_handler" target="_blank" rel="noopener noreferrer">OS 信号</a>  等等;</li>
+<li>使用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-protocol.html#asyncio-transports-protocols" target="_blank" rel="noopener noreferrer">transports</a>  实现高效率协议;</li>
+<li>通过 async/await 语法  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-future.html#asyncio-futures" target="_blank" rel="noopener noreferrer">桥接</a>  基于回调的库和代码。</li>
+</ul>
+<h2 id="协程与任务" tabindex="-1"> 协程与任务 <sup></sup></h2>
+<h3 id="协程" tabindex="-1"> 协程</h3>
+<p>通过 async/await 关键字来定义的协程是一种被推荐的编写异步程序的方式。</p>
+<p>下面的代码定义并运行了一个协程：</p>
+<div><pre><code><span>>></span><span>></span> <span>import</span> asyncio
+
+<span>>></span><span>></span> <span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+<span>.</span><span>.</span><span>.</span>     <span>print</span><span>(</span><span>'hello'</span><span>)</span>
+<span>.</span><span>.</span><span>.</span>     <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+<span>.</span><span>.</span><span>.</span>     <span>print</span><span>(</span><span>'world'</span><span>)</span>
+
+<span>>></span><span>></span> asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+hello
+world
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>注意：简单地调用一个协程并不会使其被调度执行。</p>
+<div><pre><code><span>>></span><span>></span> main<span>(</span><span>)</span>
+<span>&lt;</span>coroutine <span>object</span> main at <span>0x1053bb7c8</span><span>></span>
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>要正在运行一个协程，asyncio 提供了三种主要机制：</p>
+<ol>
+<li>
+<p><code>asyncio.run()</code> 函数用来运行最高层级的入口点 “main()” 函数</p>
+</li>
+<li>
+<p><code>await</code> 一个协程。以下代码会在等待 1 秒后打印“hello”，然后等待 2 秒后打印“world”。（await 一个协程会让其开始运行，并等待其完成）</p>
+<div><pre><code><span>import</span> asyncio
+<span>import</span> time
+
+<span>async</span> <span>def</span> <span>say_after</span><span>(</span>delay<span>,</span> what<span>)</span><span>:</span>
+    <span>await</span> asyncio<span>.</span>sleep<span>(</span>delay<span>)</span>
+    <span>print</span><span>(</span>what<span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span>print</span><span>(</span><span><span>f"started at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+    <span>await</span> say_after<span>(</span><span>1</span><span>,</span> <span>'hello'</span><span>)</span>
+    <span>await</span> say_after<span>(</span><span>2</span><span>,</span> <span>'world'</span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f"finished at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+
+<span># started at 17:13:52</span>
+<span># hello</span>
+<span># world</span>
+<span># finished at 17:13:55</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+<li>
+<p><code>asyncio.create_task()</code> 函数用来并发运行作为 asyncio 任务的多个协程。（create_task()之后会使任务出于就绪状态随时准备运行，而 await task 则是等待这个任务运行完成）</p>
+<div><pre><code><span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    task1 <span>=</span> asyncio<span>.</span>create_task<span>(</span>
+        say_after<span>(</span><span>1</span><span>,</span> <span>'hello'</span><span>)</span><span>)</span>
+
+    task2 <span>=</span> asyncio<span>.</span>create_task<span>(</span>
+        say_after<span>(</span><span>2</span><span>,</span> <span>'world'</span><span>)</span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f"started at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+    <span># Wait until both tasks are completed (should take</span>
+    <span># around 2 seconds.)</span>
+    <span>await</span> task1
+    <span>await</span> task2
+
+    <span>print</span><span>(</span><span><span>f"finished at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+<span># 比上面的要快1秒，因为两个task是同时运行的</span>
+<span># started at 17:14:32</span>
+<span># hello</span>
+<span># world</span>
+<span># finished at 17:14:34</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></li>
+</ol>
+<h3 id="可等待对象-awaitable-objects" tabindex="-1"> 可等待对象 awaitable objects</h3>
+<p>如果一个对象可以在 await 语句中使用，那么它就是 awaitable 对象。许多 asyncio API 都被设计为接受 awaitable 对象。</p>
+<p>可等待 对象有三种主要类型：协程（Coroutine）、任务（Task）、Future。</p>
+<h3 id="协程-1" tabindex="-1"> 协程</h3>
+<p>Python 协程属于可等待对象，因此可以在其他协程中被等待：</p>
+<div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>nested</span><span>(</span><span>)</span><span>:</span>
+    <span>return</span> <span>42</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Nothing happens if we just call "nested()".</span>
+    <span># A coroutine object is created but not awaited,</span>
+    <span># so it *won't run at all*.</span>
+    nested<span>(</span><span>)</span>  <span># 这个不会运行，只是单纯返回了一个coroutine对象</span>
+
+    <span># Let's do it differently now and await it:</span>
+    <span>print</span><span>(</span><span>await</span> nested<span>(</span><span>)</span><span>)</span>  <span># will print "42".  # 这里会运行，因为有await</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><strong>重要</strong></p>
+<p>在本文档中 &quot;协程&quot; 可用来表示两个紧密关联的概念:</p>
+<ul>
+<li><em>协程函数</em>: 定义形式为  <code>[async def](https://docs.python.org/zh-cn/3/reference/compound_stmts.html#async-def)</code>  的函数;</li>
+<li><em>协程对象</em>: 调用  <em>协程函数</em>  所返回的对象。</li>
+</ul>
+<h3 id="任务" tabindex="-1"> 任务</h3>
+<p>Task 被用来 “并行地” 调度协程。</p>
+<p>当一个协程通过 asyncio.create_task() 等函数被封装为了一个 Task，该协程会被自动调度执行：</p>
+<div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>nested</span><span>(</span><span>)</span><span>:</span>
+    <span>return</span> <span>42</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Schedule nested() to run soon concurrently</span>
+    <span># with "main()".</span>
+    task <span>=</span> asyncio<span>.</span>create_task<span>(</span>nested<span>(</span><span>)</span><span>)</span>  <span># 这里 task 就开始运行了</span>
+
+    <span># "task" can now be used to cancel "nested()", or</span>
+    <span># can simply be awaited to wait until it is complete:</span>
+    <span>await</span> task  <span># 这里只是单纯地等待其运行完</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="futures" tabindex="-1"> Futures</h3>
+<p>Future 是一种特殊的 <strong>低层级</strong> 可等待对象，表示一个异步操作的 <strong>最终结果</strong>。</p>
+<p>当一个 Future 对象 <em>被等待</em>，这意味着协程将保持等待直到该 Future 对象在其他地方操作完毕。</p>
+<p>在 asyncio 中需要 Future 对象以便允许 async/await 使用基于回调的代码。</p>
+<p>通常情况下 <strong>没有必要</strong> 在应用层级的代码中创建 Future 对象。</p>
+<p>Future 对象有时会由库和某些 asyncio API 暴露给用户，用作可等待对象：</p>
+<div><pre><code><span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span>await</span> function_that_returns_a_future_object<span>(</span><span>)</span>
+
+    <span># this is also valid:</span>
+    <span>await</span> asyncio<span>.</span>gather<span>(</span>
+        function_that_returns_a_future_object<span>(</span><span>)</span><span>,</span>
+        some_python_coroutine<span>(</span><span>)</span>
+    <span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>一个很好的返回对象的低层级函数的示例是：loop.run_in_executor()</p>
+<h3 id="运行-asyncio-程序" tabindex="-1"> 运行 asyncio 程序</h3>
+<p><code>asyncio.run(coro, *, debug=False)</code></p>
+<p>执行 coro 并返回结果。</p>
+<p>吃函数会运行传入的协程，负责管理 asyncio 事件循环，终结异步生成器，并关闭线程池。</p>
+<p>但有其他 asyncio 事件循环在同一线程中运行时，此函数不能被调用。</p>
+<p>如果 debug 为 True，事件循环将以调试模式运行。</p>
+<p>此函数<strong>总是会创建一个新的事件循环</strong>并在结束时关闭之。它应当用作 asyncio 程序的主入口点，理想情况下应当只被调用一次。</p>
+<div><pre><code><span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+    <span>print</span><span>(</span><span>'hello'</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="创建任务" tabindex="-1"> 创建任务</h3>
+<p><code>asyncio.create_task(coro, *, name=None)</code></p>
+<p>将 coro 封装为一个 Task 并调度其执行。返回 Task 对象。</p>
+<p>name 不为 None 时，它将使用 Task.set_name() 来设为任务的名称。</p>
+<p>该任务会在 get_running_loop() 返回的循环中执行，如果当前线程没有在运行的循环则会引发 RuntimeError。</p>
+<div><p>相关信息</p>
+<p>需要保存这个方法返回值 Task 的引用，因为 event_loop 中只会保存一个弱引用，如果不保存引用，可能这个协程没有被执行完毕就被垃圾回收给清理了。</p>
+</div>
+<div><pre><code>background_tasks <span>=</span> <span>set</span><span>(</span><span>)</span>
+
+<span>for</span> i <span>in</span> <span>range</span><span>(</span><span>10</span><span>)</span><span>:</span>
+    task <span>=</span> asyncio<span>.</span>create_task<span>(</span>some_coro<span>(</span>param<span>=</span>i<span>)</span><span>)</span>
+
+    <span># Add task to the set. This creates a strong reference.</span>
+    background_tasks<span>.</span>add<span>(</span>task<span>)</span>
+
+    <span># To prevent keeping references to finished tasks forever,</span>
+    <span># make each task remove its own reference from the set after</span>
+    <span># completion:</span>
+    task<span>.</span>add_done_callback<span>(</span>background_tasks<span>.</span>discard<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="休眠" tabindex="-1"> 休眠</h3>
+<p><code>coroutine asyncio.sleep(delay, result=None)</code></p>
+<p>阻塞 delay 指定的秒数。</p>
+<p>如果指定了 result，则当协程完成时 result 其返回给调用者。</p>
+<p>sleep() 总是会挂起当前任务，以允许其他任务运行。</p>
+<p>将 delay 设为 0 将提供一个经优化的路径以允许其他任务运行。 这可供长期间运行的函数使用以避免在函数调用的全过程中阻塞事件循环。</p>
+<p>以下协程示例运行 5 秒，每秒显示一次当前日期:</p>
+<div><pre><code><span>import</span> asyncio
+<span>import</span> datetime
+
+<span>async</span> <span>def</span> <span>display_date</span><span>(</span><span>)</span><span>:</span>
+    loop <span>=</span> asyncio<span>.</span>get_running_loop<span>(</span><span>)</span>
+    end_time <span>=</span> loop<span>.</span>time<span>(</span><span>)</span> <span>+</span> <span>5.0</span>
+    <span>while</span> <span>True</span><span>:</span>
+        <span>print</span><span>(</span>datetime<span>.</span>datetime<span>.</span>now<span>(</span><span>)</span><span>)</span>
+        <span>if</span> <span>(</span>loop<span>.</span>time<span>(</span><span>)</span> <span>+</span> <span>1.0</span><span>)</span> <span>>=</span> end_time<span>:</span>
+            <span>break</span>
+        <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>display_date<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="并发运行任务" tabindex="-1"> 并发运行任务</h3>
+<p><code>awaitable asyncio.gather(*aws, return_exceptions=False)</code></p>
+<p><em>并发</em> 运行 aws 序列中的 可等待对象。</p>
+<p>如果 aws 中的某个可等待对象为协程，它将自动被作为一个任务调度。</p>
+<p>如果所有可等待对象都成功完成，结果将是一个由所有返回值聚合而层的列表。结果值的顺序与 aws 中可等待对象的<strong>顺序一致</strong>。</p>
+<p>如果 return_exceptions 为 False，所引发的首个异常会立即传播给等待 gather() 的任务。aws 序列中的其他可等待对象 <strong>不会被取消</strong> 并继续运行。</p>
+<p>如果 return_exceptions 为 True，异常会和成功的结果一样处理，并聚合至结果列表。</p>
+<p>如果 gather() 被取消，所有被提交（尚未完成）的可等待对象也会 被取消。</p>
+<p>如果 aws 序列中的任一 Task 或 Future 对象 被取消，它将被当作引发了 CancelledError 一样处理 — 在此情况下 gather() 调用 <strong>不会</strong> 被取消。这是为了防止一个已提交的 Task/Future 被取消导致其他 Tasks/Future 也被取消。</p>
+<div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>factorial</span><span>(</span>name<span>,</span> number<span>)</span><span>:</span>
+    f <span>=</span> <span>1</span>
+    <span>for</span> i <span>in</span> <span>range</span><span>(</span><span>2</span><span>,</span> number <span>+</span> <span>1</span><span>)</span><span>:</span>
+        <span>print</span><span>(</span><span><span>f"Task </span><span><span>{</span>name<span>}</span></span><span>: Compute factorial(</span><span><span>{</span>number<span>}</span></span><span>), currently i=</span><span><span>{</span>i<span>}</span></span><span>..."</span></span><span>)</span>
+        <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+        f <span>*=</span> i
+    <span>print</span><span>(</span><span><span>f"Task </span><span><span>{</span>name<span>}</span></span><span>: factorial(</span><span><span>{</span>number<span>}</span></span><span>) = </span><span><span>{</span>f<span>}</span></span><span>"</span></span><span>)</span>
+    <span>return</span> f
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Schedule three calls *concurrently*:</span>
+    L <span>=</span> <span>await</span> asyncio<span>.</span>gather<span>(</span>
+        factorial<span>(</span><span>"A"</span><span>,</span> <span>2</span><span>)</span><span>,</span>
+        factorial<span>(</span><span>"B"</span><span>,</span> <span>3</span><span>)</span><span>,</span>
+        factorial<span>(</span><span>"C"</span><span>,</span> <span>4</span><span>)</span><span>,</span>
+    <span>)</span>
+    <span>print</span><span>(</span>L<span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+
+<span># Expected output:</span>
+<span>#</span>
+<span>#     Task A: Compute factorial(2), currently i=2...</span>
+<span>#     Task B: Compute factorial(3), currently i=2...</span>
+<span>#     Task C: Compute factorial(4), currently i=2...</span>
+<span>#     Task A: factorial(2) = 2</span>
+<span>#     Task B: Compute factorial(3), currently i=3...</span>
+<span>#     Task C: Compute factorial(4), currently i=3...</span>
+<span>#     Task B: factorial(3) = 6</span>
+<span>#     Task C: Compute factorial(4), currently i=4...</span>
+<span>#     Task C: factorial(4) = 24</span>
+<span>#     [2, 6, 24]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><p>相关信息</p>
+<p>如果  <em>return_exceptions</em>  为 False，则在 gather() 被标记为已完成后取消它将不会取消任何已提交的可等待对象。 例如，在将一个异常传播给调用者之后，gather 可被标记为已完成，因此，在从 gather 捕获一个（由可等待对象所引发的）异常之后调用  <code>gather.cancel()</code>  将不会取消任何其他可等待对象。</p>
+</div>
+<h3 id="屏蔽取消操作" tabindex="-1"> 屏蔽取消操作</h3>
+<p><code>awaitable asyncio.shield(aw)</code></p>
+<p>保护一个  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio-awaitables" target="_blank" rel="noopener noreferrer">可等待对象</a>  防止其被  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task.cancel" target="_blank" rel="noopener noreferrer">取消</a>。</p>
+<p>如果  <em>aw</em>  是一个协程，它将自动被作为任务调度。</p>
+<p>以下语句:</p>
+<p><code>res = **await** shield(something())</code></p>
+<p>相当于:</p>
+<p><code>res = **await** something()</code></p>
+<p><em>不同之处</em>  在于如果包含它的协程被取消，在  <code>something()</code>  中运行的任务不会被取消。从  <code>something()</code>  的角度看来，取消操作并没有发生。然而其调用者已被取消，因此 &quot;await&quot; 表达式仍然会引发<a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.CancelledError" target="_blank" rel="noopener noreferrer">CancelledError</a>。</p>
+<h3 id="超时" tabindex="-1"> 超时</h3>
+<p><code>coroutine asyncio.wait_for(aw, timeout)</code></p>
+<p>等待  <em>aw</em> <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio-awaitables" target="_blank" rel="noopener noreferrer">可等待对象</a>  完成，指定 timeout 秒数后超时。</p>
+<p>如果  <em>aw</em>  是一个协程，它将自动被作为任务调度。</p>
+<p><em>timeout</em>  可以为  <code>None</code>，也可以为 float 或 int 型数值表示的等待秒数。如果  <em>timeout</em>  为  <code>None</code>，则等待直到完成。</p>
+<p>如果发生超时，任务将取消并引发  <a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.TimeoutError" target="_blank" rel="noopener noreferrer">asyncio.TimeoutError</a>.</p>
+<p>要避免任务  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task.cancel" target="_blank" rel="noopener noreferrer">取消</a>，可以加上  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.shield" target="_blank" rel="noopener noreferrer">shield()</a>。</p>
+<p>此函数将等待直到 Future 确实被取消，所以总等待时间可能超过  <em>timeout</em>。 如果在取消期间发生了异常，异常将会被传播。</p>
+<p>如果等待被取消，则  <em>aw</em>  指定的对象也会被取消。</p>
+<div><pre><code><span>async</span> <span>def</span> <span>eternity</span><span>(</span><span>)</span><span>:</span>
+    <span># Sleep for one hour</span>
+    <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>3600</span><span>)</span>
+    <span>print</span><span>(</span><span>'yay!'</span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Wait for at most 1 second</span>
+    <span>try</span><span>:</span>
+        <span>await</span> asyncio<span>.</span>wait_for<span>(</span>eternity<span>(</span><span>)</span><span>,</span> timeout<span>=</span><span>1.0</span><span>)</span>
+    <span>except</span> asyncio<span>.</span>TimeoutError<span>:</span>
+        <span>print</span><span>(</span><span>'timeout!'</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+
+<span># Expected output:</span>
+<span>#</span>
+<span>#     timeout!</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="简单等待" tabindex="-1"> 简单等待</h3>
+<p>并发地运行  <em>aws</em>  可迭代对象中的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio-awaitables" target="_blank" rel="noopener noreferrer">可等待对象</a>  并进入阻塞状态直到满足  <em>return_when</em>  所指定的条件。</p>
+<p><em>aws</em>  可迭代对象必须不为空。</p>
+<p>返回两个 Task/Future 集合: <code>(done, pending)</code>。</p>
+<p>用法：</p>
+<p><code>done, pending = **await** asyncio.wait(aws)</code></p>
+<p>如指定  <em>timeout</em> (float 或 int 类型) 则它将被用于控制返回之前等待的最长秒数。</p>
+<p>请注意此函数不会引发  <a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.TimeoutError" target="_blank" rel="noopener noreferrer">asyncio.TimeoutError</a>。当超时发生时，未完成的 Future 或 Task 将在指定秒数后被返回。</p>
+<p><em>return_when</em>  指定此函数应在何时返回。它必须为以下常数之一:</p>
+<table>
+<thead>
+<tr>
+<th>常量</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FIRST_COMPLETED</td>
+<td>函数将在任意可等待对象结束或取消时返回。</td>
+</tr>
+<tr>
+<td>FIRST_EXCEPTION</td>
+<td>函数将在任意可等待对象因引发异常而结束时返回。当没有引发任何异常时它就相当于  ALL_COMPLETED。</td>
+</tr>
+<tr>
+<td>ALL_COMPLETED</td>
+<td>函数将在所有可等待对象结束或取消时返回。</td>
+</tr>
+</tbody>
+</table>
+<p><code>asyncio.as_completed(aws, *, timeout=None)</code></p>
+<p>并发地运行  <em>aws</em>  可迭代对象中的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio-awaitables" target="_blank" rel="noopener noreferrer">可等待对象</a>。 返回一个协程的迭代器。 所返回的每个协程可被等待以从剩余的可等待对象的可迭代对象中获得最早的下一个结果。</p>
+<p>如果在所有 Future 对象完成前发生超时则将引发  <a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.TimeoutError" target="_blank" rel="noopener noreferrer">asyncio.TimeoutError</a>。</p>
+<div><pre><code><span>for</span> coro <span>in</span> as_completed<span>(</span>aws<span>)</span><span>:</span>
+    earliest_result <span>=</span> <span>await</span> coro
+    <span># ...</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><h3 id="在线程中运行" tabindex="-1"> 在线程中运行</h3>
+<p><code>coroutine asyncio.to_thread(func, /, *args, **kwargs)</code></p>
+<p>在不同的线程中异步地运行函数  <em>func</em>。</p>
+<p>向此函数提供的任何 *args 和 **kwargs 会被直接传给  *func*。 并且，当前  <a href="https://docs.python.org/zh-cn/3/library/contextvars.html#contextvars.Context" target="_blank" rel="noopener noreferrer">contextvars.Context</a>  会被传播，允许在不同的线程中访问来自事件循环的上下文变量。</p>
+<p>返回一个可被等待以获取  <em>func</em>  的最终结果的协程。</p>
+<p>这个协程函数主要是用于执行在其他情况下会阻塞事件循环的 IO 密集型函数/方法。 例如:</p>
+<div><pre><code><span>def</span> <span>blocking_io</span><span>(</span><span>)</span><span>:</span>
+    <span>print</span><span>(</span><span><span>f"start blocking_io at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+    <span># Note that time.sleep() can be replaced with any blocking</span>
+    <span># IO-bound operation, such as file operations.</span>
+    time<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+    <span>print</span><span>(</span><span><span>f"blocking_io complete at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span>print</span><span>(</span><span><span>f"started main at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+    <span>await</span> asyncio<span>.</span>gather<span>(</span>
+        asyncio<span>.</span>to_thread<span>(</span>blocking_io<span>)</span><span>,</span>
+        asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f"finished main at </span><span><span>{</span>time<span>.</span>strftime<span>(</span><span>'%X'</span><span>)</span><span>}</span></span><span>"</span></span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+
+<span># Expected output:</span>
+<span>#</span>
+<span># started main at 19:50:53</span>
+<span># start blocking_io at 19:50:53</span>
+<span># blocking_io complete at 19:50:54</span>
+<span># finished main at 19:50:54</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>在任何协程中直接调用  blocking_io() 将会在调用期间阻塞事件循环，导致额外的 1 秒运行时间。 而通过改用  asyncio.to_thread()，我们可以在不同的线程中运行它从而不会阻塞事件循环。</p>
+<h3 id="跨线程调度" tabindex="-1"> 跨线程调度</h3>
+<p><code>asyncio.run_coroutine_threadsafe(coro, loop)</code></p>
+<p>向指定事件循环提交一个协程。（线程安全）</p>
+<p>返回一个  <a href="https://docs.python.org/zh-cn/3/library/concurrent.futures.html#concurrent.futures.Future" target="_blank" rel="noopener noreferrer">concurrent.futures.Future</a>  以等待来自其他 OS 线程的结果。</p>
+<p>此函数应该从另一个 OS 线程中调用，而非事件循环运行所在线程。示例:</p>
+<div><pre><code><span># Create a coroutine</span>
+coro <span>=</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>,</span> result<span>=</span><span>3</span><span>)</span>
+
+<span># Submit the coroutine to a given loop</span>
+future <span>=</span> asyncio<span>.</span>run_coroutine_threadsafe<span>(</span>coro<span>,</span> loop<span>)</span>
+
+<span># Wait for the result with an optional timeout argument</span>
+<span>assert</span> future<span>.</span>result<span>(</span>timeout<span>)</span> <span>==</span> <span>3</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>如果在协程内产生了异常，将会通知返回的 Future 对象。它也可被用来取消事件循环中的任务:</p>
+<div><pre><code><span>try</span><span>:</span>
+    result <span>=</span> future<span>.</span>result<span>(</span>timeout<span>)</span>
+<span>except</span> concurrent<span>.</span>futures<span>.</span>TimeoutError<span>:</span>
+    <span>print</span><span>(</span><span>'The coroutine took too long, cancelling the task...'</span><span>)</span>
+    future<span>.</span>cancel<span>(</span><span>)</span>
+<span>except</span> Exception <span>as</span> exc<span>:</span>
+    <span>print</span><span>(</span><span><span>f'The coroutine raised an exception: </span><span><span>{</span>exc<span>!r</span><span>}</span></span><span>'</span></span><span>)</span>
+<span>else</span><span>:</span>
+    <span>print</span><span>(</span><span><span>f'The coroutine returned: </span><span><span>{</span>result<span>!r</span><span>}</span></span><span>'</span></span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>参见  <a href="https://docs.python.org/zh-cn/3/library/asyncio-dev.html#asyncio-multithreading" target="_blank" rel="noopener noreferrer">concurrency and multithreading</a>  部分的文档。</p>
+<p>不同与其他 asyncio 函数，此函数要求显式地传入  <em>loop</em>  参数。</p>
+<h3 id="内省" tabindex="-1"> 内省</h3>
+<p><code>asyncio.**current_task**(*loop=None*)</code></p>
+<p>返回当前运行的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task" target="_blank" rel="noopener noreferrer">Task</a>  实例，如果没有正在运行的任务则返回  <code>None</code>。
+如果  <em>loop</em>  为  <code>None</code>  则会使用  <a href="https://docs.python.org/zh-cn/3/library/asyncio-eventloop.html#asyncio.get_running_loop" target="_blank" rel="noopener noreferrer">get_running_loop()</a>  获取当前事件循环。</p>
+<p><code>asyncio.**all_tasks**(*loop=None*)</code></p>
+<p>返回事件循环所运行的未完成的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task" target="_blank" rel="noopener noreferrer">Task</a>  对象的集合。
+如果  <em>loop</em>  为  <code>None</code>，则会使用  <a href="https://docs.python.org/zh-cn/3/library/asyncio-eventloop.html#asyncio.get_running_loop" target="_blank" rel="noopener noreferrer">get_running_loop()</a>  获取当前事件循环。</p>
+<h3 id="task-对象" tabindex="-1"> Task 对象</h3>
+<p><code>class asyncio.Task(coro, *, loop=None, name=None)</code></p>
+<p>一个与  <code>[Future 类似](https://docs.python.org/zh-cn/3/library/asyncio-future.html#asyncio.Future)</code>  的对象，可运行 Python <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#coroutine" target="_blank" rel="noopener noreferrer">协程</a>。非线程安全。</p>
+<p>Task 对象被用来在事件循环中运行协程。如果一个协程在等待一个 Future 对象，Task 对象会挂起该协程的执行并等待该 Future 对象完成。当该 Future 对象  <em>完成</em>，被打包的协程将恢复执行。</p>
+<p>事件循环使用协同日程调度: 一个事件循环每次运行一个 Task 对象。而一个 Task 对象会等待一个 Future 对象完成，该事件循环会运行其他 Task、回调或执行 IO 操作。</p>
+<p>使用高层级的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.create_task" target="_blank" rel="noopener noreferrer">asyncio.create_task()</a>  函数来创建 Task 对象，也可用低层级的  <a href="https://docs.python.org/zh-cn/3/library/asyncio-eventloop.html#asyncio.loop.create_task" target="_blank" rel="noopener noreferrer">loop.create_task()</a>  或  <a href="https://docs.python.org/zh-cn/3/library/asyncio-future.html#asyncio.ensure_future" target="_blank" rel="noopener noreferrer">ensure_future()</a>  函数。不建议手动实例化 Task 对象。</p>
+<p>要取消一个正在运行的 Task 对象可使用  <a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task.cancel" target="_blank" rel="noopener noreferrer">cancel()</a>  方法。调用此方法将使该 Task 对象抛出一个  <a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.CancelledError" target="_blank" rel="noopener noreferrer">CancelledError</a>  异常给打包的协程。如果取消期间一个协程正在等待一个 Future 对象，该 Future 对象也将被取消。</p>
+<p><a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task.cancelled" target="_blank" rel="noopener noreferrer">cancelled()</a>  可被用来检测 Task 对象是否被取消。如果打包的协程没有抑制  <a href="https://docs.python.org/zh-cn/3/library/asyncio-exceptions.html#asyncio.CancelledError" target="_blank" rel="noopener noreferrer">CancelledError</a>  异常并且确实被取消，该方法将返回  <code>True</code>。</p>
+<p><a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html#asyncio.Task" target="_blank" rel="noopener noreferrer">asyncio.Task</a>  从  <a href="https://docs.python.org/zh-cn/3/library/asyncio-future.html#asyncio.Future" target="_blank" rel="noopener noreferrer">Future</a>  继承了其除  <a href="https://docs.python.org/zh-cn/3/library/asyncio-future.html#asyncio.Future.set_result" target="_blank" rel="noopener noreferrer">Future.set_result()</a>  和  <a href="https://docs.python.org/zh-cn/3/library/asyncio-future.html#asyncio.Future.set_exception" target="_blank" rel="noopener noreferrer">Future.set_exception()</a>  以外的所有 API。</p>
+<p>Task 对象支持  <a href="https://docs.python.org/zh-cn/3/library/contextvars.html#module-contextvars" target="_blank" rel="noopener noreferrer">contextvars</a>  模块。当一个 Task 对象被创建，它将复制当前上下文，然后在复制的上下文中运行其协程。</p>
+<ul>
+<li>cancel(msg=None)：取消任务，这将抛出 CancelledError</li>
+<li>done()：如果 Task 对象已完成，则返回 true</li>
+<li>result()：返回 Task 的结果</li>
+<li>add_done_callback(callback, *, context=None)：添加一个回调，在 Task 完成时调用。</li>
+</ul>
+<h2 id="stream-流" tabindex="-1"> Stream 流 <sup></sup></h2>
+<p>流是用于处理网络连接的支持 async/await 的高层级原语。 流允许发送和接收数据，而不需要使用回调或低级协议和传输。</p>
+<h3 id="stream-函数" tabindex="-1"> Stream 函数</h3>
+<ul>
+<li>open_connection</li>
+<li>start_server</li>
+</ul>
+<h3 id="unix-套接字-socket" tabindex="-1"> Unix 套接字（Socket）</h3>
+<ul>
+<li>open_unix_connection</li>
+<li>start_unix_server</li>
+</ul>
+<h3 id="streamreader-与-streamwriter" tabindex="-1"> StreamReader 与 StreamWriter</h3>
+<h3 id="例子-echo-服务器与客户端" tabindex="-1"> 例子：echo 服务器与客户端</h3>
+<div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>handle_echo</span><span>(</span>reader<span>,</span> writer<span>)</span><span>:</span>
+    data <span>=</span> <span>await</span> reader<span>.</span>read<span>(</span><span>100</span><span>)</span>
+    message <span>=</span> data<span>.</span>decode<span>(</span><span>)</span>
+    addr <span>=</span> writer<span>.</span>get_extra_info<span>(</span><span>'peername'</span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f"Received </span><span><span>{</span>message<span>!r</span><span>}</span></span><span> from </span><span><span>{</span>addr<span>!r</span><span>}</span></span><span>"</span></span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f"Send: </span><span><span>{</span>message<span>!r</span><span>}</span></span><span>"</span></span><span>)</span>
+    writer<span>.</span>write<span>(</span>data<span>)</span>
+    <span>await</span> writer<span>.</span>drain<span>(</span><span>)</span>
+
+    <span>print</span><span>(</span><span>"Close the connection"</span><span>)</span>
+    writer<span>.</span>close<span>(</span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    server <span>=</span> <span>await</span> asyncio<span>.</span>start_server<span>(</span>
+        handle_echo<span>,</span> <span>'127.0.0.1'</span><span>,</span> <span>8888</span><span>)</span>
+
+    addrs <span>=</span> <span>', '</span><span>.</span>join<span>(</span><span>str</span><span>(</span>sock<span>.</span>getsockname<span>(</span><span>)</span><span>)</span> <span>for</span> sock <span>in</span> server<span>.</span>sockets<span>)</span>
+    <span>print</span><span>(</span><span><span>f'Serving on </span><span><span>{</span>addrs<span>}</span></span><span>'</span></span><span>)</span>
+
+    <span>async</span> <span>with</span> server<span>:</span>
+        <span>await</span> server<span>.</span>serve_forever<span>(</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>tcp_echo_client</span><span>(</span>message<span>)</span><span>:</span>
+    reader<span>,</span> writer <span>=</span> <span>await</span> asyncio<span>.</span>open_connection<span>(</span>
+        <span>'127.0.0.1'</span><span>,</span> <span>8888</span><span>)</span>
+
+    <span>print</span><span>(</span><span><span>f'Send: </span><span><span>{</span>message<span>!r</span><span>}</span></span><span>'</span></span><span>)</span>
+    writer<span>.</span>write<span>(</span>message<span>.</span>encode<span>(</span><span>)</span><span>)</span>
+
+    data <span>=</span> <span>await</span> reader<span>.</span>read<span>(</span><span>100</span><span>)</span>
+    <span>print</span><span>(</span><span><span>f'Received: </span><span><span>{</span>data<span>.</span>decode<span>(</span><span>)</span><span>!r</span><span>}</span></span><span>'</span></span><span>)</span>
+
+    <span>print</span><span>(</span><span>'Close the connection'</span><span>)</span>
+    writer<span>.</span>close<span>(</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>tcp_echo_client<span>(</span><span>'Hello World!'</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="同步原语" tabindex="-1"> 同步原语 <sup></sup></h2>
+<p>asyncio 同步原语被设计为与  <a href="https://docs.python.org/zh-cn/3.10/library/threading.html#module-threading" target="_blank" rel="noopener noreferrer">threading</a>  模块的类似，但有两个关键注意事项:</p>
+<ul>
+<li>asyncio 原语不是线程安全的，因此它们不应被用于 OS 线程同步 (而应当使用  <a href="https://docs.python.org/zh-cn/3.10/library/threading.html#module-threading" target="_blank" rel="noopener noreferrer">threading</a>)；</li>
+<li>这些同步原语的方法不接受  <em>timeout</em>  参数；请使用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio.wait_for" target="_blank" rel="noopener noreferrer">asyncio.wait_for()</a>  函数来执行带有超时的操作。</li>
+</ul>
+<p>asyncio 具有下列基本同步原语:</p>
+<h3 id="lock" tabindex="-1"> Lock</h3>
+<p><code>class asyncio.Lock</code></p>
+<p>实现一个用于 asyncio 任务的互斥锁。 非线程安全。</p>
+<p>asyncio 锁可被用来保证对共享资源的独占访问。</p>
+<p>使用 Lock 的推荐方式是通过  <code>[async with](https://docs.python.org/zh-cn/3.10/reference/compound_stmts.html#async-with)</code>  语句:</p>
+<div><pre><code>lock <span>=</span> asyncio<span>.</span>Lock<span>(</span><span>)</span>
+
+<span># ... later</span>
+<span>async</span> <span>with</span> lock<span>:</span>
+    <span># access shared state</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><p>这等价于：</p>
+<div><pre><code>lock <span>=</span> asyncio<span>.</span>Lock<span>(</span><span>)</span>
+
+<span># ... later</span>
+<span>await</span> lock<span>.</span>acquire<span>(</span><span>)</span>
+<span>try</span><span>:</span>
+    <span># access shared state</span>
+<span>finally</span><span>:</span>
+    lock<span>.</span>release<span>(</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><code>coroutine acquire()</code></p>
+<p>获取锁。
+此方法会等待直至锁为  <em>unlocked</em>，将其设为  <em>locked</em>  并返回  <code>True</code>。
+当有一个以上的协程在  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Lock.acquire" target="_blank" rel="noopener noreferrer">acquire()</a>  中被阻塞则会等待解锁，最终只有一个协程会被执行。
+锁的获取是  <em>公平的</em>: 被执行的协程将是第一个开始等待锁的协程。</p>
+<p><code>release()</code></p>
+<p>释放锁。</p>
+<p>当锁为  <em>locked</em>  时，将其设为  <em>unlocked</em>  并返回。</p>
+<p>如果锁为  <em>unlocked</em>，则会引发  <a href="https://docs.python.org/zh-cn/3.10/library/exceptions.html#RuntimeError" target="_blank" rel="noopener noreferrer">RuntimeError</a>。</p>
+<p><code>locked()</code></p>
+<p>如果锁为  <em>locked</em>  则返回  <code>True</code>。</p>
+<h3 id="event" tabindex="-1"> Event</h3>
+<p><code>class asyncio.Event</code></p>
+<p>事件对象。 该对象不是线程安全的。</p>
+<p>asyncio 事件可被用来通知多个 asyncio 任务已经有事件发生。</p>
+<p>Event 对象会管理一个内部旗标，可通过  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.set" target="_blank" rel="noopener noreferrer">set()</a>  方法将其设为  <em>true</em>  并通过  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.clear" target="_blank" rel="noopener noreferrer">clear()</a>  方法将其重设为  <em>false</em>。 <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.wait" target="_blank" rel="noopener noreferrer">wait()</a>  方法会阻塞直至该旗标被设为  <em>true</em>。 该旗标初始时会被设为  <em>false</em>。</p>
+<div><pre><code><span>async</span> <span>def</span> <span>waiter</span><span>(</span>event<span>)</span><span>:</span>
+    <span>print</span><span>(</span><span>'waiting for it ...'</span><span>)</span>
+    <span>await</span> event<span>.</span>wait<span>(</span><span>)</span>
+    <span>print</span><span>(</span><span>'... got it!'</span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Create an Event object.</span>
+    event <span>=</span> asyncio<span>.</span>Event<span>(</span><span>)</span>
+
+    <span># Spawn a Task to wait until 'event' is set.</span>
+    waiter_task <span>=</span> asyncio<span>.</span>create_task<span>(</span>waiter<span>(</span>event<span>)</span><span>)</span>
+
+    <span># Sleep for 1 second and set the event.</span>
+    <span>await</span> asyncio<span>.</span>sleep<span>(</span><span>1</span><span>)</span>
+    event<span>.</span><span>set</span><span>(</span><span>)</span>
+
+    <span># Wait until the waiter task is finished.</span>
+    <span>await</span> waiter_task
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p><code>coroutine wait()</code></p>
+<p>等待直至事件被设置。</p>
+<p>如果事件已被设置，则立即返回  <code>True</code>。 否则将阻塞直至另一个任务调用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.set" target="_blank" rel="noopener noreferrer">set()</a>。</p>
+<p><code>set()</code></p>
+<p>设置事件。</p>
+<p>所有等待事件被设置的任务将被立即唤醒。</p>
+<p><code>clear()</code></p>
+<p>清空（取消设置）事件。</p>
+<p>通过  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.wait" target="_blank" rel="noopener noreferrer">wait()</a>  进行等待的任务现在将会阻塞直至  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#asyncio.Event.set" target="_blank" rel="noopener noreferrer">set()</a>  方法被再次调用。</p>
+<p><code>is_set()</code></p>
+<p>如果事件已被设置则返回  <code>True</code>。</p>
+<h3 id="condition" tabindex="-1"> Condition</h3>
+<p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#condition" target="_blank" rel="noopener noreferrer">https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html#condition</a></p>
+<h3 id="semaphore" tabindex="-1"> Semaphore</h3>
+<h3 id="boundedsemaphore" tabindex="-1"> BoundedSemaphore</h3>
+<h2 id="队列集合" tabindex="-1"> 队列集合 <sup></sup></h2>
+<p>asyncio 队列被设计成与  <a href="https://docs.python.org/zh-cn/3.10/library/queue.html#module-queue" target="_blank" rel="noopener noreferrer">queue</a>  模块类似。尽管 asyncio 队列不是线程安全的，但是他们是被设计专用于 async/await 代码。</p>
+<p>注意 asyncio 的队列没有  <em>timeout</em>  形参；请使用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio.wait_for" target="_blank" rel="noopener noreferrer">asyncio.wait_for()</a>  函数为队列添加超时操作。</p>
+<p>参见下面的  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#examples" target="_blank" rel="noopener noreferrer">Examples</a>  部分。</p>
+<h3 id="queue" tabindex="-1"> Queue</h3>
+<p><code>class asyncio.Queue(maxsize=0)</code></p>
+<p>FIFO 队列</p>
+<p>如果  <em>maxsize</em>  小于等于零，则队列尺寸是无限的。如果是大于  <code>0</code>  的整数，则当队列达到  <em>maxsize</em>  时， <code>await put()</code>  将阻塞至某个元素被  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio.Queue.get" target="_blank" rel="noopener noreferrer">get()</a>  取出。</p>
+<p>不像标准库中的并发型  <a href="https://docs.python.org/zh-cn/3.10/library/queue.html#module-queue" target="_blank" rel="noopener noreferrer">queue</a> ，队列的尺寸一直是已知的，可以通过调用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio.Queue.qsize" target="_blank" rel="noopener noreferrer">qsize()</a>  方法返回。</p>
+<ul>
+<li>maxsize</li>
+<li>empty()</li>
+<li>full()</li>
+<li>coroutine join()</li>
+<li>get_nowait() 不阻塞的出队</li>
+<li>coroutine join() 阻塞至队列中所有的元素都被接收和处理完毕。
+<ul>
+<li>当条目添加到队列的时候，未完成任务的计数就会增加。每当消费协程调用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio.Queue.task_done" target="_blank" rel="noopener noreferrer">task_done()</a>表示这个条目已经被回收，该条目所有工作已经完成，未完成计数就会减少。当未完成计数降到零的时候， <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio.Queue.join" target="_blank" rel="noopener noreferrer">join()</a>阻塞被解除。</li>
+</ul>
+</li>
+<li>coroutine put(item)</li>
+<li>put_nowait(item) 不阻塞的入队</li>
+<li>qsize()</li>
+<li>task_done() 表明前面排队的任务已经完成，即 get 出来的元素相关操作已经完成。</li>
+</ul>
+<h3 id="优先级队列" tabindex="-1"> 优先级队列</h3>
+<p><code>class asyncio.PriorityQueue</code></p>
+<p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio.Queue" target="_blank" rel="noopener noreferrer">Queue</a>  的变体；按优先级顺序取出条目 (最小的先取出)。</p>
+<p>条目通常是  <code>(priority_number, data)</code>  形式的元组。</p>
+<h3 id="后进先出队列" tabindex="-1"> <strong>后进先出队列</strong></h3>
+<p><code>class asyncio.LifoQueue</code></p>
+<h3 id="例子" tabindex="-1"> 例子</h3>
+<div><pre><code><span>import</span> asyncio
+<span>import</span> random
+<span>import</span> time
+
+<span>async</span> <span>def</span> <span>worker</span><span>(</span>name<span>,</span> queue<span>)</span><span>:</span>
+    <span>while</span> <span>True</span><span>:</span>
+        <span># Get a "work item" out of the queue.</span>
+        sleep_for <span>=</span> <span>await</span> queue<span>.</span>get<span>(</span><span>)</span>
+
+        <span># Sleep for the "sleep_for" seconds.</span>
+        <span>await</span> asyncio<span>.</span>sleep<span>(</span>sleep_for<span>)</span>
+
+        <span># Notify the queue that the "work item" has been processed.</span>
+        queue<span>.</span>task_done<span>(</span><span>)</span>
+
+        <span>print</span><span>(</span><span><span>f'</span><span><span>{</span>name<span>}</span></span><span> has slept for </span><span><span>{</span>sleep_for<span>:</span><span>.2f</span><span>}</span></span><span> seconds'</span></span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span># Create a queue that we will use to store our "workload".</span>
+    queue <span>=</span> asyncio<span>.</span>Queue<span>(</span><span>)</span>
+
+    <span># Generate random timings and put them into the queue.</span>
+    total_sleep_time <span>=</span> <span>0</span>
+    <span>for</span> _ <span>in</span> <span>range</span><span>(</span><span>20</span><span>)</span><span>:</span>
+        sleep_for <span>=</span> random<span>.</span>uniform<span>(</span><span>0.05</span><span>,</span> <span>1.0</span><span>)</span>
+        total_sleep_time <span>+=</span> sleep_for
+        queue<span>.</span>put_nowait<span>(</span>sleep_for<span>)</span>
+
+    <span># Create three worker tasks to process the queue concurrently.</span>
+    tasks <span>=</span> <span>[</span><span>]</span>
+    <span>for</span> i <span>in</span> <span>range</span><span>(</span><span>3</span><span>)</span><span>:</span>
+        task <span>=</span> asyncio<span>.</span>create_task<span>(</span>worker<span>(</span><span><span>f'worker-</span><span><span>{</span>i<span>}</span></span><span>'</span></span><span>,</span> queue<span>)</span><span>)</span>
+        tasks<span>.</span>append<span>(</span>task<span>)</span>
+
+    <span># Wait until the queue is fully processed.</span>
+    started_at <span>=</span> time<span>.</span>monotonic<span>(</span><span>)</span>
+    <span>await</span> queue<span>.</span>join<span>(</span><span>)</span>
+    total_slept_for <span>=</span> time<span>.</span>monotonic<span>(</span><span>)</span> <span>-</span> started_at
+
+    <span># Cancel our worker tasks.</span>
+    <span>for</span> task <span>in</span> tasks<span>:</span>
+        task<span>.</span>cancel<span>(</span><span>)</span>
+    <span># Wait until all worker tasks are cancelled.</span>
+    <span>await</span> asyncio<span>.</span>gather<span>(</span><span>*</span>tasks<span>,</span> return_exceptions<span>=</span><span>True</span><span>)</span>
+
+    <span>print</span><span>(</span><span>'===='</span><span>)</span>
+    <span>print</span><span>(</span><span><span>f'3 workers slept in parallel for </span><span><span>{</span>total_slept_for<span>:</span><span>.2f</span><span>}</span></span><span> seconds'</span></span><span>)</span>
+    <span>print</span><span>(</span><span><span>f'total expected sleep time: </span><span><span>{</span>total_sleep_time<span>:</span><span>.2f</span><span>}</span></span><span> seconds'</span></span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="事件循环" tabindex="-1"> 事件循环 <sup></sup></h2>
+<h3 id="前言" tabindex="-1"> <strong>前言</strong></h3>
+<p>事件循环是每个 asyncio 应用的核心。 事件循环会运行异步任务和回调，执行网络 IO 操作，以及运行子进程。</p>
+<p>应用开发者通常应当使用高层级的 asyncio 函数，例如  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio.run" target="_blank" rel="noopener noreferrer">asyncio.run()</a>，应当很少有必要引用循环对象或调用其方法。 本节所针对的主要是低层级代码、库和框架的编写者，他们需要更细致地控制事件循环行为。</p>
+<h2 id="高层级-api-索引" tabindex="-1"> 高层级 API 索引 <sup></sup></h2>
+<p>这个页面列举了所有能用于 async/wait 的高层级 asyncio API 集。</p>
+<h3 id="任务-1" tabindex="-1"> 任务</h3>
+<p>运行异步程序，创建 Task 对象，等待多件事运行超时的公共集。</p>
+<table>
+<thead>
+<tr>
+<th>run()</th>
+<th>创建事件循环，运行一个协程，关闭事件循环。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>create_task()</td>
+<td>启动一个 asyncio 的 Task 对象。</td>
+</tr>
+<tr>
+<td>await sleep()</td>
+<td>休眠几秒。</td>
+</tr>
+<tr>
+<td>await gather()</td>
+<td>并发执行所有事件的调度和等待。</td>
+</tr>
+<tr>
+<td>await wait_for()</td>
+<td>有超时控制的运行。</td>
+</tr>
+<tr>
+<td>await shield()</td>
+<td>屏蔽取消操作</td>
+</tr>
+<tr>
+<td>await wait()</td>
+<td>完成情况的监控器</td>
+</tr>
+<tr>
+<td>current_task()</td>
+<td>返回当前 Task 对象</td>
+</tr>
+<tr>
+<td>all_tasks()</td>
+<td>返回事件循环中所有的 task 对象。</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>Task 对象</td>
+</tr>
+<tr>
+<td>to_thread()</td>
+<td>在不同的 OS 线程中异步地运行一个函数。</td>
+</tr>
+<tr>
+<td>run_coroutine_threadsafe()</td>
+<td>从其他 OS 线程中调度一个协程。</td>
+</tr>
+<tr>
+<td>for in as_completed()</td>
+<td>用  for  循环监控完成情况。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例子</strong></p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio-example-gather" target="_blank" rel="noopener noreferrer">使用 asyncio.gather() 并行运行</a>.</li>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio-example-waitfor" target="_blank" rel="noopener noreferrer">使用 asyncio.wait_for() 强制超时</a>.</li>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio-example-task-cancel" target="_blank" rel="noopener noreferrer">撤销协程</a>.</li>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio-example-sleep" target="_blank" rel="noopener noreferrer">asyncio.sleep() 的用法</a>.</li>
+<li>请主要参阅  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#coroutine" target="_blank" rel="noopener noreferrer">协程与任务文档</a>.</li>
+</ul>
+<h3 id="队列集" tabindex="-1"> <strong>队列集</strong></h3>
+<p>队列集被用于多个异步 Task 对象的运行调度，实现连接池以及发布/订阅模式。</p>
+<table>
+<thead>
+<tr>
+<th>Queue</th>
+<th>先进先出队列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PriorityQueue</td>
+<td>优先级队列。</td>
+</tr>
+<tr>
+<td>LifoQueue</td>
+<td>后进先出队列。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例子</strong></p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio-example-queue-dist" target="_blank" rel="noopener noreferrer">使用 asyncio.Queue 在多个并发任务间分配工作量</a>.</li>
+<li>请参阅  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html#asyncio-queues" target="_blank" rel="noopener noreferrer">队列集文档</a>.</li>
+</ul>
+<h3 id="子进程集" tabindex="-1"> 子进程集</h3>
+<p>用于生成子进程和运行 shell 命令的工具包。</p>
+<table>
+<thead>
+<tr>
+<th>await create_subprocess_exec()</th>
+<th>创建一个子进程。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>await create_subprocess_shell()</td>
+<td>运行一个 shell 命令。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例子</strong></p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-subprocess.html#asyncio-example-subprocess-shell" target="_blank" rel="noopener noreferrer">执行一个 shell 命令</a>.</li>
+<li>请参阅  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-subprocess.html#asyncio-subprocess" target="_blank" rel="noopener noreferrer">子进程 APIs</a>  相关文档.</li>
+</ul>
+<h3 id="流" tabindex="-1"> 流</h3>
+<p>用于网络 IO 处理的高级 API 集。</p>
+<table>
+<thead>
+<tr>
+<th>await open_connection()</th>
+<th>建立一个 TCP 连接。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>await open_unix_connection()</td>
+<td>建立一个 Unix socket 连接。</td>
+</tr>
+<tr>
+<td>await start_server()</td>
+<td>启动 TCP 服务。</td>
+</tr>
+<tr>
+<td>await start_unix_server()</td>
+<td>启动一个 Unix 套接字服务。</td>
+</tr>
+<tr>
+<td>StreamReader</td>
+<td>接收网络数据的高级 async/await 对象。</td>
+</tr>
+<tr>
+<td>StreamWriter</td>
+<td>发送网络数据的高级 async/await 对象。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例子</strong></p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-stream.html#asyncio-example-stream" target="_blank" rel="noopener noreferrer">TCP 客户端样例</a>.</li>
+<li>请参阅  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-stream.html#asyncio-streams" target="_blank" rel="noopener noreferrer">streams APIs</a>  文档。</li>
+</ul>
+<h3 id="同步" tabindex="-1"> <strong>同步</strong></h3>
+<p>能被用于 Task 对象集的，类似线程的同步基元组件。</p>
+<table>
+<thead>
+<tr>
+<th>Lock</th>
+<th>互斥锁。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Event</td>
+<td>事件对象。</td>
+</tr>
+<tr>
+<td>Condition</td>
+<td>条件对象</td>
+</tr>
+<tr>
+<td>Semaphore</td>
+<td>信号量</td>
+</tr>
+<tr>
+<td>BoundedSemaphore</td>
+<td>有界的信号量。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="异常" tabindex="-1"> <strong>异常</strong></h3>
+<table>
+<thead>
+<tr>
+<th>asyncio.TimeoutError</th>
+<th>类似  wait_for()  等函数在超时时候被引发。请注意  asyncio.TimeoutError  与内建异常  TimeoutError  无关。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>asyncio.CancelledError</td>
+<td>当一个 Task 对象被取消的时候被引发。请参阅  Task.cancel()。</td>
+</tr>
+</tbody>
+</table>
+<p><strong>例子</strong></p>
+<ul>
+<li><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio-example-task-cancel" target="_blank" rel="noopener noreferrer">在取消请求发生的运行代码中如何处理 CancelledError 异常</a>.</li>
+<li>请参阅完整的  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-exceptions.html#asyncio-exceptions" target="_blank" rel="noopener noreferrer">asyncio 专用异常</a>  列表.</li>
+</ul>
+<h2 id="关于-never-awaited-协程" tabindex="-1"> 关于 never-awaited 协程</h2>
+<p>当协程函数被调用而不是被等待时 (即执行  <code>coro()</code>  而不是  <code>await coro()</code>) 或者协程没有通过  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio.create_task" target="_blank" rel="noopener noreferrer">asyncio.create_task()</a>  被排入计划日程，asyncio 将会发出一条  <a href="https://docs.python.org/zh-cn/3.10/library/exceptions.html#RuntimeWarning" target="_blank" rel="noopener noreferrer">RuntimeWarning</a>:</p>
+<div><pre><code><span>import</span> asyncio
+
+<span>async</span> <span>def</span> <span>test</span><span>(</span><span>)</span><span>:</span>
+    <span>print</span><span>(</span><span>"never scheduled"</span><span>)</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    test<span>(</span><span>)</span>
+
+asyncio<span>.</span>run<span>(</span>main<span>(</span><span>)</span><span>)</span>
+
+<span># test.py:7: RuntimeWarning: coroutine 'test' was never awaited</span>
+<span>#  test()</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>通常的修复方法是 <code>await</code> 协程或者调用  <a href="https://docs.python.org/zh-cn/3.10/library/asyncio-task.html#asyncio.create_task" target="_blank" rel="noopener noreferrer">asyncio.create_task()</a>  函数:</p>
+<div><pre><code><span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+    <span>await</span> test<span>(</span><span>)</span>  <span># 开始运行并等待完成</span>
+
+<span>async</span> <span>def</span> <span>main</span><span>(</span><span>)</span><span>:</span>
+        task <span>=</span> asyncio<span>.</span>create_task<span>(</span>test<span>(</span><span>)</span><span>)</span>  <span># 开始运行</span>
+        <span>await</span> task  <span># 等待完成</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><hr>
+<section>
+<ol>
+<li id="footnote1"><p><a href="https://docs.python.org/zh-cn/3/library/asyncio-task.html" target="_blank" rel="noopener noreferrer">协程与任务</a> </p>
+</li>
+<li id="footnote2"><p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-stream.html" target="_blank" rel="noopener noreferrer">Stream 流</a> </p>
+</li>
+<li id="footnote3"><p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-sync.html" target="_blank" rel="noopener noreferrer">同步原语</a> </p>
+</li>
+<li id="footnote4"><p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-queue.html" target="_blank" rel="noopener noreferrer">队列集合</a> </p>
+</li>
+<li id="footnote5"><p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-eventloop.html" target="_blank" rel="noopener noreferrer">事件循环</a> </p>
+</li>
+<li id="footnote6"><p><a href="https://docs.python.org/zh-cn/3.10/library/asyncio-api-index.html" target="_blank" rel="noopener noreferrer">高层级 API 索引</a> </p>
+</li>
+</ol>
+</section>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Python二分查找 - bisect</title>
+      <link>https://timpcfan.site/code/language/python/python-bisect.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-bisect.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python二分查找 - bisect</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="二分查找模块-bisect" tabindex="-1"> 二分查找模块 bisect</h2>
+<p><code>bisect_left(a, x, lo=0, hi=len(a))</code></p>
+<p>相当于 left_bound，返回目标值的左侧边界，其返回值的解读：</p>
+<ul>
+<li>解读 1：将 x 插入有序数组 a 中的最左侧索引</li>
+<li>解读 2：a 中小于 x 的值的数量</li>
+<li>解读 3：有序数组 a 中大于等于 x 的最小元素索引</li>
+</ul>
+<hr>
+<p><code>bisect_right(a, x, lo=0, hi=len(a))</code></p>
+<p><code>bisect(a, x, lo=0, hi=len(a))</code></p>
+<p>⚠️ 不相当于 right_bound，返回目标值的右侧边界+1，其返回值的解读：</p>
+<ul>
+<li>解读 1：将 x 插入有序数组 a 中的最右侧索引</li>
+<li>解读 2：a 中小于等于 x 的值的数量</li>
+<li>解读 3：有序数组 a 中大于 x 的最小元素索引（返回的索引位置的值肯定不等于 x！！！</li>
+</ul>
+<hr>
+<p><code>insort_left(a, x, lo=0, hi=len(a))</code></p>
+<p>等价于 a.insert(bisect.bisect_left(a, x, lo, hi), x)</p>
+<hr>
+<p><code>insort_right(a, x, lo=0, hi=len(a))</code>
+<code>insort(a, x, lo=0, hi=len(a))</code></p>
+<p>等价于 a.insert(bisect.bisect_right(a, x, lo, hi), x)</p>
+<hr>
+<div><pre><code><span>#idx 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</span>
+a <span>=</span> <span>[</span><span>0</span><span>,</span> <span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>3</span><span>,</span> <span>3</span><span>,</span> <span>3</span><span>,</span> <span>3</span><span>,</span> <span>5</span><span>,</span> <span>8</span><span>]</span>
+
+<span>>></span><span>></span> bisect_left<span>(</span>a<span>,</span> <span>3</span><span>)</span>
+<span>3</span>
+<span>>></span><span>></span> bisect_right<span>(</span>a<span>,</span> <span>3</span><span>)</span>  <span># bisect(a, 3)</span>
+<span>8</span>
+<span>>></span><span>></span> bisect_left<span>(</span>a<span>,</span> <span>4</span><span>)</span>
+<span>8</span>
+<span>>></span><span>></span> bisect_right<span>(</span>a<span>,</span> <span>4</span><span>)</span>
+<span>8</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="python3-10-之后的版本新增参数-key" tabindex="-1"> python3.10 之后的版本新增参数 key</h2>
+<p>类似 sort 的 key 参数，可以指定搜索时使用的具体的键</p>
+<p>例子：</p>
+<div><pre><code><span># leetcode #875</span>
+<span>class</span> <span>Solution</span><span>:</span>
+    <span>def</span> <span>minEatingSpeed</span><span>(</span>self<span>,</span> piles<span>:</span> List<span>[</span><span>int</span><span>]</span><span>,</span> h<span>:</span> <span>int</span><span>)</span> <span>-</span><span>></span> <span>int</span><span>:</span>
+        <span>def</span> <span>canEatAll</span><span>(</span>k<span>)</span><span>:</span>
+            <span>if</span> k <span>==</span> <span>0</span><span>:</span>
+                <span>return</span> <span>False</span>
+            cost_time <span>=</span> <span>0</span>
+            <span>for</span> pile <span>in</span> piles<span>:</span>
+                cost_time <span>+=</span> math<span>.</span>ceil<span>(</span>pile <span>/</span> k<span>)</span>
+            <span>return</span> cost_time <span>&lt;=</span> h
+        <span>return</span> bisect_left<span>(</span><span>range</span><span>(</span><span>max</span><span>(</span>piles<span>)</span> <span>+</span> <span>1</span><span>)</span><span>,</span> <span>True</span><span>,</span> key<span>=</span>canEatAll<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><p>注意</p>
+<p>若使用这种方法解题，a 要包括所有的答案域，且如果使用 range，尽量使用 range(max_ans+1)的形式，若使用 range(min_ans, max_ans+1)，需要给返回的结果添加偏置 min_ans！</p>
+</div>
+<h2 id="在有序列表中搜索" tabindex="-1"> 在有序列表中搜索</h2>
+<p>如何将 bisect 转换为一般的搜索方法：</p>
+<div><pre><code><span>def</span> <span>index</span><span>(</span>a<span>,</span> x<span>)</span><span>:</span>
+    <span>'Locate the leftmost value exactly equal to x'</span>
+    i <span>=</span> bisect_left<span>(</span>a<span>,</span> x<span>)</span>
+    <span>if</span> i <span>!=</span> <span>len</span><span>(</span>a<span>)</span> <span>and</span> a<span>[</span>i<span>]</span> <span>==</span> x<span>:</span>
+        <span>return</span> i
+    <span>raise</span> ValueError
+
+<span>def</span> <span>find_lt</span><span>(</span>a<span>,</span> x<span>)</span><span>:</span>
+    <span>'Find rightmost value less than x'</span>
+    i <span>=</span> bisect_left<span>(</span>a<span>,</span> x<span>)</span>
+    <span>if</span> i<span>:</span>
+        <span>return</span> a<span>[</span>i<span>-</span><span>1</span><span>]</span>
+    <span>raise</span> ValueError
+
+<span>def</span> <span>find_le</span><span>(</span>a<span>,</span> x<span>)</span><span>:</span>
+    <span>'Find rightmost value less than or equal to x'</span>
+    i <span>=</span> bisect_right<span>(</span>a<span>,</span> x<span>)</span>
+    <span>if</span> i<span>:</span>
+        <span>return</span> a<span>[</span>i<span>-</span><span>1</span><span>]</span>
+    <span>raise</span> ValueError
+
+<span>def</span> <span>find_gt</span><span>(</span>a<span>,</span> x<span>)</span><span>:</span>
+    <span>'Find leftmost value greater than x'</span>
+    i <span>=</span> bisect_right<span>(</span>a<span>,</span> x<span>)</span>
+    <span>if</span> i <span>!=</span> <span>len</span><span>(</span>a<span>)</span><span>:</span>
+        <span>return</span> a<span>[</span>i<span>]</span>
+    <span>raise</span> ValueError
+
+<span>def</span> <span>find_ge</span><span>(</span>a<span>,</span> x<span>)</span><span>:</span>
+    <span>'Find leftmost item greater than or equal to x'</span>
+    i <span>=</span> bisect_left<span>(</span>a<span>,</span> x<span>)</span>
+    <span>if</span> i <span>!=</span> <span>len</span><span>(</span>a<span>)</span><span>:</span>
+        <span>return</span> a<span>[</span>i<span>]</span>
+    <span>raise</span> ValueError
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Python并发编程</title>
+      <link>https://timpcfan.site/code/language/python/python-concurrent.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-concurrent.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python并发编程</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="多进程程序例子" tabindex="-1"> 多进程程序例子</h2>
+<div><pre><code><span>import</span> argparse
+<span>import</span> redis
+<span>from</span> tqdm <span>import</span> tqdm
+<span>from</span> multiprocessing <span>import</span> Pool<span>,</span> Process
+
+parser <span>=</span> argparse<span>.</span>ArgumentParser<span>(</span>description<span>=</span><span>'PyTorch MM Training'</span><span>)</span>
+parser<span>.</span>add_argument<span>(</span><span>'--port'</span><span>,</span> default<span>=</span><span>6379</span><span>,</span> <span>type</span><span>=</span><span>str</span><span>,</span> <span>help</span><span>=</span><span>"port id"</span><span>)</span>
+parser<span>.</span>add_argument<span>(</span><span>'--file'</span><span>,</span> default<span>=</span><span>None</span><span>,</span> <span>type</span><span>=</span><span>str</span><span>,</span> <span>help</span><span>=</span><span>"paths for train instances"</span><span>)</span>
+args <span>=</span> parser<span>.</span>parse_args<span>(</span><span>)</span>
+
+host <span>=</span> <span>'127.0.0.1'</span>
+port <span>=</span> args<span>.</span>port
+
+<span># r = redis.Redis(host=host, port=port)</span>
+
+train_file <span>=</span> args<span>.</span><span>file</span>
+
+<span>def</span> <span>worker_i</span><span>(</span>train_file<span>,</span> i<span>,</span> nums<span>=</span><span>16</span><span>)</span><span>:</span>
+    r <span>=</span> redis<span>.</span>Redis<span>(</span>host<span>=</span>host<span>,</span> port<span>=</span>port<span>)</span>
+    k <span>=</span> <span>0</span>
+
+    <span>if</span> i <span>==</span> <span>0</span><span>:</span>
+        iter_ <span>=</span> tqdm<span>(</span><span>open</span><span>(</span>train_file<span>,</span> <span>'r'</span><span>)</span><span>)</span>
+    <span>else</span><span>:</span>
+        iter_ <span>=</span> <span>open</span><span>(</span>train_file<span>,</span> <span>'r'</span><span>)</span>
+
+    <span>for</span> info <span>in</span> iter_<span>:</span>
+        <span>if</span> k <span>%</span> nums <span>==</span> i<span>:</span> <span># 将多个任务分成nums份</span>
+            r<span>.</span><span>set</span><span>(</span>k<span>,</span> info<span>.</span>strip<span>(</span><span>)</span><span>)</span>
+        k <span>+=</span> <span>1</span>
+process_list <span>=</span> <span>[</span><span>]</span>
+
+nums <span>=</span> <span>8</span>
+<span>for</span> i <span>in</span> <span>range</span><span>(</span>nums<span>)</span><span>:</span>
+    p <span>=</span> Process<span>(</span>target<span>=</span>worker_i<span>,</span> args<span>=</span><span>(</span>train_file<span>,</span> i<span>,</span> nums<span>)</span><span>)</span>
+    p<span>.</span>start<span>(</span><span>)</span>
+    process_list<span>.</span>append<span>(</span>p<span>)</span>
+
+<span>for</span> i <span>in</span> process_list<span>:</span>
+    p<span>.</span>join<span>(</span><span>)</span>
+
+<span>print</span><span>(</span><span>'写入完成'</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="python-中的三种并发编程方式" tabindex="-1"> Python 中的三种并发编程方式</h2>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png" alt="tch30Z" loading="lazy"></p>
+<h3 id="三种方式-多线程-thread-、多进程-process-、协程-coroutine" tabindex="-1"> 三种方式：多线程（Thread）、多进程（Process）、协程（Coroutine）</h3>
+<h3 id="什么是-cpu-密集型计算、io-密集型计算" tabindex="-1"> 什么是 CPU 密集型计算、IO 密集型计算</h3>
+<ul>
+<li>CPU 密集型计算（CPU-bound）：
+<ul>
+<li>例如：压缩解压缩、加密解密</li>
+</ul>
+</li>
+<li>IO 密集型计算（I/O bound）：
+<ul>
+<li>爬虫、文件处理等</li>
+</ul>
+</li>
+</ul>
+<h3 id="多线程、多进程、协程的对比" tabindex="-1"> 多线程、多进程、协程的对比</h3>
+<ul>
+<li>多进程 Process（multiprocessing）
+<ul>
+<li>优点：可以利用多核 CPU 并行运算</li>
+<li>缺点：占用资源最多、可启动数目比线程少</li>
+<li>适用于：CPU 密集型计算</li>
+</ul>
+</li>
+<li>多线程 Thread（threading）
+<ul>
+<li>优点：相比进程，更轻量级、占用资源少</li>
+<li>缺点：
+<ul>
+<li>相比进程：多线程只能并发执行，不能利用多 CPU（GIL）</li>
+<li>相比协程：启动数目有限制，占用内存资源，有线程切换开销</li>
+</ul>
+</li>
+<li>适用于：IO 密集型计算、同时允许的任务数目要求不多</li>
+</ul>
+</li>
+<li>协程 Coroutine（asyncio）
+<ul>
+<li>优点：内存开销最少、启动协程数量最多</li>
+<li>缺点：支持的库有限制（aiohttp vs requests）、代码实现复杂</li>
+<li>适用于：IO 密集型计算、需要超多任务运行、但有现成库支持的场景</li>
+</ul>
+</li>
+</ul>
+<h3 id="怎样根据任务选择对应技术" tabindex="-1"> 怎样根据任务选择对应技术</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/UsvTjR.png" alt="UsvTjR" loading="lazy"></p>
+<h2 id="全局解释器锁-gil-global-interpreter-lock" tabindex="-1"> 全局解释器锁 GIL（Global Interpreter Lock）</h2>
+<p>Python 速度慢的两大原因：</p>
+<ul>
+<li>动态类型语言，边解释边执行</li>
+<li>GIL，无法利用多核 CPU 并发执行</li>
+</ul>
+<p>全局解释器锁：</p>
+<ul>
+<li>是计算机程序设计语言解释器用于同步线程的一种机制，它使得任何时刻仅有一个线程在执行。</li>
+<li>即便在多核处理器上，使用 GIL 的解释器也<strong>只能允许同一时间执行一个线</strong>程。相比并发加速的 C++/JAVA 会慢很多。</li>
+<li>原因详解
+<ul>
+<li>为了解决多线程之间数据完整性和状态同步问题。</li>
+<li>Python 中对象的管理，维护了每个对象的引用计数，在多线程时，为了保证引用计数的一致性，使用了锁的机制。</li>
+</ul>
+</li>
+</ul>
+<p>怎样规避 GIL 带来的限制：</p>
+<ul>
+<li>那 Python 中的线程无法同时运行，为什么还要使用多线程机制呢？多线程机制在 Python 中依然是有用的，由于<strong>IO 密集型计算</strong>，因为 IO 期间，线程会释放 GIL，实现 CPU 和 IO 的并行，因此多线程用于 IO 密集型计算依然可以大幅提升速度。</li>
+<li>使用 multiprocessing 的多进程机制实现并行计算、利用多核 CPU 优势。</li>
+</ul>
+<h2 id="python-多线程代码" tabindex="-1"> Python 多线程代码</h2>
+<h3 id="直接创建线程" tabindex="-1"> 直接创建线程</h3>
+<div><pre><code><span>import</span> threading
+
+<span>def</span> <span>craw</span><span>(</span>url<span>)</span><span>:</span>  <span># 1. 准备一个函数</span>
+	r <span>=</span> requests<span>.</span>get<span>(</span>url<span>)</span>
+	<span>print</span><span>(</span><span>len</span><span>(</span>r<span>.</span>text<span>)</span><span>)</span>
+
+<span>def</span> <span>multi_thread</span><span>(</span><span>)</span><span>:</span>
+	threads <span>=</span> <span>[</span><span>]</span>  <span># 2. 准备一个线程list</span>
+	<span>for</span> url <span>in</span> urls<span>:</span>
+		threads<span>.</span>append<span>(</span>  <span># 3. 创建线程</span>
+			threading<span>.</span>Thread<span>(</span>target<span>=</span>craw<span>,</span> args<span>=</span><span>(</span>url<span>,</span><span>)</span><span>)</span>
+		<span>)</span>
+
+	<span>for</span> thread <span>in</span> threads<span>:</span>
+		thread<span>.</span>start<span>(</span><span>)</span>  <span># 4. 启动线程</span>
+
+	<span>for</span> thread <span>in</span> threads<span>:</span>
+		thread<span>.</span>join<span>(</span><span>)</span>  <span># 5. 等待结束</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="使用线程池threadpoolexecutor" tabindex="-1"> 使用线程池<strong>ThreadPoolExecutor</strong></h3>
+<p>用法 1：使用 map 函数（所有任务一起提交）</p>
+<div><pre><code><span>from</span> concurrent<span>.</span>futures <span>import</span> ThreadPoolExecutor
+<span>with</span> ThreadPoolExecutor<span>(</span><span>)</span> <span>as</span> pool<span>:</span>
+		result <span>=</span> pool<span>.</span><span>map</span><span>(</span>craw<span>,</span> urls<span>)</span>
+		<span># map的结果和入参的顺序对应的</span>
+		<span>for</span> result <span>in</span> results<span>:</span>
+				<span>print</span><span>(</span>result<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>用法 2：future 模式，更强大（一个任务一个任务提交）</p>
+<div><pre><code><span>from</span> concurrent<span>.</span>futures <span>import</span> ThreadPoolExecutor<span>,</span> as_completed
+<span>with</span> ThreadPoolExecutor<span>(</span><span>)</span> <span>as</span> pool<span>:</span>
+		<span># 使用 dict 可以知道future对应的入参</span>
+		futures <span>=</span> <span>{</span>pool<span>.</span>submit<span>(</span>craw<span>,</span> url<span>)</span><span>:</span> url
+								<span>for</span> url <span>in</span> urls<span>}</span>
+		<span># 方式1: 结果仍然按顺序</span>
+		<span>for</span> future<span>,</span> url <span>in</span> futures<span>.</span>items<span>(</span><span>)</span><span>:</span>
+				<span>print</span><span>(</span>url<span>,</span> future<span>.</span>result<span>(</span><span>)</span><span>)</span>
+
+		<span># 方式2: 使用 as_completed 顺序是不定的</span>
+		<span>for</span> future <span>in</span> as_completed<span>(</span>futures<span>)</span><span>:</span>  <span># 注：字典的遍历是遍历key</span>
+				url <span>=</span> futures<span>[</span>future<span>]</span>
+				<span>print</span><span>(</span>url<span>,</span> future<span>.</span>result<span>(</span><span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p></p>
+<h2 id="python-多进程代码" tabindex="-1"> Python 多进程代码</h2>
+<p>多线程 threading 与多进程 multiprocessing 的代码对比</p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/oMERIi.png" alt="oMERIi" loading="lazy"></p>
+<p>直接改个类名就能运行！</p>
+<p>所以代码去看 </p>
+<h3 id="多进程优雅退出" tabindex="-1"> 多进程优雅退出</h3>
+<div><pre><code><span>import</span> ctypes
+<span>import</span> time
+<span>from</span> multiprocessing <span>import</span> Process<span>,</span> RawValue
+
+<span>class</span> <span>CountdownTask</span><span>:</span>
+    <span>def</span> <span>__init__</span><span>(</span>self<span>)</span><span>:</span>
+        self<span>.</span>_running <span>=</span> RawValue<span>(</span>ctypes<span>.</span>c_bool<span>,</span> <span>True</span><span>)</span>
+    <span>def</span> <span>terminate</span><span>(</span>self<span>)</span><span>:</span>
+        self<span>.</span>_running<span>.</span>value <span>=</span> <span>False</span>
+    <span>def</span> <span>run</span><span>(</span>self<span>,</span> n<span>)</span><span>:</span>
+        <span>while</span> self<span>.</span>_running<span>.</span>value <span>and</span> n <span>></span> <span>0</span><span>:</span>
+            <span>print</span><span>(</span><span>'T-minus'</span><span>,</span> n<span>)</span>
+            n <span>-=</span> <span>1</span>
+            time<span>.</span>sleep<span>(</span><span>5</span><span>)</span>
+
+c <span>=</span> CountdownTask<span>(</span><span>)</span>
+t <span>=</span> Process<span>(</span>target<span>=</span>c<span>.</span>run<span>,</span> args<span>=</span><span>(</span><span>10</span><span>,</span><span>)</span><span>)</span>
+t<span>.</span>start<span>(</span><span>)</span>
+c<span>.</span>terminate<span>(</span><span>)</span> <span># Signal termination</span>
+t<span>.</span>join<span>(</span><span>)</span> <span># Wait for actual termination (if needed)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="线程池原理" tabindex="-1"> 线程池原理</h2>
+<h3 id="线程池的原理" tabindex="-1"> 线程池的原理</h3>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/YPT9vT.png" alt="YPT9vT" loading="lazy"></p>
+<h3 id="特点" tabindex="-1"> 特点</h3>
+<ul>
+<li>使用任务队列</li>
+<li>可重用线程</li>
+</ul>
+<h3 id="优点" tabindex="-1"> 优点</h3>
+<ul>
+<li>提升性能：减少创建终止线程开销，重用线程资源</li>
+<li>适用场景：突发性大量请求、但任务处理时间较短</li>
+<li>防御功能：避免系统因为创建线程过多导致负荷过大</li>
+<li>代码优势：简洁方便</li>
+</ul>
+<h2 id="协程的原理以及代码" tabindex="-1"> 协程的原理以及代码</h2>
+<p><a href="https://www.bilibili.com/video/BV1bK411A7tV?p=11" target="_blank" rel="noopener noreferrer">【2021 最新版】Python 并发编程实战，用多线程、多进程、多协程加速程序运行_哔哩哔哩_bilibili</a></p>
+<h3 id="协程的原理" tabindex="-1"> 协程的原理</h3>
+<p>协程：在<strong>单线程内</strong>实现并发</p>
+<ul>
+<li>核心原理：用一个超级循环（其实就是 while true）循环，配合 IO 多路复用原理（IO 时 CPU 可以干其他事情）</li>
+<li>于是在等待 IO 时，CPU 会同时开始计算下一个循环的 IO 前的部分，并开启多轮循环同时进行的局面</li>
+<li>等待 IO 结束，CPU 将剩余部分的代码再一并执行</li>
+</ul>
+<p><strong>单线程爬虫执行路径</strong></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/dFUEmJ.png" alt="dFUEmJ" loading="lazy"></p>
+<p><strong>协程爬虫执行路径</strong></p>
+<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/OSigeS.png" alt="OSigeS" loading="lazy"></p>
+<h3 id="协程的使用以及异步-io" tabindex="-1"> 协程的使用以及异步 IO</h3>
+<div><pre><code><span>import</span> asyncio
+
+<span># 获取事件循环（超级循环）</span>
+loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
+
+<span># 定义协程</span>
+<span>async</span> <span>def</span> <span>myfunc</span><span>(</span>url<span>)</span><span>:</span>
+		<span>await</span> get_url<span>(</span>url<span>)</span>
+
+<span># 创建task列表</span>
+tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>myfunc<span>(</span>url<span>)</span><span>)</span>
+					<span>for</span> url <span>in</span> urls<span>]</span>
+
+<span># 执行爬虫事件列表</span>
+loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>关键字<strong>async</strong>：表示定义一个协程。</p>
+<p>关键字<strong>await</strong>：表示后面的函数是一个异步 IO，并且不进行阻塞，而是直接在超级循环直接进入下一个任务的执行（当前任务放弃 CPU，下一个任务获得 CPU）。</p>
+<div><p>注意</p>
+<p>异步 IO 中依赖的库必须支持异步 IO 特性（这要求库在 IO 时不能阻塞，否则切换不到下一个任务了）</p>
+</div>
+<div><p>注意</p>
+<p>requests 库不支持异步 IO，需要使用 aiohttp 库</p>
+</div>
+<p>例子：</p>
+<div><pre><code><span>import</span> asyncio<span>,</span> aiohtttp
+
+<span>async</span> <span>def</span> <span>async_craw</span><span>(</span>url<span>)</span><span>:</span>
+		<span>async</span> <span>with</span> aiohttp<span>.</span>ClientSession<span>(</span><span>)</span> <span>as</span> sess<span>:</span>
+				<span>async</span> <span>with</span> sess<span>.</span>get<span>(</span>url<span>)</span> <span>as</span> resp<span>:</span>
+						result <span>=</span> <span>await</span> resp<span>.</span>text<span>(</span><span>)</span>
+						<span>print</span><span>(</span>url<span>,</span> <span>len</span><span>(</span>result<span>)</span><span>)</span>
+
+loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
+tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>async_craw<span>(</span>url<span>)</span><span>)</span>
+					<span>for</span> url <span>in</span> urls<span>]</span>
+loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>所有的异步对象也需要使用 async 关键字来标注。</p>
+<div><p>相关信息</p>
+<p>协程与普通函数运行的不同点在于协程需要使用超级循环来进行调度。</p>
+</div>
+<h3 id="协程并发度的控制" tabindex="-1"> 协程并发度的控制</h3>
+<p>可以使用  来进行控制：</p>
+<div><pre><code><span>import</span> asyncio<span>,</span> aiohtttp
+
+semaphore <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
+<span>async</span> <span>def</span> <span>async_craw</span><span>(</span>url<span>)</span><span>:</span>
+		<span>async</span> <span>with</span> semaphore<span>:</span>  <span># here</span>
+				<span>async</span> <span>with</span> aiohttp<span>.</span>ClientSession<span>(</span><span>)</span> <span>as</span> sess<span>:</span>
+						<span>async</span> <span>with</span> sess<span>.</span>get<span>(</span>url<span>)</span> <span>as</span> resp<span>:</span>
+								result <span>=</span> <span>await</span> resp<span>.</span>text<span>(</span><span>)</span>
+								<span>print</span><span>(</span>url<span>,</span> <span>len</span><span>(</span>result<span>)</span><span>)</span>
+
+loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
+tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>async_craw<span>(</span>url<span>)</span><span>)</span>
+					<span>for</span> url <span>in</span> urls<span>]</span>
+loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="信号量-semaphore" tabindex="-1"> 信号量 Semaphore</h2>
+<div><p>相关信息</p>
+<p>信号量一般用于访问有限数量的共享资源。</p>
+</div>
+<p>信号量是一个<strong>同步对象</strong>，用于保持在 0 至指定最大值之间的一个计数器。</p>
+<ul>
+<li>当线程完成一次对改 semaphore 对象的等待（wait）时，该计数器减一</li>
+<li>当线程完成一次对改 semaphore 对象的释放（release）时，该计数器加一</li>
+<li>当计数器为 0 时，线程等待该 semaphore 对象不再能成功直到该 semaphore 对象变成 signaled 状态（阻塞）
+<ul>
+<li>计数器大于 0，为 signaled 状态</li>
+<li>计数器等于 0，为 nonsignaled 状态</li>
+</ul>
+</li>
+</ul>
+<div><pre><code><span># 方法一：使用with</span>
+sem <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
+
+<span># ...later</span>
+<span>async</span> <span>with</span> sem<span>:</span>
+		<span># work with shared resource</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span># 方法二：手动acquire、release</span>
+sem <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
+
+<span># ...later</span>
+<span>await</span> sem<span>.</span>acquire<span>(</span><span>)</span>
+<span>try</span><span>:</span>
+		<span># work with shared resource</span>
+<span>finally</span><span>:</span>
+		sem<span>.</span>release<span>(</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png" type="image/png"/>
+    </item>
+    <item>
+      <title>Python常用数据结构</title>
+      <link>https://timpcfan.site/code/language/python/python-data-structures.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-data-structures.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python常用数据结构</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="列表-list" tabindex="-1"> 列表 list</h2>
+<h3 id="列表方法" tabindex="-1"> 列表方法</h3>
+<ul>
+<li>list.append(obj)</li>
+<li>list.count(obj)</li>
+<li>list.extend(seq)</li>
+<li>list.index(obj)</li>
+<li>list.insert(index, obj)</li>
+<li>list.pop([index=-1])</li>
+<li>list.remove(obj)</li>
+<li>list.reverse()</li>
+<li>list.sort(cmp=None, key=None, reverse=False)</li>
+</ul>
+<h3 id="列表脚本操作符" tabindex="-1"> 列表脚本操作符</h3>
+<table>
+<thead>
+<tr>
+<th>Python 表达式</th>
+<th>结果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>len([1, 2, 3])</td>
+<td>3</td>
+<td>长度</td>
+</tr>
+<tr>
+<td>[1, 2, 3] + [4, 5, 6]</td>
+<td>[1, 2, 3, 4, 5, 6]</td>
+<td>组合</td>
+</tr>
+<tr>
+<td>['Hi!'] * 4</td>
+<td>['Hi!', 'Hi!', 'Hi!', 'Hi!']</td>
+<td>重复</td>
+</tr>
+<tr>
+<td>3 in [1, 2, 3]</td>
+<td>True</td>
+<td>元素是否存在于列表中</td>
+</tr>
+<tr>
+<td>for x in [1, 2, 3]: print x,</td>
+<td>1 2 3</td>
+<td>迭代</td>
+</tr>
+</tbody>
+</table>
+<h3 id="列表截取" tabindex="-1"> 列表截取</h3>
+<table>
+<thead>
+<tr>
+<th>Python 表达式</th>
+<th>结果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L[2]</td>
+<td>'Taobao'</td>
+<td>读取列表中第三个元素</td>
+</tr>
+<tr>
+<td>L[-2]</td>
+<td>'Runoob'</td>
+<td>读取列表中倒数第二个元素</td>
+</tr>
+<tr>
+<td>L[1:]</td>
+<td>['Runoob', 'Taobao']</td>
+<td>从第二个元素开始截取列表</td>
+</tr>
+</tbody>
+</table>
+<h2 id="双向队列-deque" tabindex="-1"> 双向队列 deque</h2>
+<div><pre><code><span>class</span> <span>collections</span><span>.</span>deque<span>(</span><span>[</span>iterable<span>[</span><span>,</span> maxlen<span>]</span><span>]</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><div><p>注意</p>
+<p>若当作一个<strong>单向队列</strong>，append(x) 与 popleft() 才是一对。。。</p>
+<ul>
+<li>若当作一个<strong>栈</strong>，append(x)与 pop()就是一对</li>
+</ul>
+</div>
+<h3 id="方法" tabindex="-1"> 方法</h3>
+<ul>
+<li>append(x) 添加到右侧</li>
+<li>appendleft(x) 添加到左侧</li>
+<li>pop() 从右侧出队</li>
+<li>popleft() 从左侧出队</li>
+<li>clear()</li>
+<li>copy()</li>
+<li>count(x)</li>
+<li>extend(iter)</li>
+<li>extendleft(iter)</li>
+<li>index(x[, start[, stop]])</li>
+<li>insert(i, x)</li>
+<li>remove(x) 删除从左到右的第一个 x</li>
+<li>reverse()</li>
+<li>rotate(n=1)</li>
+<li>maxlen</li>
+</ul>
+<h3 id="recipes" tabindex="-1"> Recipes</h3>
+<h4 id="_1-用于实现-tail-程序" tabindex="-1"> 1. 用于实现 tail 程序</h4>
+<div><pre><code><span>def</span> <span>tail</span><span>(</span>filename<span>,</span> n<span>=</span><span>10</span><span>)</span><span>:</span>
+    <span>'Return the last n lines of a file'</span>
+    <span>with</span> <span>open</span><span>(</span>filename<span>)</span> <span>as</span> f<span>:</span>
+        <span>return</span> deque<span>(</span>f<span>,</span> n<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>设置 maxlen=n，可以实现保留文本最后 n 行的功能。</p>
+<h4 id="_2-用于维持一个定长的近期添加元素序列" tabindex="-1"> 2. 用于维持一个定长的近期添加元素序列</h4>
+<div><pre><code><span>def</span> <span>moving_average</span><span>(</span>iterable<span>,</span> n<span>=</span><span>3</span><span>)</span><span>:</span>
+    <span># moving_average([40, 30, 50, 46, 39, 44]) --> 40.0 42.0 45.0 43.0</span>
+    <span># http://en.wikipedia.org/wiki/Moving_average</span>
+    it <span>=</span> <span>iter</span><span>(</span>iterable<span>)</span>
+    d <span>=</span> deque<span>(</span>itertools<span>.</span>islice<span>(</span>it<span>,</span> n<span>-</span><span>1</span><span>)</span><span>)</span>
+    d<span>.</span>appendleft<span>(</span><span>0</span><span>)</span>
+    s <span>=</span> <span>sum</span><span>(</span>d<span>)</span>
+    <span>for</span> elem <span>in</span> it<span>:</span>
+        s <span>+=</span> elem <span>-</span> d<span>.</span>popleft<span>(</span><span>)</span>
+        d<span>.</span>append<span>(</span>elem<span>)</span>
+        <span>yield</span> s <span>/</span> n
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_3-实现一个-round-robin-scheduler" tabindex="-1"> 3. 实现一个 round-robin scheduler</h4>
+<div><pre><code><span>def</span> <span>roundrobin</span><span>(</span><span>*</span>iterables<span>)</span><span>:</span>
+    <span>"roundrobin('ABC', 'D', 'EF') --> A D E B F C"</span>
+    iterators <span>=</span> deque<span>(</span><span>map</span><span>(</span><span>iter</span><span>,</span> iterables<span>)</span><span>)</span>
+    <span>while</span> iterators<span>:</span>
+        <span>try</span><span>:</span>
+            <span>while</span> <span>True</span><span>:</span>
+                <span>yield</span> <span>next</span><span>(</span>iterators<span>[</span><span>0</span><span>]</span><span>)</span>
+                iterators<span>.</span>rotate<span>(</span><span>-</span><span>1</span><span>)</span>
+        <span>except</span> StopIteration<span>:</span>
+            <span># Remove an exhausted iterator.</span>
+            iterators<span>.</span>popleft<span>(</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_4-删除第-n-个元素" tabindex="-1"> 4. 删除第 n 个元素</h4>
+<p>可以使用 rotate(n)来轻松删除第 n 个元素</p>
+<div><pre><code><span>def</span> <span>delete_nth</span><span>(</span>d<span>,</span> n<span>)</span><span>:</span>
+    d<span>.</span>rotate<span>(</span><span>-</span>n<span>)</span>
+    d<span>.</span>popleft<span>(</span><span>)</span>
+    d<span>.</span>rotate<span>(</span>n<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><h2 id="最小堆-heapq" tabindex="-1"> 最小堆 heapq</h2>
+<p><strong>函 数</strong>                                                        <strong>描 述</strong></p>
+<p>heappush(heap, x)                                将 x 压入堆中</p>
+<p>heappop(heap)                                      从堆中弹出最小的元素</p>
+<p>heapify(heap)                                         让列表具备堆特征</p>
+<p>heapreplace(heap, x)                            弹出最小的元素，并将 x 压入堆中</p>
+<p>nlargest(n, iter, key=None)                                      返回 iter 中 n 个最大的元素</p>
+<p>nsmallest(n, iter, key=None)                                   返回 iter 中 n 个最小的元素</p>
+<p>merge(*iters, key=None, reverse=False) 合并多个有序列表形成单独一个有序列表</p>
+<div><pre><code><span>>></span><span>></span> <span>from</span> heapq <span>import</span> <span>*</span>
+<span>>></span><span>></span> <span>from</span> random <span>import</span> shuffle
+<span>>></span><span>></span> data <span>=</span> <span>list</span><span>(</span><span>range</span><span>(</span><span>10</span><span>)</span><span>)</span>
+<span>>></span><span>></span> shuffle<span>(</span>data<span>)</span>
+<span>>></span><span>></span> heap <span>=</span> <span>[</span><span>]</span>
+<span>>></span><span>></span> <span>for</span> n <span>in</span> data<span>:</span>
+<span>.</span><span>.</span><span>.</span> heappush<span>(</span>heap<span>,</span> n<span>)</span>
+<span>.</span><span>.</span><span>.</span>
+<span>>></span><span>></span> heap
+<span>[</span><span>0</span><span>,</span> <span>1</span><span>,</span> <span>3</span><span>,</span> <span>6</span><span>,</span> <span>2</span><span>,</span> <span>8</span><span>,</span> <span>4</span><span>,</span> <span>7</span><span>,</span> <span>9</span><span>,</span> <span>5</span><span>]</span>
+<span>>></span><span>></span> heappush<span>(</span>heap<span>,</span> <span>0.5</span><span>)</span>
+<span>>></span><span>></span> heap
+<span>[</span><span>0</span><span>,</span> <span>0.5</span><span>,</span> <span>3</span><span>,</span> <span>6</span><span>,</span> <span>1</span><span>,</span> <span>8</span><span>,</span> <span>4</span><span>,</span> <span>7</span><span>,</span> <span>9</span><span>,</span> <span>5</span><span>,</span> <span>2</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="python-如何实现最大堆" tabindex="-1"> <strong>python 如何实现最大堆？</strong></h3>
+<div><pre><code><span># 最简单的方案就是，给你的堆的元素加一个值，使值逆序排列。以下是示例代码。</span>
+<span>import</span> heapq
+sss <span>=</span> <span>'abecgfidhjk'</span>
+ll <span>=</span> <span>list</span><span>(</span>sss<span>)</span>
+heapq<span>.</span>heapify<span>(</span>ll<span>)</span>
+<span>print</span><span>(</span>ll<span>)</span>
+<span># ['a', 'b', 'e', 'c', 'g', 'f', 'i', 'd', 'h', 'j', 'k']</span>
+<span># 此时若想得到大顶堆</span>
+newl <span>=</span> <span>[</span><span>(</span><span>-</span>i<span>,</span> ll<span>[</span>i<span>]</span><span>)</span> <span>for</span> i <span>in</span> <span>range</span><span>(</span><span>len</span><span>(</span>ll<span>)</span><span>)</span><span>]</span>
+<span>#print(newl)</span>
+heapq<span>.</span>heapify<span>(</span>newl<span>)</span>
+<span># 此时已经按照第一个值变成了小顶堆，即变成了逆序</span>
+max_heap <span>=</span> <span>list</span><span>(</span><span>)</span>
+<span>while</span> newl<span>:</span>
+    _<span>,</span> s <span>=</span> heapq<span>.</span>heappop<span>(</span>newl<span>)</span>
+    max_heap<span>.</span>append<span>(</span>s<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="计数器-counter" tabindex="-1"> 计数器 Counter</h2>
+<div><pre><code><span>class</span> <span>collections</span><span>.</span>Counter<span>(</span><span>[</span>iterable<span>-</span><span>or</span><span>-</span>mapping<span>]</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>Counter 是一个 dict 的子类，存着每个元素出现的次数，若访问不存在的元素会返回 0。</p>
+<div><pre><code>c <span>=</span> Counter<span>(</span><span>)</span>                           <span># a new, empty counter</span>
+c <span>=</span> Counter<span>(</span><span>'gallahad'</span><span>)</span>                 <span># a new counter from an iterable</span>
+c <span>=</span> Counter<span>(</span><span>{</span><span>'red'</span><span>:</span> <span>4</span><span>,</span> <span>'blue'</span><span>:</span> <span>2</span><span>}</span><span>)</span>      <span># a new counter from a mapping</span>
+c <span>=</span> Counter<span>(</span>cats<span>=</span><span>4</span><span>,</span> dogs<span>=</span><span>8</span><span>)</span>             <span># a new counter from keyword args</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>直接以字典的方式去访问 Counter</p>
+<div><pre><code>c<span>[</span><span>'cats'</span><span>]</span>         <span># return 4</span>
+c<span>[</span><span>'cats'</span><span>]</span> <span>+=</span> <span>1</span>    <span># add one more cat</span>
+c<span>[</span><span>'pigs'</span><span>]</span>         <span># missing value will return 0</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p><strong>elements()</strong> 返回一个 iterator 根据每个元素的数量来访问所有元素（会忽略数量为 0 或负的元素）</p>
+<div><pre><code><span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>4</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>0</span><span>,</span> d<span>=</span><span>-</span><span>2</span><span>)</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>c<span>.</span>elements<span>(</span><span>)</span><span>)</span>
+<span>[</span><span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'b'</span><span>,</span> <span>'b'</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>*<strong>*most_common**</strong>([<em>n</em>]) 返回一个 tuple 列表，包含按元素数量排序的最常见的元素列表</p>
+<div><pre><code><span>>></span><span>></span> Counter<span>(</span><span>'abracadabra'</span><span>)</span><span>.</span>most_common<span>(</span><span>3</span><span>)</span>
+<span>[</span><span>(</span><span>'a'</span><span>,</span> <span>5</span><span>)</span><span>,</span> <span>(</span><span>'b'</span><span>,</span> <span>2</span><span>)</span><span>,</span> <span>(</span><span>'r'</span><span>,</span> <span>2</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>*<strong>*subtract**</strong>([<em>iterable-or-mapping</em>]) 两个 Counter 可以相减</p>
+<div><pre><code><span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>4</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>0</span><span>,</span> d<span>=</span><span>-</span><span>2</span><span>)</span>
+<span>>></span><span>></span> d <span>=</span> Counter<span>(</span>a<span>=</span><span>1</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>3</span><span>,</span> d<span>=</span><span>4</span><span>)</span>
+<span>>></span><span>></span> c<span>.</span>subtract<span>(</span>d<span>)</span>
+<span>>></span><span>></span> c
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>3</span><span>,</span> <span>'b'</span><span>:</span> <span>0</span><span>,</span> <span>'c'</span><span>:</span> <span>-</span><span>3</span><span>,</span> <span>'d'</span><span>:</span> <span>-</span><span>6</span><span>}</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><p>*<strong>*fromkeys**</strong>(<em>iterable</em>) 没有对 Counter 实现该方法（dict 的类方法，用于根据 dict 的键生成一个新的 dict）</p>
+<p>*<strong>*update**</strong>([<em>iterable-or-mapping</em>]) 与 dict 的 update 一样</p>
+<p>其他的一些操作：</p>
+<div><pre><code><span>sum</span><span>(</span>c<span>.</span>values<span>(</span><span>)</span><span>)</span>                 <span># total of all counts</span>
+c<span>.</span>clear<span>(</span><span>)</span>                       <span># reset all counts</span>
+<span>list</span><span>(</span>c<span>)</span>                         <span># list unique elements</span>
+<span>set</span><span>(</span>c<span>)</span>                          <span># convert to a set</span>
+<span>dict</span><span>(</span>c<span>)</span>                         <span># convert to a regular dictionary</span>
+c<span>.</span>items<span>(</span><span>)</span>                       <span># convert to a list of (elem, cnt) pairs</span>
+Counter<span>(</span><span>dict</span><span>(</span>list_of_pairs<span>)</span><span>)</span>    <span># convert from a list of (elem, cnt) pairs</span>
+c<span>.</span>most_common<span>(</span><span>)</span><span>[</span><span>:</span><span>-</span>n<span>-</span><span>1</span><span>:</span><span>-</span><span>1</span><span>]</span>       <span># n least common elements</span>
+<span>+</span>c                              <span># remove zero and negative counts</span>
+
+<span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>3</span><span>,</span> b<span>=</span><span>1</span><span>)</span>
+<span>>></span><span>></span> d <span>=</span> Counter<span>(</span>a<span>=</span><span>1</span><span>,</span> b<span>=</span><span>2</span><span>)</span>
+<span>>></span><span>></span> c <span>+</span> d                       <span># add two counters together:  c[x] + d[x]</span>
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>4</span><span>,</span> <span>'b'</span><span>:</span> <span>3</span><span>}</span><span>)</span>
+<span>>></span><span>></span> c <span>-</span> d                       <span># subtract (keeping only positive counts)</span>
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
+<span>>></span><span>></span> c <span>&amp;</span> d                       <span># intersection:  min(c[x], d[x])</span>
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>1</span><span>,</span> <span>'b'</span><span>:</span> <span>1</span><span>}</span><span>)</span>
+<span>>></span><span>></span> c <span>|</span> d                       <span># union:  max(c[x], d[x])</span>
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>3</span><span>,</span> <span>'b'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
+
+<span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>2</span><span>,</span> b<span>=</span><span>-</span><span>4</span><span>)</span>
+<span>>></span><span>></span> <span>+</span>c
+Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
+<span>>></span><span>></span> <span>-</span>c
+Counter<span>(</span><span>{</span><span>'b'</span><span>:</span> <span>4</span><span>}</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="随机队列-randomizedqueue" tabindex="-1"> 随机队列 RandomizedQueue</h2>
+<div><p>相关信息</p>
+<p>自创数据结构，在工作中使用</p>
+</div>
+<div><pre><code><span>class</span> <span>RandomizedQueue</span><span>:</span>
+    <span>def</span> <span>__init__</span><span>(</span>self<span>,</span> _iter<span>=</span><span>[</span><span>]</span><span>)</span><span>:</span>
+        self<span>.</span>arr <span>=</span> <span>[</span><span>*</span>_iter<span>]</span>
+    <span>def</span> <span>append</span><span>(</span>self<span>,</span> val<span>)</span><span>:</span>
+        self<span>.</span>arr<span>.</span>append<span>(</span>val<span>)</span>
+    <span>def</span> <span>remove</span><span>(</span>self<span>,</span> idx<span>)</span><span>:</span>
+        <span>if</span> idx <span>>=</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>:</span>
+            <span>return</span>
+        r <span>=</span> self<span>.</span>arr<span>[</span>idx<span>]</span>
+        self<span>.</span>arr<span>[</span>idx<span>]</span> <span>=</span> self<span>.</span>arr<span>[</span><span>-</span><span>1</span><span>]</span>  <span># 将最后一个元素移动到删除的元素位置</span>
+        self<span>.</span>arr<span>.</span>pop<span>(</span><span>)</span>
+        <span>return</span> r
+    <span>def</span> <span>getRandom</span><span>(</span>self<span>)</span><span>:</span>
+        <span>if</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span> <span>==</span> <span>0</span><span>:</span>
+            <span>return</span>
+        <span>return</span> self<span>.</span>arr<span>[</span><span>int</span><span>(</span>random<span>.</span>random<span>(</span><span>)</span> <span>*</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>)</span><span>]</span>
+    <span>def</span> <span>popRandom</span><span>(</span>self<span>)</span><span>:</span>
+        <span>if</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span> <span>==</span> <span>0</span><span>:</span>
+            <span>return</span>
+        idx <span>=</span> <span>int</span><span>(</span>random<span>.</span>random<span>(</span><span>)</span> <span>*</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>)</span>
+        <span>return</span> self<span>.</span>remove<span>(</span>idx<span>)</span>
+    <span>def</span> <span>__len__</span><span>(</span>self<span>)</span><span>:</span>
+        <span>return</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><ul>
+<li>入队：O(1)</li>
+<li>获取随机元素：O(1)</li>
+<li>随机出队：O(1)</li>
+<li>删除指定位置的元素：O(1)</li>
+</ul>
+]]></content:encoded>
+    </item>
+    <item>
+      <title>Python日志 - logging</title>
+      <link>https://timpcfan.site/code/language/python/python-log.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-log.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python日志 - logging</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<div><pre><code><span>import</span> logging  <span># 引入logging模块</span>
+<span>import</span> os<span>.</span>path
+<span>import</span> time
+<span># 第一步，创建一个logger</span>
+logger <span>=</span> logging<span>.</span>getLogger<span>(</span><span>)</span>
+logger<span>.</span>setLevel<span>(</span>logging<span>.</span>INFO<span>)</span>  <span># Log等级总开关</span>
+<span># 第二步，创建一个handler，用于写入日志文件</span>
+rq <span>=</span> time<span>.</span>strftime<span>(</span><span>'%Y%m%d%H%M'</span><span>,</span> time<span>.</span>localtime<span>(</span>time<span>.</span>time<span>(</span><span>)</span><span>)</span><span>)</span>
+log_path <span>=</span> os<span>.</span>path<span>.</span>dirname<span>(</span>os<span>.</span>getcwd<span>(</span><span>)</span><span>)</span> <span>+</span> <span>'/Logs/'</span>
+log_name <span>=</span> log_path <span>+</span> rq <span>+</span> <span>'.log'</span>
+logfile <span>=</span> log_name
+fh <span>=</span> logging<span>.</span>FileHandler<span>(</span>logfile<span>,</span> mode<span>=</span><span>'w'</span><span>)</span>
+fh<span>.</span>setLevel<span>(</span>logging<span>.</span>DEBUG<span>)</span>  <span># 输出到file的log等级的开关</span>
+<span># 第三步，定义handler的输出格式</span>
+formatter <span>=</span> logging<span>.</span>Formatter<span>(</span><span>"%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"</span><span>)</span>
+fh<span>.</span>setFormatter<span>(</span>formatter<span>)</span>
+<span># 第四步，将logger添加到handler里面</span>
+logger<span>.</span>addHandler<span>(</span>fh<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>记录日志：</p>
+<div><pre><code><span># 日志</span>
+logger<span>.</span>debug<span>(</span><span>'this is a logger debug message'</span><span>)</span>
+logger<span>.</span>info<span>(</span><span>'this is a logger info message'</span><span>)</span>
+logger<span>.</span>warning<span>(</span><span>'this is a logger warning message'</span><span>)</span>
+logger<span>.</span>error<span>(</span><span>'this is a logger error message'</span><span>)</span>
+logger<span>.</span>critical<span>(</span><span>'this is a logger critical message'</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Python字符数字之间的转换函数</title>
+      <link>https://timpcfan.site/code/language/python/python-ordchr.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-ordchr.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python字符数字之间的转换函数</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<table>
+<thead>
+<tr>
+<th>函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>int(x [,base ])</td>
+<td>将 x 转换为一个整数</td>
+</tr>
+<tr>
+<td>long(x [,base ])</td>
+<td>将 x 转换为一个长整数</td>
+</tr>
+<tr>
+<td>float(x )</td>
+<td>将 x 转换到一个浮点数</td>
+</tr>
+<tr>
+<td>complex(real [,imag ])</td>
+<td>创建一个复数</td>
+</tr>
+<tr>
+<td>str(x )</td>
+<td>将对象  x  转换为字符串</td>
+</tr>
+<tr>
+<td>repr(x )</td>
+<td>将对象  x  转换为表达式字符串</td>
+</tr>
+<tr>
+<td>eval(str )</td>
+<td>用来计算在字符串中的有效 Python 表达式,并返回一个对象</td>
+</tr>
+<tr>
+<td>tuple(s )</td>
+<td>将序列  s  转换为一个元组</td>
+</tr>
+<tr>
+<td>list(s )</td>
+<td>将序列  s  转换为一个列表</td>
+</tr>
+<tr>
+<td>chr(x )</td>
+<td>将一个整数转换为一个字符</td>
+</tr>
+<tr>
+<td>unichr(x )</td>
+<td>将一个整数转换为 Unicode 字符</td>
+</tr>
+<tr>
+<td>bin(x)</td>
+<td>将数字转换为二进制字符串</td>
+</tr>
+</tbody>
+</table>
+<div><pre><code><span>chr</span><span>(</span><span>65</span><span>)</span> <span>=</span> <span>'A'</span>
+<span>ord</span><span>(</span><span>'A'</span><span>)</span> <span>=</span> <span>65</span>
+
+<span>int</span><span>(</span><span>'2'</span><span>)</span> <span>=</span> <span>2</span>
+<span>str</span><span>(</span><span>2</span><span>)</span> <span>=</span> <span>'2'</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+    </item>
+    <item>
+      <title>Python排序 - sort</title>
+      <link>https://timpcfan.site/code/language/python/python-sort.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-sort.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python排序 - sort</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<p>原文链接：<a href="https://docs.python.org/zh-cn/3.6/howto/sorting.html" target="_blank" rel="noopener noreferrer">Sorting HOW TO - Python 3.10.4 documentation</a></p>
+<p>Python 列表内置的 list.sort()方法可以直接修改列表。另外 sorted()内置函数，可以传入迭代对象构建一个新的排序列表。</p>
+<hr>
+<p><strong><code>sorted</code></strong>(<em>iterable</em>, ***, <em>key=None</em>, *reverse=False*)</p>
+<p>根据  <em>iterable</em>  中的项返回一个新的已排序列表。
+具有两个可选参数，它们都必须指定为关键字参数。
+<em>key</em>  指定带有单个参数的函数，用于从  <em>iterable</em>  的每个元素中提取用于比较的键 (例如  <code>key=str.lower</code>)。 默认值为  <code>None</code> (直接比较元素)。
+<em>reverse</em>  为一个布尔值。 如果设为  <code>True</code>，则每个列表元素将按反向顺序比较进行排序。
+使用  <a href="https://docs.python.org/zh-cn/3.6/library/functools.html#functools.cmp_to_key" target="_blank" rel="noopener noreferrer">functools.cmp_to_key()</a>  可将老式的  <em>cmp</em>  函数转换为  <em>key</em>  函数。
+内置的  <a href="https://docs.python.org/zh-cn/3.6/library/functions.html#sorted" target="_blank" rel="noopener noreferrer">sorted()</a>  确保是稳定的。 如果一个排序确保不会改变比较结果相等的元素的相对顺序就称其为稳定的 — 这有利于进行多重排序（例如先按部门、再按薪级排序）。</p>
+<hr>
+<h2 id="基本排序" tabindex="-1"> 基本排序</h2>
+<div><pre><code><span>>></span><span>></span> <span>sorted</span><span>(</span><span>[</span><span>5</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>1</span><span>,</span> <span>4</span><span>]</span><span>)</span>
+<span>[</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>4</span><span>,</span> <span>5</span><span>]</span>
+
+<span>>></span><span>></span> a <span>=</span> <span>[</span><span>5</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>1</span><span>,</span> <span>4</span><span>]</span>
+<span>>></span><span>></span> a<span>.</span>sort<span>(</span><span>)</span>
+<span>>></span><span>></span> a
+<span>[</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>4</span><span>,</span> <span>5</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="key-函数" tabindex="-1"> key 函数</h2>
+<p>可以使用一个函数来指定排序使用的键</p>
+<div><pre><code><span>>></span><span>></span> <span>sorted</span><span>(</span><span>"This is a test string from Andrew"</span><span>.</span>split<span>(</span><span>)</span><span>,</span> key<span>=</span><span>str</span><span>.</span>lower<span>)</span>
+<span>[</span><span>'a'</span><span>,</span> <span>'Andrew'</span><span>,</span> <span>'from'</span><span>,</span> <span>'is'</span><span>,</span> <span>'string'</span><span>,</span> <span>'test'</span><span>,</span> <span>'This'</span><span>]</span>
+
+<span>>></span><span>></span> student_tuples <span>=</span> <span>[</span>
+<span>.</span><span>.</span><span>.</span>     <span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>,</span>
+<span>.</span><span>.</span><span>.</span>     <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span>
+<span>.</span><span>.</span><span>.</span>     <span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span>
+<span>.</span><span>.</span><span>.</span> <span>]</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>student_tuples<span>,</span> key<span>=</span><span>lambda</span> student<span>:</span> student<span>[</span><span>2</span><span>]</span><span>)</span>   <span># sort by age</span>
+<span>[</span><span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="operator-模块函数" tabindex="-1"> Operator 模块函数</h2>
+<p>上面显示的键函数模式非常常见，因此 Python 提供了便利功能，使访问器功能更容易，更快捷。  <a href="https://docs.python.org/zh-cn/3.6/library/operator.html#module-operator" target="_blank" rel="noopener noreferrer">operator</a>  模块有  <a href="https://docs.python.org/zh-cn/3.6/library/operator.html#operator.itemgetter" target="_blank" rel="noopener noreferrer">itemgetter()</a> 、 <a href="https://docs.python.org/zh-cn/3.6/library/operator.html#operator.attrgetter" target="_blank" rel="noopener noreferrer">attrgetter()</a>  和  <a href="https://docs.python.org/zh-cn/3.6/library/operator.html#operator.methodcaller" target="_blank" rel="noopener noreferrer">methodcaller()</a>  函数。</p>
+<div><pre><code><span>>></span><span>></span> <span>from</span> operator <span>import</span> itemgetter<span>,</span> attrgetter
+
+<span>>></span><span>></span> <span>sorted</span><span>(</span>student_tuples<span>,</span> key<span>=</span>itemgetter<span>(</span><span>2</span><span>)</span><span>)</span>
+<span>[</span><span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>]</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>student_objects<span>,</span> key<span>=</span>attrgetter<span>(</span><span>'age'</span><span>)</span><span>)</span>
+<span>[</span><span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>]</span>
+
+<span># 也支持多级排序！</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>student_tuples<span>,</span> key<span>=</span>itemgetter<span>(</span><span>1</span><span>,</span><span>2</span><span>)</span><span>)</span>
+<span>[</span><span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>,</span> <span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>]</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>student_objects<span>,</span> key<span>=</span>attrgetter<span>(</span><span>'grade'</span><span>,</span> <span>'age'</span><span>)</span><span>)</span>
+<span>[</span><span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>,</span> <span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="升序和降序" tabindex="-1"> <strong>升序和降序</strong></h2>
+<div><pre><code><span>>></span><span>></span> <span>sorted</span><span>(</span>student_tuples<span>,</span> key<span>=</span>itemgetter<span>(</span><span>2</span><span>)</span><span>,</span> reverse<span>=</span><span>True</span><span>)</span>
+<span>[</span><span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><h2 id="排序稳定性和排序复杂度" tabindex="-1"> <strong>排序稳定性和排序复杂度</strong></h2>
+<p>排序保证是  <strong><a href="https://en.wikipedia.org/wiki/Sorting_algorithm#Stability" target="_blank" rel="noopener noreferrer">稳定</a></strong> 的。 这意味着当多个记录具有相同的键值时，将保留其原始顺序。</p>
+<p>注意  <em>blue</em>  的两个记录如何保留它们的原始顺序，以便  <code>('blue', 1)</code>  保证在  <code>('blue', 2)</code>  之前。</p>
+<p>这个美妙的属性允许你在一系列排序步骤中构建复杂的排序。例如，要按  <em>grade</em>  降序然后  <em>age</em>  升序对学生数据进行排序，请先  <em>age</em>  排序，然后再使用  <em>grade</em>  排序：</p>
+<div><pre><code><span>>></span><span>></span> s <span>=</span> <span>sorted</span><span>(</span>student_objects<span>,</span> key<span>=</span>attrgetter<span>(</span><span>'age'</span><span>)</span><span>)</span>     <span># sort on secondary key</span>
+<span>>></span><span>></span> <span>sorted</span><span>(</span>s<span>,</span> key<span>=</span>attrgetter<span>(</span><span>'grade'</span><span>)</span><span>,</span> reverse<span>=</span><span>True</span><span>)</span>       <span># now sort on primary key, descending</span>
+<span>[</span><span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>Python 中使用的  <a href="https://en.wikipedia.org/wiki/Timsort" target="_blank" rel="noopener noreferrer">Timsort</a>  算法可以有效地进行多种排序，因为它可以利用数据集中已存在的任何排序。</p>
+<h2 id="使用装饰-排序-去装饰的旧方法" tabindex="-1"> <strong>使用装饰-排序-去装饰的旧方法</strong></h2>
+<p>这个三个步骤被称为 Decorate-Sort-Undecorate ：</p>
+<ul>
+<li>首先，初始列表使用控制排序顺序的新值进行修饰。</li>
+<li>然后，装饰列表已排序。</li>
+<li>最后，删除装饰，创建一个仅包含新排序中初始值的列表。</li>
+</ul>
+<p>例如，要使用 DSU 方法按  <em>grade</em>  对学生数据进行排序：</p>
+<div><pre><code><span>>></span><span>></span> decorated <span>=</span> <span>[</span><span>(</span>student<span>.</span>grade<span>,</span> i<span>,</span> student<span>)</span> <span>for</span> i<span>,</span> student <span>in</span> <span>enumerate</span><span>(</span>student_objects<span>)</span><span>]</span>
+<span>>></span><span>></span> decorated<span>.</span>sort<span>(</span><span>)</span>
+<span>>></span><span>></span> <span>[</span>student <span>for</span> grade<span>,</span> i<span>,</span> student <span>in</span> decorated<span>]</span>               <span># undecorate</span>
+<span>[</span><span>(</span><span>'john'</span><span>,</span> <span>'A'</span><span>,</span> <span>15</span><span>)</span><span>,</span> <span>(</span><span>'jane'</span><span>,</span> <span>'B'</span><span>,</span> <span>12</span><span>)</span><span>,</span> <span>(</span><span>'dave'</span><span>,</span> <span>'B'</span><span>,</span> <span>10</span><span>)</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>这方法语有效是因为元组按字典顺序进行比较，先比较第一项；如果它们相同则比较第二个项目，依此类推。</p>
+<p>不一定在所有情况下都要在装饰列表中包含索引  <em>i</em> ，但包含它有两个好处：</p>
+<ul>
+<li>排序是稳定的——如果两个项具有相同的键，它们的顺序将保留在排序列表中。</li>
+<li>原始项目不必具有可比性，因为装饰元组的排序最多由前两项决定。 因此，例如原始列表可能包含无法直接排序的复数。</li>
+</ul>
+<p>这个方法的另一个名字是 Randal L. Schwartz 在 Perl 程序员中推广的  <a href="https://en.wikipedia.org/wiki/Schwartzian_transform" target="_blank" rel="noopener noreferrer">Schwartzian transform</a>。</p>
+<p>既然 Python 排序提供了键函数，那么通常不需要这种技术。</p>
+<h2 id="使用-cmp-参数的旧方法" tabindex="-1"> 使用 cmp 参数的旧方法</h2>
+<p>本 HOWTO 中给出的许多结构都假定为 Python 2.4 或更高版本。在此之前，没有内置  <a href="https://docs.python.org/zh-cn/3.6/library/functions.html#sorted" target="_blank" rel="noopener noreferrer">sorted()</a> ， <a href="https://docs.python.org/zh-cn/3.6/library/stdtypes.html#list.sort" target="_blank" rel="noopener noreferrer">list.sort()</a>  也没有关键字参数。相反，所有 Py2.x 版本都支持  <em>cmp</em>  参数来处理用户指定的比较函数。</p>
+<p>在 Py3.0 中， <em>cmp</em>  参数被完全删除（作为简化和统一语言努力的一部分，消除了丰富的比较与  <code>__cmp__()</code>  魔术方法之间的冲突）。</p>
+<p>在 Py2.x 中， sort 允许一个可选函数，可以调用它来进行比较。该函数应该采用两个参数进行比较，然后返回负值为小于，如果它们相等则返回零，或者返回大于大于的正值。例如，我们可以这样做：</p>
+<div><pre><code><span>>></span><span>></span> <span>def</span> <span>numeric_compare</span><span>(</span>x<span>,</span> y<span>)</span><span>:</span>
+<span>.</span><span>.</span><span>.</span>     <span>return</span> x <span>-</span> y
+<span>>></span><span>></span> <span>sorted</span><span>(</span><span>[</span><span>5</span><span>,</span> <span>2</span><span>,</span> <span>4</span><span>,</span> <span>1</span><span>,</span> <span>3</span><span>]</span><span>,</span> <span>cmp</span><span>=</span>numeric_compare<span>)</span>
+<span>[</span><span>1</span><span>,</span> <span>2</span><span>,</span> <span>3</span><span>,</span> <span>4</span><span>,</span> <span>5</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>或者你可反转比较的顺序：</p>
+<div><pre><code><span>>></span><span>></span> <span>def</span> <span>reverse_numeric</span><span>(</span>x<span>,</span> y<span>)</span><span>:</span>
+<span>.</span><span>.</span><span>.</span>     <span>return</span> y <span>-</span> x
+<span>>></span><span>></span> <span>sorted</span><span>(</span><span>[</span><span>5</span><span>,</span> <span>2</span><span>,</span> <span>4</span><span>,</span> <span>1</span><span>,</span> <span>3</span><span>]</span><span>,</span> <span>cmp</span><span>=</span>reverse_numeric<span>)</span>
+<span>[</span><span>5</span><span>,</span> <span>4</span><span>,</span> <span>3</span><span>,</span> <span>2</span><span>,</span> <span>1</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>将代码从 Python 2.x 移植到 3.x 时，如果用户提供比较功能并且需要将其转换为键函数，则会出现这种情况。 以下包装器使这很容易：</p>
+<div><pre><code><span>def</span> <span>cmp_to_key</span><span>(</span>mycmp<span>)</span><span>:</span>
+    <span>'Convert a cmp= function into a key= function'</span>
+    <span>class</span> <span>K</span><span>:</span>
+        <span>def</span> <span>__init__</span><span>(</span>self<span>,</span> obj<span>,</span> <span>*</span>args<span>)</span><span>:</span>
+            self<span>.</span>obj <span>=</span> obj
+        <span>def</span> <span>__lt__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>&lt;</span> <span>0</span>
+        <span>def</span> <span>__gt__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>></span> <span>0</span>
+        <span>def</span> <span>__eq__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>==</span> <span>0</span>
+        <span>def</span> <span>__le__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>&lt;=</span> <span>0</span>
+        <span>def</span> <span>__ge__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>>=</span> <span>0</span>
+        <span>def</span> <span>__ne__</span><span>(</span>self<span>,</span> other<span>)</span><span>:</span>
+            <span>return</span> mycmp<span>(</span>self<span>.</span>obj<span>,</span> other<span>.</span>obj<span>)</span> <span>!=</span> <span>0</span>
+    <span>return</span> K
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>要转换为键函数，只需包装旧的比较函数：</p>
+<div><pre><code><span>>></span><span>></span> <span>sorted</span><span>(</span><span>[</span><span>5</span><span>,</span> <span>2</span><span>,</span> <span>4</span><span>,</span> <span>1</span><span>,</span> <span>3</span><span>]</span><span>,</span> key<span>=</span>cmp_to_key<span>(</span>reverse_numeric<span>)</span><span>)</span>
+<span>[</span><span>5</span><span>,</span> <span>4</span><span>,</span> <span>3</span><span>,</span> <span>2</span><span>,</span> <span>1</span><span>]</span>
+</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>在 Python 3.2 中， <a href="https://docs.python.org/zh-cn/3.6/library/functools.html#functools.cmp_to_key" target="_blank" rel="noopener noreferrer">functools.cmp_to_key()</a>  函数被添加到标准库中的  <a href="https://docs.python.org/zh-cn/3.6/library/functools.html#module-functools" target="_blank" rel="noopener noreferrer">functools</a>  模块中。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>游戏设计</title>
       <link>https://timpcfan.site/life/game/design.html</link>
@@ -1878,468 +3658,6 @@ http://creativecommons.org/licenses/by/4.0/
 <li><a href="/life/game/design.html">游戏设计</a></li>
 </ul>
 ]]></content:encoded>
-    </item>
-    <item>
-      <title>原神</title>
-      <link>https://timpcfan.site/life/game/genshin.html</link>
-      <guid>https://timpcfan.site/life/game/genshin.html</guid>
-      <source url="https://timpcfan.site/rss.xml">原神</source>
-      <category>笔记</category>
-      <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="常用工具" tabindex="-1"> 常用工具</h2>
-<h3 id="伤害计算" tabindex="-1"> 伤害计算</h3>
-<ul>
-<li><a href="https://yuanshen.xin/" target="_blank" rel="noopener noreferrer">ysin</a> （中文的，可以直接读取圣遗物）</li>
-<li><a href="https://genshinimpactcalculator.com/genshinCalc.html" target="_blank" rel="noopener noreferrer">Genshin Impact Calculator</a> （参数调节比较细致）</li>
-</ul>
-<h3 id="地图工具" tabindex="-1"> 地图工具</h3>
-<ul>
-<li><a href="https://webstatic.mihoyo.com/ys/app/interactive-map/index.html" target="_blank" rel="noopener noreferrer">米游社提瓦特大地图</a></li>
-<li><a href="https://wiki.biligame.com/ys/%E5%8E%9F%E7%A5%9E%E5%9C%B0%E5%9B%BE%E5%B7%A5%E5%85%B7_%E5%85%A8%E5%9C%B0%E6%A0%87%E4%BD%8D%E7%BD%AE%E7%82%B9" target="_blank" rel="noopener noreferrer">B站原神wiki地图</a></li>
-<li><a href="https://static-web.ghzs.com/cspage_pro/yuanshenMap.html#/" target="_blank" rel="noopener noreferrer">光环助手原神资源地图</a></li>
-<li><a href="https://v3.yuanshen.site/" target="_blank" rel="noopener noreferrer">原神地图v3</a></li>
-</ul>
-<h3 id="其它工具" tabindex="-1"> 其它工具</h3>
-<ul>
-<li><a href="https://github.com/wyt1215819315/autoplan" target="_blank" rel="noopener noreferrer">autoplan</a> （米游社自动签到）</li>
-</ul>
-<h2 id="速查表" tabindex="-1"> 速查表</h2>
-<h3 id="升级所需资源汇总" tabindex="-1"> 升级所需资源汇总</h3>
-<ul>
-<li>一周树脂恢复量：1260树脂（180树脂/天）</li>
-<li>升满一个天赋：820树脂</li>
-<li>0-90角色突破材料：920树脂</li>
-<li>0-90角色经验书：419紫书</li>
-<li>0-90武器突破材料：440树脂</li>
-<li>0-90武器经验矿：907大矿（5星），605大矿（4星）</li>
-</ul>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>🀄️ 日麻笔记</title>
-      <link>https://timpcfan.site/life/game/mahjong.html</link>
-      <guid>https://timpcfan.site/life/game/mahjong.html</guid>
-      <source url="https://timpcfan.site/rss.xml">🀄️ 日麻笔记</source>
-      <category>笔记</category>
-      <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<div><p>注意</p>
-<p>本笔记非常零碎，没有进行系统整理，不适合零基础日麻新手，只是我在学习日麻的过程中将不熟悉的内容进行简单的汇总，若想系统学习日麻，推荐看以下几个。</p>
-</div>
-<h2 id="日麻教程" tabindex="-1"> 日麻教程</h2>
-<ul>
-<li><a href="https://space.bilibili.com/303003611/channel/series" target="_blank" rel="noopener noreferrer">星野Poteto的日麻教程视频合集</a></li>
-<li><a href="https://www.bilibili.com/read/readlist/rl45758" target="_blank" rel="noopener noreferrer">Seventh9日麻教程</a></li>
-<li><a href="https://bbs.nga.cn/read.php?tid=16199422&amp;rand=371" target="_blank" rel="noopener noreferrer">魔女的blog</a></li>
-<li><a href="https://www.youtube.com/channel/UCpUXhakFVdqUvcuunBciaew" target="_blank" rel="noopener noreferrer">魔女日本麻将频道</a></li>
-</ul>
-<h2 id="日麻点数计算" tabindex="-1"> 日麻点数计算 <sup></sup></h2>
-<h3 id="符的计算" tabindex="-1"> 符的计算</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/rbvbZx.jpg" alt="" loading="lazy"></p>
-<p>基本符+和牌+听牌+雀头+面子（5个部分）</p>
-<p><a href="https://lietxia.github.io/fupractice.html" target="_blank" rel="noopener noreferrer">算符练习网站</a></p>
-<h3 id="得点计算" tabindex="-1"> 得点计算</h3>
-<p>基本点：A=4×符数×2ⁿ</p>
-<p>其中n为番数，基本点不为100的倍数时，舍去十位进百位。番数≥5番时基本点取固定值</p>
-<p>5番满贯2000；6~7番跳满3000；8~10番倍满4000；11~12番三倍满6000；13番役满8000；n倍役满8000×n</p>
-<p>(对基本点的取值为什么在5番以后取固定值的，可以了解一下青天井规则，青天井规则为只按这个公式来算，没有封顶，非常吓人)</p>
-<p>得点：</p>
-<ul>
-<li>亲家荣和得点6A，自摸从子三家处各得2A点</li>
-<li>子家荣和得点4A，自摸从亲家得点2A，从其他子家处各得A点</li>
-</ul>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/J9B6ut.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/b9d4IC.jpg" alt="" loading="lazy"></p>
-<h3 id="得点速算" tabindex="-1"> 得点速算</h3>
-<h4 id="算点流程" tabindex="-1"> 算点流程</h4>
-<ol>
-<li>
-<p>确定手牌番数，5番及以上则不需要计算(子家满贯8000，跳满12000，倍满16000，三倍满24000，庄家乘以1.5倍)</p>
-</li>
-<li>
-<p>确定手牌是否特殊型(特殊型基本不需要计算)</p>
-</li>
-<li>
-<p>计算符数</p>
-</li>
-<li>
-<p>速算得点</p>
-</li>
-</ol>
-<h4 id="速算方法" tabindex="-1"> 速算方法</h4>
-<p>由于基本点舍十进百的影响，会与实际得点有300分以内的差距</p>
-<p><strong>先记住1000分的基准</strong>，庄家的1000点基准是1番20符，子家是1番30符</p>
-<p><strong>记住七对子nomi打点</strong>，子家2番25符1600点</p>
-<p><strong>然后做加减法和2倍乘算</strong></p>
-<p><strong>四番及以内，多一番则得点乘算一次2</strong></p>
-<p>符数可以通过拆解来算得点</p>
-<p>例如：一番50符，两个2番25符打点相加即2番50符打点，除以2为1番50符打点</p>
-<p>一番50符：(1600+1600)÷2=1600</p>
-<p>2番60符：子家(1000+1000)*2=4000</p>
-<p>注:荣和实际得点为3900，自摸为4000</p>
-<p>可以把符数除以2，每提一次2，看作多一番</p>
-<p>2番80符=4番20符，若为庄家得点与子家4番30符相同</p>
-<p>2番80符庄家荣和：2×2×2×1000=8000</p>
-<p>注：实际上为7700，采用切上满贯规则为8000</p>
-<p>实际上算点就是个<strong>指数相加减</strong>的问题</p>
-<p>不过因为舍入的存在反而使得这速算与实际有偏差</p>
-<p>如果想算得更快更准确可以通过记忆其他情形</p>
-<p>例如40符4番、70符三番即满贯，不存在4000，只有3900，庄家下7700的牌打点变成11600等</p>
-<h2 id="向听数、有效牌、五种听牌型" tabindex="-1"> 向听数、有效牌、五种听牌型 <sup></sup></h2>
-<h3 id="一些术语" tabindex="-1"> 一些术语</h3>
-<ul>
-<li>向听数：再摸多少张牌就可以听牌</li>
-<li>进张：可以让你向听数前进的</li>
-<li>改良：不能使得向听数前进，但是可以使得进张数量增加</li>
-<li>有效牌：进张+改良</li>
-</ul>
-<h3 id="听牌型" tabindex="-1"> 听牌型</h3>
-<ul>
-<li>两面听：78</li>
-<li>双碰听：4499</li>
-<li>嵌张听：46</li>
-<li>边张听：12</li>
-<li>单骑听：3（容易改良）</li>
-</ul>
-<h3 id="手牌书面表示法" tabindex="-1"> 手牌书面表示法</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/rLhMQT.jpg" alt="" loading="lazy"></p>
-<ul>
-<li>1-9m: 表示万子（9m表示9万）</li>
-<li>1-9p: 表示饼子（7p表示7饼）</li>
-<li>1-9s: 表示索子（9s表示9索）</li>
-<li>0: 表示红宝牌（0m表示红5万，0p表示红5饼，0s表示红5索）</li>
-<li>1-7z：表示字牌（东南西北白发中）</li>
-</ul>
-<p><a href="https://tenhou.net/2/?q=24569m36p3479s24z8m" target="_blank" rel="noopener noreferrer">https://tenhou.net/2/?q=24569m36p3479s24z8m</a></p>
-<h3 id="单骑好型改良" tabindex="-1"> 单骑好型改良</h3>
-<div><p>提示</p>
-<p>单骑听好型改良很多，不需要急着立直！可以等转成复合好型以后再立。</p>
-</div>
-<p>中间顺子234 → 进1245</p>
-<p>进2/4: 2234 → 2 234 | 22 34 → 听 2 2/5 （共6张）</p>
-<p>进1/5: 2345 → 2 345 | 234 5 → 听 2 5 （共6张）</p>
-<hr>
-<p>两边顺子123 → 进14</p>
-<p>进1: 1123 → 11 23 → 听 1/4 （共6张）</p>
-<p>进4: 1234 → 1 234 | 123 | 4 → 听1/4（共6张）</p>
-<hr>
-<p>中间刻子 777 → 进 5689</p>
-<p>进6/8: 6777 → 67 77 | 6 777 → 听5/8 6（共11张）</p>
-<p>进5/9: 5777 → 57 77 | 5 777 → 听 6 5（共7张）</p>
-<hr>
-<p>两边刻子999 → 进 78</p>
-<p>进8: 8999 → 89 99 | 8 999 → 听 7 8（共7张）</p>
-<p>进7: 7999 → 79 99 | 7 999 → 听 8 7（共7张）</p>
-<hr>
-<p>通常摸到靠近现有面子的牌都可以改良成更好的牌型：</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/5xi665.jpg" alt="" loading="lazy"></p>
-<h3 id="一些四张听牌型" tabindex="-1"> 一些四张听牌型</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/X652GR.jpg" alt="" loading="lazy"></p>
-<h3 id="一些常见的三面听" tabindex="-1"> 一些常见的三面听</h3>
-<p>中间五连型：34567 → 34 567 | 345 67 → 听2 5 8（共11张）</p>
-<p>中间六连型345678的变种：</p>
-<p>进边上的3/8: 3345678 → 33 45678 → 听3 6 9（共9张）</p>
-<p>进中间的5/6: 3455678 → 345 5678 | 345 5 678 | 34 55 678 → 听2 5 8（共9张）</p>
-<p>七连型：1234567 → 1 234 567 | 123 4 567 | 123 456 7 → 听1 4 7（共9张）</p>
-<p>67888xx → 678 88 xx | 67 888 xx → 听 x 8 5（共7张）</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/YQ3adF.jpg" alt="" loading="lazy"></p>
-<h3 id="毁天灭地五面听" tabindex="-1"> 毁天灭地五面听</h3>
-<p>4445678 → 444 5678 | 44 45678 → 听 5 8 3 6 9（共15张）</p>
-<p>2223444 → 222 3 444 | 22 234 44 | 22 23 444 | 222 34 44 → 听 1 2 3 4 5（共13张）</p>
-<h2 id="对子复合型" tabindex="-1"> 对子复合型</h2>
-<h3 id="如何处理对子复合型" tabindex="-1"> 如何处理对子复合型？</h3>
-<ul>
-<li>总共有两个对子：</li>
-<li>一般会想把两个对子都留下</li>
-<li>比较搭子的部位，拆掉最弱的搭子</li>
-</ul>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/KgbaKH.jpg" alt="" loading="lazy"></p>
-<ul>
-<li>总共有三个对子：</li>
-<li>一般会拆其中一对（三对拆一对）</li>
-<li>比较搭子部位，拆掉最强搭子的对子</li>
-<li>（把补强牌留给弱搭子）</li>
-</ul>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/6nq7Y2.jpg" alt="" loading="lazy"></p>
-<p>有三个对子，3m 7p 8s，其中88s不是搭子，拆掉会使得向听倒退，677p是好型两面搭子，但334567m是更强的搭子，因此这里要拆掉3m。</p>
-<div><p>口诀</p>
-<p>三对拆一对，拆最强的搭子</p>
-</div>
-<h2 id="攻防理论" tabindex="-1"> 攻防理论 <sup></sup></h2>
-<h3 id="早巡外侧" tabindex="-1"> 早巡外侧</h3>
-<p>早巡阶段打过的数牌，外侧的牌比较安全</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/DpkS4i.jpg" alt="" loading="lazy"></p>
-<p>例如：早巡有人打过8m，那么就会认为9m比较安全</p>
-<div><p>注意点</p>
-<p>打过的数牌离听牌时的距离越远，该理论置信度越高。</p>
-</div>
-<h3 id="没安牌时" tabindex="-1"> 没安牌时</h3>
-<p>早巡立直：</p>
-<p>若点差不大，按照自己的手牌的速度选择策略：速度快可以考虑进攻，速度慢考虑弃和，优先打它风字牌或幺九牌（因为这些牌能组成的铳牌型较少）</p>
-<h2 id="ai牌谱分析工具" tabindex="-1"> AI牌谱分析工具</h2>
-<ul>
-<li><a href="https://naga.dmv.nico/events/cho-mahjong/" target="_blank" rel="noopener noreferrer">naga牌谱分析</a> <i>Content not supported</i></li>
-<li><a href="https://github.com/Equim-chan/mjai-reviewer" target="_blank" rel="noopener noreferrer">Akochan</a></li>
-</ul>
-<div><p>相关信息</p>
-<p>Akochan 需要自己部署，不过也有一个在线的 <a href="https://mjai.ekyu.moe/" target="_blank" rel="noopener noreferrer">demo</a>，似乎现在不能分析雀魂的牌谱，只能分析天凤牌谱。</p>
-</div>
-<hr>
-<section>
-<ol>
-<li id="footnote1"><p><a href="https://www.bilibili.com/read/cv6487873" target="_blank" rel="noopener noreferrer">立直麻将点数计算与速算</a> </p>
-</li>
-<li id="footnote2"><p><a href="https://space.bilibili.com/303003611/channel/seriesdetail?sid=591630" target="_blank" rel="noopener noreferrer">星野Poteto的日麻牌效率教程</a> </p>
-</li>
-<li id="footnote3"><p><a href="https://space.bilibili.com/303003611/channel/collectiondetail?sid=622719" target="_blank" rel="noopener noreferrer">星野Poteto的日麻防守教程</a> </p>
-</li>
-</ol>
-</section>
-]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/rbvbZx.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>俄罗斯方块｜Tetris</title>
-      <link>https://timpcfan.site/life/game/tetris.html</link>
-      <guid>https://timpcfan.site/life/game/tetris.html</guid>
-      <source url="https://timpcfan.site/rss.xml">俄罗斯方块｜Tetris</source>
-      <category>笔记</category>
-      <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="tetris99-基础" tabindex="-1"> Tetris99 基础</h2>
-<h3 id="键位" tabindex="-1"> 键位</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/KOuUXn.jpg" alt="" loading="lazy"></p>
-<h3 id="对于不同的战术" tabindex="-1"> 对于不同的战术</h3>
-<ul>
-<li>向上：追击（收残血）</li>
-<li>向下：反击（很多人狙击你的时候）</li>
-<li>向右：瞄准徽章（肛大佬）</li>
-<li>向左：随机（被很多徽章的人攻击，且徽章不够多，切换随机目标）</li>
-</ul>
-<h3 id="火力" tabindex="-1"> 火力</h3>
-<h4 id="普通消除" tabindex="-1"> 普通消除</h4>
-<ul>
-<li>1行：0</li>
-<li>2行：1</li>
-<li>3行：2</li>
-<li>4行：<strong>4</strong></li>
-</ul>
-<h4 id="tspin消除" tabindex="-1"> 消除</h4>
-<ul>
-<li>1行：2</li>
-<li>2行：4</li>
-<li>3行：6</li>
-</ul>
-<div><p>提示</p>
-<p>Tspin消除2行的火力就等于普通消除4行。</p>
-</div>
-<h4 id="连消-ren-combo" tabindex="-1"> 连消（REN/Combo）</h4>
-<ul>
-<li>1~3：1</li>
-<li>4~5：2</li>
-<li>6~7：3</li>
-<li>8~10：4</li>
-<li>11以上：5</li>
-</ul>
-<h3 id="棋盘" tabindex="-1"> 棋盘</h3>
-<ul>
-<li>高20</li>
-<li>宽10</li>
-</ul>
-<h3 id="死亡判定点" tabindex="-1"> 死亡判定点</h3>
-<ul>
-<li>中间4列的第21行</li>
-</ul>
-<h3 id="构筑的tips" tabindex="-1"> 构筑的tips</h3>
-<ul>
-<li>高低差不要超过3（否则要消耗一个I棒）</li>
-<li>面对别人的送的坑：不要搭在空气上</li>
-<li>面对自己的高低差：不要害怕搭出坑，平整第一</li>
-<li>地形 &gt; 火力</li>
-<li>要注意next</li>
-<li>妥协消除</li>
-</ul>
-<h2 id="如何堆叠整齐" tabindex="-1"> 如何堆叠整齐</h2>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/s9yFBv.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/TfzumV.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/EylXyr.jpg" alt="" loading="lazy"></p>
-<h2 id="tspin" tabindex="-1"> Tspin</h2>
-<div><p>什么是Tspin？</p>
-<p>Tspin又称T旋，是现代俄罗斯方块新加入的机制，具体的原理是「踢墙」机制，该机制可以使得方块卡入传统俄罗斯方块不能卡入的地方。由于Tspin机制的出现，现代俄罗斯方块趣味性增加了不少。</p>
-</div>
-<p>Tspin根据其消除的行数分为几类：</p>
-<ul>
-<li>Tspin mini：消除一行</li>
-<li>Tspin single：消除一行</li>
-<li>Tspin double：消除两行</li>
-<li>Tspin triple：消除三行</li>
-</ul>
-<h3 id="tspin-double" tabindex="-1"> Tspin double</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/kNMH0B.jpg" alt="" height="150" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/w3hWsc.gif" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/5Jl0S9.gif" alt="" loading="lazy"></p>
-<h3 id="tspin-triple-的例子" tabindex="-1"> Tspin triple 的例子</h3>
-<p>初始Tspin triple</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg" alt="" loading="lazy"></p>
-<p>Tspin triple捐赠</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/AVyIog.jpg" alt="" loading="lazy"></p>
-<p>如何操作</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/DrAyHr.jpg" alt="" loading="lazy"></p>
-<div><p>提示</p>
-<p>就是要摆出一个F的形状！！！（没有格子的部分）</p>
-</div>
-<h2 id="tspin-捐赠模版" tabindex="-1"> Tspin 捐赠模版 <sup></sup></h2>
-<h3 id="使用sz来连续搭t槽" tabindex="-1"> 使用SZ来连续搭T槽</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/RnDucI.jpg" alt="" loading="lazy"></p>
-<p>当有两个高度差时，右边放一个Z，上面放一个S当屋顶</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/dOUTCw.png" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/34tSFV.gif" alt="" loading="lazy"></p>
-<h3 id="楼梯捐赠" tabindex="-1"> 楼梯捐赠</h3>
-<p>有4级阶梯的地形，搭一个Z就可以形成T槽</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Fwlnm3.jpg" alt="" loading="lazy"></p>
-<p>之后再搭个屋顶</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/cquWGH.jpg" alt="" loading="lazy"></p>
-<div><p>好处都有啥？</p>
-<p>既可以平整地形，也可以打出伤害</p>
-</div>
-<h3 id="stsd-super-t-spin-double" tabindex="-1"> STSD（Super T-Spin Double）</h3>
-<p>有3格宽的空地</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/cQldFu.png" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/SiMiqH.gif" alt="" loading="lazy"></p>
-<h3 id="stmb-cave-三宽捐赠" tabindex="-1"> STMB-cave（三宽捐赠）</h3>
-<p>条件：左右高度相同，中间有三格空地</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/JDYdz9.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/pssJJS.png" alt="" loading="lazy"></p>
-<p>已经有了T槽的地形，在盖屋顶时，如果两边等高可以考虑STMB来形成2连T槽</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Tz2mD5.png" alt="" loading="lazy"></p>
-<h2 id="zspin与sspin" tabindex="-1"> Zspin与Sspin</h2>
-<h3 id="_1-无东西顶住" tabindex="-1"> 1 无东西顶住</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/GP5RlB.jpg" alt="" loading="lazy"></p>
-<p>该位置逆时针旋转进入</p>
-<h3 id="_2-有东西顶住" tabindex="-1"> 2 有东西顶住</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/AuX479.jpg" alt="" loading="lazy"></p>
-<p>该位置顺时针旋转进入</p>
-<h3 id="s块同理" tabindex="-1"> S块同理</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/oDNxDi.jpg" alt="" loading="lazy"></p>
-<p>此情况逆时针进入</p>
-<h2 id="c4w-s4w-连消" tabindex="-1"> C4W/S4W 连消</h2>
-<h3 id="消除o" tabindex="-1"> 消除o</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/WdMjjg.jpg" alt="" loading="lazy"></p>
-<p>1、将Z插下去，将O放右边，恢复原样</p>
-<p>2、把J插进去，右边放O</p>
-<p>3、把J插进去，右边放T，把O放中间</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/x7XVzC.jpg" alt="" loading="lazy"></p>
-<p>4、把I插进去，右边放L或J，再放O</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/HNDp4Y.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/0a3m2W.jpg" alt="" loading="lazy"></p>
-<p>这种地形，可以把L,Z,T放进去</p>
-<h3 id="组合" tabindex="-1"> 组合</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/qTDBUC.jpg" alt="" loading="lazy"></p>
-<p>J插进去，Sspin进去，L插进去，Zspin进去</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/eg23w3.jpg" alt="" loading="lazy"></p>
-<p>J插进去，S直接竖着下来（不spin），Zspin进去</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/bGJsVT.jpg" alt="" loading="lazy"></p>
-<div><p>提示</p>
-<p>使用T方块的时候要注意下一个SZ方块是哪个（因为会改变朝向）</p>
-</div>
-<h2 id="t3塔" tabindex="-1"> T3塔</h2>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/sG3fT6.jpg" alt="" loading="lazy"></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/K2iomi.jpg" alt="" loading="lazy"></p>
-<h2 id="lst堆叠" tabindex="-1"> LST堆叠</h2>
-<p><a href="https://www.bilibili.com/read/cv7946210" target="_blank" rel="noopener noreferrer">【FOUR翻译】LST堆叠（LST Stacking）</a></p>
-<h2 id="开局定式" tabindex="-1"> 开局定式</h2>
-<h3 id="开局tds定式" tabindex="-1"> 开局TDS定式</h3>
-<p>如果I先来，一般都能搭出定式来</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/Y6mnoa.png" alt="" loading="lazy"></p>
-<h3 id="开局tspin-triple" tabindex="-1"> 开局Tspin triple</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg" alt="" loading="lazy"></p>
-<hr>
-<section>
-<ol>
-<li id="footnote1"><p><a href="https://www.bilibili.com/video/av81402631/?vd_source=944f74dda1952a351d159b78513214f7" target="_blank" rel="noopener noreferrer">【I凛】俄罗斯方块新手入门讲座 第四节 T-spin&quot;捐赠&quot;【中文字幕/Tetris99】</a> </p>
-</li>
-</ol>
-</section>
-]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/KOuUXn.jpg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>2019/08/28 - 谈Costco进入中国市场</title>
-      <link>https://timpcfan.site/note/2019-08-28-costco.html</link>
-      <guid>https://timpcfan.site/note/2019-08-28-costco.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2019/08/28 - 谈Costco进入中国市场</source>
-      <category>随笔</category>
-      <pubDate>Wed, 28 Aug 2019 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p><img src="https://images.unsplash.com/photo-1601202148957-99d5310635d1?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=2370&amp;q=80" alt="" loading="lazy"></p>
-<p>吃完饭回来想看看新闻，看到Costco在中国大陆的第一家实体店在上海开了，开门半天就因为客流量太大而提前关门。之前我还没有听说过这个公司，经过一番搜索，我才知道这家公司的厉害之处：它作为一家零售公司，但又不同于其他的零售公司以追求毛利率来赚钱。Costco则把毛利率控制得很低，换句话说他们不通过毛利率来赚钱！</p>
-<p>他们使用一种会员制体系，你必须是付费会员，你才能进入店里购物。每年缴纳一定的年费。通过低廉的价格吸引用户，再通过收取年费来获取利润。这就导致它们的商品的价格比其他商店中商品价格便宜了10%～20%。吸引了无数的顾客。</p>
-<p>第一次了解到这种模式感觉挺新奇的，零售业还能这样做？这种模式使它们公司成为美国第三大，世界第九大零售商。并在2018年《财富》世界500强中排35位。</p>
-<p>现在又开始发展中国的市场了，然而这种模式在中国能成功复制在美国加拿大成功的案例吗？我觉得要画个问号。才开门第一天，中国的消费者们就像去抢钱一样涌进Costco上海分店，挤满了人。由于会员费一定，商品价格优惠力度大，你买的越多，你省的就越多，就相当于你去超市购物不是为了买东西，而是为了赚钱。这10%～20%价格差是很可怕的。这一部分利润是商家放弃的利润，由于市场价是一定的，那么这部分利润肯定不会白白飞掉，这些钱不流到商家的手里也要流到别人的手里。我相信，之后淘宝上马上就会有Costco代购这种服务出现，因为价格差，很多人可以通过转卖商品当个中间商赚差价。</p>
-<p>这样的话，就会导致Costco的很多消费者的购物动机并不是来消费满足自己的个人需要，而是来赚钱的，是来“淘金”的。我不知道我这样想对不对，但是确实有可能会这样，因为利润摆在那里，你不要自然会有人要。我现在就是算不清楚，销售的东西过多会不会对Costco产生什么负面影响？由于控制极低的毛利率，导致增加商品的销量，应该不能够大幅度提高商店的利润。那其他方面的费用，比如说：太大的客流带来的管理成本、不断进货换货的人工成本等等这些费用都会增加。</p>
-<p>所以，如果是按我了解的情况一样的话，那Costco在中国可能不能走在美国加拿大那样的老路，要适应中国客流，和消费特点，走中国特色的道路（笑）</p>
-<p>其实吧，我觉得问题也没我说的那么严重，有很多办法都可以改善状况，我都帮Costco想好了。不是说毛利率低吗？那我提高一点价格增加毛利率不就好了。再或者，为了防止代购，可以给每个用户每天设置限额之类的措施。</p>
-<p>不清楚这种会员制零售业与中国会摩擦出什么样的火花，拭目以待，嘿嘿～</p>
-]]></content:encoded>
-      <enclosure url="https://images.unsplash.com/photo-1601202148957-99d5310635d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2370&q=80" type="image/"/>
-    </item>
-    <item>
-      <title>2019/12/25 - 记一年圣诞节</title>
-      <link>https://timpcfan.site/note/2019-12-25-Xmas.html</link>
-      <guid>https://timpcfan.site/note/2019-12-25-Xmas.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2019/12/25 - 记一年圣诞节</source>
-      <category>随笔</category>
-      <pubDate>Wed, 25 Dec 2019 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>早上起来居然收到了酒姬民（西田）私发的圣诞祝福，真的是意料之外。感觉我这几天拖着没看hh的视频真的是罪过。最近没看hh的视频其实原因挺复杂的。第一，我太喜欢她们了，觉得看她们的视频是一件很有仪式感的事情，总觉得现在不太适合看，于是就拖着了。第二，也许是因为我考完初试心情确实不太好，没心情看。emmmm，这应该是事实。感觉又想脱离社会那样。</p>
-<p>跑回去刷了hh圣诞翻唱和琥珀的mv。<a href="https://www.bilibili.com/video/BV1WJ411x7M1" target="_blank" rel="noopener noreferrer">圣诞翻唱</a>确实有点唐老鸭声线hhhh，塑料英语太过明显了，翻唱的是一首前披头士主唱约翰·列侬的圣诞歌曲 Happy Xmas（War is over），列侬是披头士的创建者，是一个呼唤和平的斗士，却在40岁时被一个狂热歌迷给枪杀。。。。</p>
-<p>果然工务店选择的翻唱歌曲都是很有意义的。不过hh唱的确实和原唱有点差距，主要是英语发音😂 。</p>
-<p><a href="https://www.bilibili.com/video/BV1hJ411C7W8" target="_blank" rel="noopener noreferrer">「琥珀的身体」mv</a>看了，憋了好久总算还是看了，虽然之前没开声音看过一点片段，感觉后面伴舞的一群人有点尴尬。不过这次正式开声音看，就没有尴尬的感觉了。歌词还没有细看，不过有一句真的是触动我心灵了。</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/ottHcM.png" alt="" loading="lazy"></p>
-<p>「呐，未来一定是美好的对吗？」</p>
-<p>联想到我自己考研失利，对未来的不确定、迷茫、彷徨，深深的触动了我，未来一定是美好的对吗？我不禁流下眼泪，考完初试后，我已经没有勇气去思考自己的未来，未来会是怎么样的呢？不过，我还是把握当下好了。</p>
-<p>不行了，觉得太伤感了就打开了hime的<a href="https://bilibili.com/video/BV1Qp411d7vM" target="_blank" rel="noopener noreferrer">echo</a>来听，然后写上面这段文字实在写不下去了😂</p>
-<p>himehina真的是可以满足我的各种情感需求啊。考完初试后的憋屈一直没有地方排解，看了「琥珀」之后总算有能让我借之来抒发我的情感。需要一点伤感的情绪，就可以去看她们的mv，听她们的故事；需要正面的情绪就去看日常和游戏直播。总之，认识hh真是太好了。</p>
-<p>「此生之幸，相见恨晚」</p>
-]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/ottHcM.png" type="image/png"/>
-    </item>
-    <item>
-      <title>2020/01/15 - 体验一元油画课</title>
-      <link>https://timpcfan.site/note/2020-01-15-try_to_learn_painting.html</link>
-      <guid>https://timpcfan.site/note/2020-01-15-try_to_learn_painting.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2020/01/15 - 体验一元油画课</source>
-      <category>生活</category>
-      <pubDate>Wed, 15 Jan 2020 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>今天和妹妹约好要去体验油画课，好像是姐姐之前给我们安利的，网上有很多一元体验课可以去参加，我们就想去试试。</p>
-<p>匆忙吃完午饭，赶过去上油画课，妹妹提前到了挺久，我骑单车过去，跟着导航绕来绕去，还绕进了公园里。。好不容易才到了目的地附近，那边在修地铁施工，路况不是很好，找了好一会儿才找到。</p>
-<p>接着就开始油画课了。</p>
-<p>油画课还不错，跟我们一起体验油画的还有另一个女生，她比我们先到，看她在给天空上色，还挺好看的。</p>
-<p>老师教完妹妹，又来给我指导，我选了一张蓝天配一个绿色的上坡的照片，很有windows xp桌面的感觉。首先是勾线，也就是粗粗地画一下大致的轮廓，之后就开始慢慢刷颜色了。油画跟水彩的差别就是用的全是油，混颜色用的是油，连洗笔用的也都是油，有松节油、调色油等等（查了一下百度，好像松节油不是油，然后松节油是调色油的一种）。</p>
-<p>画油画还挺有趣的，不过还是要很有耐心，感觉最难的地方之一就是调颜色，想要把颜色调成想要的颜色真的不容易，因为没有像procreate里面给你的调色盘，在色环上面转一转就能得到想要的颜色。真正用颜色自己调色就基本上还是要靠蒙。。。知道绿色=蓝色+黄色，但是我想要的绿色是哪种黄色加哪种蓝色呢？它们的比例又应该是怎样的呢？都是需要通过不断尝试才能得出来的。</p>
-<p>经过不懈努力加上老师的抢救，我的画的成品如下。</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/TuvqK7.jpeg" alt="" loading="lazy"></p>
-<p>妹妹的画是这样的：</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/g0fScZ.jpeg" alt="" loading="lazy"></p>
-<p>非常漂亮。</p>
-<p>虽说这是1元体验课，但是可以加钱把画给带回家。有两种选择，一种是100元带走，另一种是180元再上一次课。我想选择前一种，然而妹妹选择了后一种，我就跟着她选了。等过年后再来上一次课也不错是吧。他们是2月1日开始营业，我们回家后也差不多能去一次。</p>
-<p>晚上回家的途中，我们是手捧着画拿回家的，因为这画据说要三天才能干，所以，要小心翼翼地拿。很显然我没有小心翼翼地拿，导致画的一些地方被我莫名其妙地蹭掉了一点，有一处还比较严重，不过也无所谓了。最可气也是最搞笑的是，拿回家的途中，有一只小虫子粘到了我的画上。。。emmm</p>
-<p>等干了再把它弄走吧，或者就让它在上面跟我的作品融为一体也不是不可以hhh</p>
-]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/TuvqK7.jpeg" type="image/jpeg"/>
-    </item>
-    <item>
-      <title>2020/07/21 - 记一次苹果售后体验</title>
-      <link>https://timpcfan.site/note/2020-07-21.html</link>
-      <guid>https://timpcfan.site/note/2020-07-21.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2020/07/21 - 记一次苹果售后体验</source>
-      <category>生活</category>
-      <pubDate>Tue, 21 Jul 2020 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>今天早上，我的mbp的电池图标突然变成了一个感叹号，点开一看，显示电池需要维修。我在网上一查，才发现了电池鼓包这个问题。原来是个通病！大家的mbp都这样。。。我之前还觉得我的mbp放在桌子上放不平是心理作用或者是热弯的，今天才知道，原来是电池鼓包了。。</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/qfVFjw.JPG" alt="" loading="lazy"></p>
-<p>我赶紧到苹果官网上预约维修，离我们家比较近的（实际上也不近）苹果维修网点在益田假日广场，但是人比较多要预约到下周。。于是我就选了一家今天就能去的维修点。</p>
-<p>预约的是下午3:40，我花了65块钱打车去了罗湖的一个维修网点，真的是远。。。打车都花近50分钟。维修还是比较顺利的，之前开的发票也都能用，就是要等待一周才能把电脑取回来，还要删除掉我的数据。。虽然说有时间机器可以恢复，但是被删除数据还是有点麻烦。实际上最麻烦的是这周用不了电脑了额，是时候检验iPad Pro能否成为生产力了。既然来了一趟天才吧，我就把我的AirPods Pro给换新了，烦人的嗡鸣声没了，Apple Care + 也回本了，舒服～</p>
-<p>晚上回家，把iPad连到显示器上面，开始变成生产力。不过奇怪的是，这个屏幕不能通过typeC接口直连ipad，直连没反应。。还是要用我之前买的ns的转接头才行。。还行吧，能显示就好。</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/RfTC74.JPG" alt="" loading="lazy"></p>
-<p>似乎还不错？</p>
-]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/qfVFjw.JPG" type="image/"/>
     </item>
   </channel>
 </rss>
