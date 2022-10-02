@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 02 Oct 2022 04:13:22 GMT</pubDate>
-    <lastBuildDate>Sun, 02 Oct 2022 04:13:22 GMT</lastBuildDate>
+    <pubDate>Sun, 02 Oct 2022 04:49:30 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Oct 2022 04:49:30 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
@@ -41,9 +41,9 @@
 <li><input type="checkbox" id="task-item-9" disabled="disabled"><label for="task-item-9"> 游戏笔记</label></li>
 </ul>
 </li>
-<li><input type="checkbox" id="task-item-10" disabled="disabled"><label for="task-item-10"> 完善「代码笔记」板块</label>
+<li><input type="checkbox" id="task-item-10" disabled="disabled"><label for="task-item-10"> 完善「学习笔记」板块</label>
 <ul>
-<li><input type="checkbox" id="task-item-11" disabled="disabled"><label for="task-item-11"> 代码笔记</label>
+<li><input type="checkbox" id="task-item-11" disabled="disabled"><label for="task-item-11"> 开发笔记</label>
 <ul>
 <li><input type="checkbox" id="task-item-12" disabled="disabled"><label for="task-item-12"> Java笔记</label></li>
 <li><input type="checkbox" id="task-item-13" disabled="disabled"><label for="task-item-13"> Python笔记</label></li>
