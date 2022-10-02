@@ -46,7 +46,7 @@ export default defineUserConfig({
     //rss 订阅描述
     feedPlugin({
       hostname: "https://timpcfan.site",
-      json: true,
+      rss: true,
       count: 10,
     }),
   ],
