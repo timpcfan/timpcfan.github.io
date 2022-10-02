@@ -127,6 +127,7 @@ export default hopeTheme({
       mark: true,
       container: true,
       lazyLoad: true,
+      imageSize: true,
     },
   },
 });
