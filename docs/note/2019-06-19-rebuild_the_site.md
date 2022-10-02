@@ -8,6 +8,8 @@ tag:
   - 建站
 ---
 
+![image](https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=png&ixid=MnwxNDIyNzR8MHwxfHNlYXJjaHwzOXx8c2VydmVyfGVufDB8fHx8MTYzNzA3NjM3OA&ixlib=rb-1.2.1&q=80&w=1080)
+
 今天又进行了一年一度的网站搬家。
 
 为什么要网站搬家呢？
