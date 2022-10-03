@@ -13,7 +13,7 @@ export const code = arraySidebar([
     text: "前端开发",
     link: "frontend/",
     prefix: "frontend/",
-    children: ["vue/"],
+    children: "structure",
   },
   {
     text: "后端开发",

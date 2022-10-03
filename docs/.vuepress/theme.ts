@@ -128,6 +128,7 @@ export default hopeTheme({
       container: true,
       lazyLoad: true,
       imageSize: true,
+      echarts: true,
     },
   },
 });
