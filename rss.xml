@@ -6,13 +6,213 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 03 Oct 2022 02:23:46 GMT</pubDate>
-    <lastBuildDate>Mon, 03 Oct 2022 02:23:46 GMT</lastBuildDate>
+    <pubDate>Mon, 03 Oct 2022 14:19:14 GMT</pubDate>
+    <lastBuildDate>Mon, 03 Oct 2022 14:19:14 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>笔记</category>
+    <category>前端</category>
     <category>API</category>
     <category>转载</category>
+    <item>
+      <title>前端工程化与Webpack</title>
+      <link>https://timpcfan.site/code/frontend/webpack.html</link>
+      <guid>https://timpcfan.site/code/frontend/webpack.html</guid>
+      <source url="https://timpcfan.site/rss.xml">前端工程化与Webpack</source>
+      <category>笔记</category>
+      <category>前端</category>
+      <pubDate>Mon, 03 Oct 2022 12:48:14 GMT</pubDate>
+      <content:encoded><![CDATA[<h2 id="前端工程化" tabindex="-1"> 前端工程化</h2>
+<div><p>前端工程化的四个「现代化」</p>
+<ul>
+<li>模块化（js 的模块化，css 的模块化，资源的模块化）</li>
+<li>组件化（复用现有的 UI 结构，样式，行为）</li>
+<li>规范化（目录结构的画风，编码规范化，接口规范化，文本规范化， Git 分支管理）</li>
+<li>自动化（自动化构建，自动部署，自动化测试）</li>
+</ul>
+</div>
+<h3 id="什么是前端开发工程化" tabindex="-1"> 什么是前端开发工程化？</h3>
+<p>在企业级的前端项目开发中，把前端开发所需的工具、技术、流程、经验等进行规范化、标准化。</p>
+<p>企业中的 Vue 项目和 React 项目，都是基于工程化的方式开发的。</p>
+<h3 id="前端工程化的解决方案" tabindex="-1"> 前端工程化的解决方案</h3>
+<p>目前流行的：</p>
+<ul>
+<li><a href="http://www.webpackjs.com" target="_blank" rel="noopener noreferrer">webpack</a></li>
+<li><a href="http://zh.parceljs.org" target="_blank" rel="noopener noreferrer">parcel</a></li>
+</ul>
+<h2 id="webpack" tabindex="-1"> webpack</h2>
+<div><p>提示</p>
+<p>webpack 是前端项目工程化的具体解决方案，它提供了友好的<strong>前端模块化开发</strong>支持，以及<strong>代码压缩混淆</strong>、<strong>处理浏览器端 JavaScript 的兼容性</strong>、<strong>性能优化</strong>等强大的功能。</p>
+</div>
+<h3 id="创建一个-npm-的项目" tabindex="-1"> 创建一个 npm 的项目</h3>
+<div><pre><code><span>npm</span> init <span>-y</span>  <span># 生成配置文件package.json</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><h3 id="在项目中安装-webpack" tabindex="-1"> 在项目中安装 webpack</h3>
+<div><pre><code><span>npm</span> i webpack@5.42.1 webpack-cli@4.7.2 <span>-D</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>其中，<code>-D</code> 表示 <code>--save-dev</code>，将安装的包写入 <code>devDependencies</code> 中，表示开发时才会被利用到。默认为 <code>-S</code> 表示 <code>--save</code> ，将安装的包写入 <code>depedencies</code> 中，表示在开发以及生产环境中都会被用到。</p>
+<h3 id="在项目中配置-webpack" tabindex="-1"> 在项目中配置 webpack</h3>
+<ol>
+<li>在项目根目录中，创建名为 <code>webpack.config.js</code> 的 webpack 配置文件，并初始化如下的基本配置：</li>
+</ol>
+<div><pre><code><span>// 使用 Node.js 中的导出语法，向外导出一个 webpack 的配置对象</span>
+module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>// 代表 webpack 运行的模式，可选值为 development、production</span>
+  <span>mode</span><span>:</span> <span>"development"</span><span>,</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><ol start="2">
+<li>在 <code>package.json</code> 的 <code>scripts</code> 节点下，新增 dev 脚本如下：</li>
+</ol>
+<div><pre><code><span>"scripts"</span><span>:</span> <span>{</span>
+	<span>"dev"</span><span>:</span> <span>"webpack"</span><span>,</span>  <span>// script 节点下的脚本，可以通过 npm run 执行，例如 npm run dev</span>
+  <span>"build"</span><span>:</span> <span>"webpack --mode=production"</span>  <span>// 生产模式打包</span>
+<span>}</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><ol start="3">
+<li>在终端中运行 <code>npm run dev</code> 命令，启动 webpack 进行项目的打包构建</li>
+</ol>
+<div><p>提示</p>
+<p>webpack 会将所有依赖的 js 文件都整合到一个 main.js 文件中，在 html 中应该直接引用整合后的 main.js 文件。</p>
+</div>
+<h3 id="webpack-中的默认约定" tabindex="-1"> webpack 中的默认约定</h3>
+<p>在 webpack4.x 和 5.x 的版本中，有如下的默认约定：</p>
+<ol>
+<li>默认的打包入口文件为：src→index.js</li>
+<li>默认的输出文件路径为：dist→main.js</li>
+</ol>
+<div><p>提示</p>
+<p>注：可在 <code>webpack.config.js</code> 中修改打包的默认约定</p>
+<p>通过 entry 节点指定打包的入口，通过 output 节点指定打包的出口。</p>
+</div>
+<div><pre><code><span>const</span> path <span>=</span> <span>require</span><span>(</span><span>"path"</span><span>)</span><span>;</span>
+
+module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>mode</span><span>:</span> <span>"development"</span><span>,</span>
+  <span>entry</span><span>:</span> path<span>.</span><span>join</span><span>(</span>__dirname<span>,</span> <span>"src/index.js"</span><span>)</span><span>,</span>
+  <span>output</span><span>:</span> <span>{</span>
+    <span>path</span><span>:</span> path<span>.</span><span>join</span><span>(</span>__dirname<span>,</span> <span>"dist"</span><span>)</span><span>,</span>
+    <span>filename</span><span>:</span> <span>"main.js"</span><span>,</span>
+  <span>}</span><span>,</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="webpack-插件的使用" tabindex="-1"> webpack 插件的使用</h2>
+<h3 id="一些常用的插件" tabindex="-1"> 一些常用的插件</h3>
+<ol>
+<li><strong>webpack-dev-server</strong>
+<ul>
+<li>每当修改了源代码，webpack 会自动进行项目的打包和构建</li>
+</ul>
+</li>
+<li><strong>html-webpack-plugin</strong>
+<ul>
+<li>webpack 中的 HTML 插件（类似于一个模板引擎插件）</li>
+<li>可以通过此插件自定义 index.html 页面的内容</li>
+<li>插件生成的 html 页面中会自动注入了打包的 main.js 文件</li>
+</ul>
+</li>
+</ol>
+<h3 id="如何使用webpack-dev-server" tabindex="-1"> 如何使用<strong>webpack-dev-server</strong></h3>
+<p>安装</p>
+<div><pre><code><span>npm</span> i webpack-dev-server <span>-D</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>修改 <code>package.json</code> 中的 <code>scripts</code> 的 <code>dev</code> 命令如下：</p>
+<div><pre><code><span>"scripts"</span><span>:</span> <span>{</span>
+  <span>"dev"</span><span>:</span> <span>"webpack **serve**"</span>
+<span>}</span><span>,</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>再次运行 <code>npm run dev</code> 命令，重新进行项目的打包</p>
+<p>在浏览器中访问：<a href="http://localhost:8080" target="_blank" rel="noopener noreferrer">http://localhost:8080</a> 地址，查看自动打包效果</p>
+<div><p>一些坑</p>
+<ul>
+<li>该插件自动打包生成的 js 文件是存储在内存中的，因此在物理磁盘路径下无法看见</li>
+<li>该插件生成的 js 文件默认的位置是项目的根目录</li>
+</ul>
+</div>
+<h3 id="如何使用-html-webpack-plugin" tabindex="-1"> 如何使用 html-webpack-plugin</h3>
+<div><p>相关信息</p>
+<p>为什么要用 html-webpack-plugin？</p>
+<p>使用上面的插件时，访问 http://localhost:8080 地址，默认是打开根目录，但实际的项目入口在 src 文件夹中，因此希望将 src 文件夹中的 index.html 复制一份到根目录下，使得可以直接访问。</p>
+</div>
+<p>安装</p>
+<div><pre><code><span>npm</span> i html-webpack-plugin <span>-D</span>
+</code></pre><div aria-hidden="true"><div></div></div></div><p>配置</p>
+<div><pre><code><span>// 1. 导入 HTML 插件</span>
+<span>const</span> HtmlPlugin <span>=</span> <span>require</span><span>(</span><span>"html-webpack-plugin"</span><span>)</span><span>;</span>
+
+<span>// 2. 创建 HTML 插件的实例对象</span>
+<span>const</span> htmlPlugin <span>=</span> <span>new</span> <span>HtmlPlugin</span><span>(</span><span>{</span>
+  <span>template</span><span>:</span> <span>"./src/index.html"</span><span>,</span> <span>// 指定原文件的路径</span>
+  <span>filename</span><span>:</span> <span>"./index.html"</span><span>,</span> <span>// 指定生成文件的路径</span>
+<span>}</span><span>)</span><span>;</span>
+
+module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>mode</span><span>:</span> <span>"development"</span><span>,</span>
+  <span>plugins</span><span>:</span> <span>[</span>htmlPlugin<span>]</span><span>,</span> <span>// 3. 通过 plugins 节点，使 htmlPlugin 插件生效</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><p>启动时自动打开浏览器</p>
+<div><pre><code>module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>mode</span><span>:</span> <span>"development"</span><span>,</span>
+  <span>devServer</span><span>:</span> <span>{</span>
+    <span>open</span><span>:</span> <span>true</span><span>,</span> <span>// 自动打开浏览器</span>
+    <span>host</span><span>:</span> <span>"127.0.0.1"</span><span>,</span> <span>// 实时打包使用的主机地址</span>
+    <span>port</span><span>:</span> <span>8080</span><span>,</span> <span>//实时打包使用的端口号</span>
+  <span>}</span><span>,</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
+<h3 id="webpack-中的-loader" tabindex="-1"> webpack 中的 loader</h3>
+<div><p>提示</p>
+<p>webpack 默认只能处理.js 文件，当遇到其他文件时它会寻找有没有对应的 loader 能够进行处理。例如，在处理 css 文件时，需要安装处理 css 文件的 loader。</p>
+</div>
+<p>安装 loader：</p>
+<div><pre><code><span>npm</span> i style-loader css-loader <span>-D</span>
+<span>npm</span> i less-loader - D  <span># 若要处理less文件</span>
+<span>npm</span> i url-loader file-loader <span>-D</span> <span># 若要处理图片</span>
+<span>npm</span> i babel-loader @babel/core @babel/plugin-proposal-decorators <span>-D</span> <span># 处理高级js语法</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>在 <code>webpack.config.js</code> 的 <code>module-&gt;rules</code> 数组中，添加 loader 规则如下：</p>
+<div><pre><code>module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>module</span><span>:</span> <span>{</span>
+    <span>// 所有第三方文件模块匹配规则</span>
+    <span>rules</span><span>:</span> <span>[</span>
+      <span>// 文件后缀名的匹配规则</span>
+      <span>{</span> <span>test</span><span>:</span> <span><span>/</span><span>\.css$</span><span>/</span></span><span>,</span> <span>use</span><span>:</span> <span>[</span><span>"style-loader"</span><span>,</span> <span>"css-loader"</span><span>]</span> <span>}</span><span>,</span> <span>// 允许在js中使用 import 'xxx.css' 的方式导入css</span>
+      <span>{</span> <span>test</span><span>:</span> <span><span>/</span><span>\.less$</span><span>/</span></span><span>,</span> <span>use</span><span>:</span> <span>[</span><span>"style-loader"</span><span>,</span> <span>"css-loader"</span><span>,</span> <span>"less-loader"</span><span>]</span> <span>}</span><span>,</span>
+      <span>{</span> <span>test</span><span>:</span> <span><span>/</span><span>\.jpg|png|gif$</span><span>/</span></span><span>,</span> <span>use</span><span>:</span> <span>[</span><span>"url-loader?limit=20000"</span><span>]</span> <span>}</span><span>,</span> <span>// 处理图片，小于等于20000字节的会被转换成base64，否则为地址</span>
+      <span>{</span> <span>test</span><span>:</span> <span><span>/</span><span>\.js$</span><span>/</span></span><span>,</span> <span>use</span><span>:</span> <span>"babel-loader"</span><span>,</span> <span>exclude</span><span>:</span> <span><span>/</span><span>node_modules</span><span>/</span></span> <span>}</span><span>,</span> <span>// 处理高级js语法，node_modules中的第三方包不需要被打包</span>
+    <span>]</span><span>,</span>
+  <span>}</span><span>,</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>其中， <code>test</code> 表示匹配的文件类型，<code>use</code> 表示对应要调用的 loader</p>
+<div><p>注意</p>
+<ul>
+<li>use 数组中指定的 loader 顺序是固定的</li>
+<li>多个 loader 的调用顺序是：<strong>从后往前调用</strong></li>
+</ul>
+</div>
+<h4 id="配置-babel-loader" tabindex="-1"> 配置 babel-loader</h4>
+<p>不想看了，省略！</p>
+<p>要创建一个 <code>babel.config.js</code> 文件</p>
+<h3 id="自动清理-dist-目录" tabindex="-1"> 自动清理 dist 目录</h3>
+<p>包：clean-webpack-plugin</p>
+<p>使用方法：<a href="https://www.npmjs.com/package/clean-webpack-plugin" target="_blank" rel="noopener noreferrer">https://www.npmjs.com/package/clean-webpack-plugin</a></p>
+<h3 id="解决-source-map-的问题" tabindex="-1"> 解决 Source Map 的问题</h3>
+<div><p>提示</p>
+<p>由于 webpack 会进行混淆代码，因此运行时报错的行号可能与源代码的行号不一致，可以使用下面的方法来保持一致：</p>
+</div>
+<p>在配置文件中添加：</p>
+<div><pre><code>module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>mode</span><span>:</span> <span>"devlopment"</span><span>,</span>
+  <span>devtool</span><span>:</span> <span>"eval-source-map"</span><span>,</span> <span>// this!</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><div><p>注意</p>
+<p>考虑到安全原因，建议使用折衷的 <code>nonsources-source-map</code></p>
+</div>
+<h3 id="符号的定义" tabindex="-1"> @符号的定义</h3>
+<div><p>提示</p>
+<p>import 时，若使用相对路径会使得代码非常繁琐，可以使用@符号代表 src 目录的绝对路径，从外往里指定路径。</p>
+</div>
+<div><pre><code>module<span>.</span>exports <span>=</span> <span>{</span>
+  <span>resolve</span><span>:</span> <span>{</span>
+    <span>alias</span><span>:</span> <span>{</span>
+      <span>"@"</span><span>:</span> path<span>.</span><span>join</span><span>(</span>__dirname<span>,</span> <span>"src"</span><span>)</span><span>,</span>
+    <span>}</span><span>,</span>
+  <span>}</span><span>,</span>
+<span>}</span><span>;</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
+    </item>
     <item>
       <title>Python异步I/O与协程</title>
       <link>https://timpcfan.site/code/language/python/python-asyncio.html</link>
@@ -3636,28 +3836,6 @@ http://creativecommons.org/licenses/by/4.0/
 </code></pre>
 ]]></content:encoded>
       <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/bQjZIt.png" type="image/png"/>
-    </item>
-    <item>
-      <title>游戏笔记</title>
-      <link>https://timpcfan.site/life/game/</link>
-      <guid>https://timpcfan.site/life/game/</guid>
-      <source url="https://timpcfan.site/rss.xml">游戏笔记</source>
-      <category>笔记</category>
-      <pubDate>Sun, 02 Oct 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="目录" tabindex="-1"> 目录</h2>
-<h3 id="玩游戏" tabindex="-1"> 玩游戏</h3>
-<ul>
-<li><a href="/life/game/mahjong.html">日麻笔记</a></li>
-<li><a href="/life/game/genshin.html">原神</a></li>
-<li><a href="/life/game/tetris.html">Tetris</a></li>
-<li>Minecraft</li>
-<li>东方project</li>
-</ul>
-<h3 id="做游戏" tabindex="-1"> 做游戏</h3>
-<ul>
-<li><a href="/life/game/design.html">游戏设计</a></li>
-</ul>
-]]></content:encoded>
     </item>
   </channel>
 </rss>
