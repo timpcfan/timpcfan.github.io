@@ -25,6 +25,6 @@ export const code = arraySidebar([
     text: "系统设计",
     link: "system-design/",
     prefix: "system-design/",
-    children: "structure",
+    children: ["system-design-primer/"],
   },
 ]);

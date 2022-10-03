@@ -4,7 +4,7 @@ icon: code
 article: false
 ---
 
-此处存放着我的一些开发笔记，一直都希望以wiki的形式来管理我的笔记，现在我终于迈出了这一步，但不知道需要整理多久。。。
+此处存放着我的一些开发笔记，一直都希望以 wiki 的形式来管理我的笔记，现在我终于迈出了这一步，但不知道需要整理多久。。。
 
 ::: warning
 目前「开发笔记」区域属于**建设阶段**，非常的不完善，见谅！
@@ -16,24 +16,29 @@ article: false
 
 ### 编程语言
 
-- [编程语言](language/README.md)
-- [Java](language/java/README.md)
-- [Python](language/python/README.md)
-- [JavaScript](language/js/README.md)
+- [编程语言](language/README.md) <Badge text="计划中" type="warning" />
 
+- [Java](language/java/README.md) <Badge text="计划中" type="warning" />
+
+- [Python](language/python/README.md) <Badge text="施工ing" type="info" />
+
+- [JavaScript](language/js/README.md) <Badge text="计划中" type="warning" />
 
 ### 前端开发
 
-- [前端开发](frontend/README.md)
-- [Vue 相关](frontend/vue/README.md)
+- [前端开发](frontend/README.md) <Badge text="计划中" type="warning" />
+
+- [Vue 相关](frontend/vue/README.md) <Badge text="计划中" type="warning" />
 
 ### 后端开发
 
-- [后端开发](backend/README.md)
+- [后端开发](backend/README.md) <Badge text="计划中" type="warning" />
 
 ### 系统设计
 
-- [系统设计](system-design/README.md)
+- [系统设计](system-design/README.md) <Badge text="施工ing" type="info" />
+
+- [系统设计入门](system-design/system-design-primer/README.md) <Badge text="已完成" type="tip" />
 
 ### 学习网站
 
@@ -48,8 +53,6 @@ article: false
 
   :::
 
+- [Java 全栈知识体系](https://pdai.tech/)
 
-- [Java全栈知识体系](https://pdai.tech/)
-
-- [小林x图解计算机基础](https://xiaolincoding.com/)
-
+- [小林 x 图解计算机基础](https://xiaolincoding.com/)

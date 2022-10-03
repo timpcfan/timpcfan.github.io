@@ -12,7 +12,8 @@ article: false
 
 ## 目录
 
-- [编程语言](README.md)
 - [Java](java/README.md)
+
 - [Python](python/README.md)
+
 - [JavaScript](js/README.md)
