@@ -34,7 +34,7 @@ star: true
   - [ ] [开发笔记](code/README.md)
     - [ ] Java 笔记
     - [ ] [Python 笔记](code/language/python/README.md)
-    - [ ] Vue 笔记
+    - [x] [Vue 笔记](code/frontend/vue.md)
     - [ ] Linux 笔记
   - [ ] 算法笔记
 - [ ] 优化笔记分区

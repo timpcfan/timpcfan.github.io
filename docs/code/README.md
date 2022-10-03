@@ -26,9 +26,11 @@ article: false
 
 ### 前端开发
 
-- [前端开发](frontend/README.md) <Badge text="计划中" type="warning" />
+- [前端开发](frontend/README.md) <Badge text="已完成" type="tip" />
 
-- [Vue 相关](frontend/vue/README.md) <Badge text="计划中" type="warning" />
+- [前端开发工程化与 Webpack](frontend/webpack.md) <Badge text="已完成" type="tip" />
+
+- [Vue 相关](frontend/vue/README.md) <Badge text="已完成" type="tip" />
 
 ### 后端开发
 
