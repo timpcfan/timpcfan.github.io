@@ -11,5 +11,7 @@ article: false
 :::
 
 # 相关学习资料推荐
+
 - [系统设计入门](https://github.com/donnemartin/system-design-primer/blob/master/README-zh-Hans.md)
-- [pdai大佬的架构笔记](https://pdai.tech/md/arch/arch-x-overview.html)
+
+- [pdai 大佬的架构笔记](https://pdai.tech/md/arch/arch-x-overview.html)
