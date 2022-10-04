@@ -30,7 +30,7 @@ article: false
 
 - [前端开发工程化与 Webpack](frontend/webpack.md) <Badge text="已完成" type="tip" />
 
-- [Vue 相关](frontend/vue/README.md) <Badge text="已完成" type="tip" />
+- [Vue.js 笔记](frontend/vue.md) <Badge text="已完成" type="tip" />
 
 ### 后端开发
 

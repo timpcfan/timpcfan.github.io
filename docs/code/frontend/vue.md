@@ -1,7 +1,12 @@
 ---
-title: Vue.js
+title: Vue.js 笔记
 icon: vue
-article: false
+category:
+  - 笔记
+  - 前端
+tag:
+  - 前端
+  - vue.js
 ---
 
 ::: tip
