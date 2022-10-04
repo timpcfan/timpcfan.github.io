@@ -28,6 +28,8 @@ article: false
 
 - [前端开发](frontend/README.md) <Badge text="已完成" type="tip" />
 
+- [CSS 笔记](frontend/css.md) <Badge text="已完成" type="tip" />
+
 - [前端开发工程化与 Webpack](frontend/webpack.md) <Badge text="已完成" type="tip" />
 
 - [Vue.js 笔记](frontend/vue.md) <Badge text="已完成" type="tip" />
