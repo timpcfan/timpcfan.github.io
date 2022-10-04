@@ -2,6 +2,7 @@
 title: CSS 笔记
 order: 5
 icon: css
+headerDepth: 3
 category:
   - 笔记
   - 前端
@@ -14,99 +15,75 @@ tag:
 整理了一些学习 CSS 时的笔记。
 :::
 
-## CSS 选择器
 
-| 选择器 | 示例 | 示例说明 | CSS |
-| --- | --- | --- | --- |
-| .class | .intro | 选择所有class="intro"的元素 | 1 |
-| #id | #firstname | 选择所有id="firstname"的元素 | 1 |
-| * | * | 选择所有元素 | 2 |
-| element | p | 选择所有`<p>`元素 | 1 |
-| element,element | div,p | 选择所有`<div>`元素和`<p>`元素 | 1 |
-| element element | div p | 选择`<div>`元素内的所有`<p>`元素 | 1 |
-| element>element | div>p | 选择所有父级是 `<div>` 元素的 `<p>` 元素（div的直接儿子，不包含孙子） | 2 |
-| element+element | div+p | 选择所有紧跟在 `<div>` 元素之后的第一个 `<p>` 元素 | 2 |
-| [attribute] | [target] | 选择所有带有target属性元素 | 2 |
-| [attribute=value] | [target=-blank] | 选择所有使用target="-blank"的元素 | 2 |
-| [attribute~=value] | [title~=flower] | 选择标题属性包含单词"flower"的所有元素 | 2 |
-| [attribute|=language] | [lang|=en] | 选择 lang 属性等于 en，或者以 en- 为开头的所有元素 | 2 |
-| :link | a:link | 选择所有未访问链接 | 1 |
-| :visited | a:visited | 选择所有访问过的链接 | 1 |
-| :active | a:active | 选择活动链接 | 1 |
-| :hover | a:hover | 选择鼠标在链接上面时 | 1 |
-| :focus | input:focus | 选择具有焦点的输入元素 | 2 |
-| :first-letter | p:first-letter | 选择每一个`<p>`元素的第一个字母 | 1 |
-| :first-line | p:first-line | 选择每一个`<p>`元素的第一行 | 1 |
-| :first-child | p:first-child | 指定只有当`<p>`元素是其父级的第一个子级的样式。 | 2 |
-| :before | p:before | 在每个`<p>`元素之前插入内容 | 2 |
-| :after | p:after | 在每个`<p>`元素之后插入内容 | 2 |
-| :lang(language) | p:lang(it) | 选择一个lang属性的起始值="it"的所有`<p>`元素 | 2 |
-| element1~element2 | p~ul | 选择p元素之后的每一个ul元素 | 3 |
-| [attribute^=value] | a[src^="https"] | 选择每一个src属性的值以"https"开头的元素 | 3 |
-| [attribute$=value] | a[src$=".pdf"] | 选择每一个src属性的值以".pdf"结尾的元素 | 3 |
-| [attribute*=value] | a[src*="runoob"] | 选择每一个src属性的值包含子字符串"runoob"的元素 | 3 |
-| :first-of-type | p:first-of-type | 选择每个p元素是其父级的第一个p元素 | 3 |
-| :last-of-type | p:last-of-type | 选择每个p元素是其父级的最后一个p元素 | 3 |
-| :only-of-type | p:only-of-type | 选择每个p元素是其父级的唯一p元素 | 3 |
-| :only-child | p:only-child | 选择每个p元素是其父级的唯一子元素 | 3 |
-| :nth-child(n) | p:nth-child(2) | 选择每个p元素是其父级的第二个子元素 | 3 |
-| :nth-last-child(n) | p:nth-last-child(2) | 选择每个p元素的是其父级的第二个子元素，从最后一个子项计数 | 3 |
-| :nth-of-type(n) | p:nth-of-type(2) | 选择每个p元素是其父级的第二个p元素 | 3 |
-| :nth-last-of-type(n) | p:nth-last-of-type(2) | 选择每个p元素的是其父级的第二个p元素，从最后一个子项计数 | 3 |
-| :last-child | p:last-child | 选择每个p元素是其父级的最后一个子级。 | 3 |
-| :root | :root | 选择文档的根元素 | 3 |
-| :empty | p:empty | 选择每个没有任何子级的p元素（包括文本节点） | 3 |
-| :target | #news:target | 选择当前活动的#news元素（包含该锚名称的点击的URL） | 3 |
-| :enabled | input:enabled | 选择每一个已启用的输入元素 | 3 |
-| :disabled | input:disabled | 选择每一个禁用的输入元素 | 3 |
-| :checked | input:checked | 选择每个选中的输入元素 | 3 |
-| :not(selector) | :not(p) | 选择每个并非p元素的元素 | 3 |
-| ::selection | ::selection | 匹配元素中被用户选中或处于高亮状态的部分 | 3 |
-| :out-of-range | :out-of-range | 匹配值在指定区间之外的input元素 | 3 |
-| :in-range | :in-range | 匹配值在指定区间之内的input元素 | 3 |
-| :read-write | :read-write | 用于匹配可读及可写的元素 | 3 |
-| :read-only | :read-only | 用于匹配设置 "readonly"（只读） 属性的元素 | 3 |
-| :optional | :optional | 用于匹配可选的输入元素 | 3 |
-| :required | :required | 用于匹配设置了 "required" 属性的元素 | 3 |
-| :valid | :valid | 用于匹配输入值为合法的元素 | 3 |
-| :invalid | :invalid | 用于匹配输入值为非法的元素 | 3 |
+## Flexbox 基础知识 [^1]
+
+[^1]: [Flexbox 基础知识_allway2的博客-CSDN博客](https://blog.csdn.net/allway2/article/details/125083126)
+
+### 介绍
+
+Flexbox 是Flexible Box Module. 一种布局模型，可以轻松控制 html 元素 之间的空间分布和对齐方式。
+
+Flexbox 控制一次仅在一维（行或列）中的定位。对于二维控件，CSS Grid Layout 应运而生。
+
+给定以下模板：
+
+```html
+<body>
+  <div class="container">
+    <div class="box box-1">1</div>
+    <div class="box box-2">2</div>
+    <div class="box box-3">3</div>
+    <div class="box box-4">4</div>
+    <div class="box box-5">5</div>
+    <div class="box box-6">6</div>
+    <div class="box box-7">7</div>
+    <div class="box box-8">8</div>
+    <div class="box box-9">9</div>
+    <div class="box box-10">10</div>
+  </div>
+</body>
+```
+
+上述 div 的默认行为，尊重正常的 html 文档流，是从上到下、从左到右呈现并占据整个正文宽度，因为它的display属性默认为block.
+
+![4USqRq](http://timpcfan-site.cdn.bcebos.com/imgs/4USqRq.jpg =x300)
 
 
-## FlexBox 布局 [^1]
+### 弹性item
 
-[^1]: [弹性盒子 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)
+当`display: flex`应用于`.container div` 时，所有直接子 `div` 变为`flex-items`，并获得新的行为：
 
-### Flexbox 基础知识 [^2]
-
-[^2]: [Flexbox 基础知识_allway2的博客-CSDN博客](https://blog.csdn.net/allway2/article/details/125083126)
-
-#### 弹性item
-
-当display: flex应用于.container div 时，所有直接子 div 变为flex-items，并获得新的行为 [2]：
-
-- 它们将显示在一行中，因为flex-direction默认为row
+- 它们将显示在一行中，因为 `flex-direction` 默认为 `row`
 - 它们将从左到右显示
-- 项目不会拉伸以适应整个宽度（主轴），但它们会收缩以做到这一点。
-- 项目拉伸以适应交叉轴（本例中的高度）。
+- 项目**不会拉伸**以适应整个宽度（主轴），但它们会收缩以做到这一点。
+  ![AsUQoe](http://timpcfan-site.cdn.bcebos.com/imgs/AsUQoe.gif)
+- 项目**拉伸**以适应交叉轴（本例中的高度）。
 - 如果物品有不同的高度，它们将伸展到最高的一个高度
 - flex-basis默认为auto（项目宽度将由其内容设置）
 - flex-wrap默认为nowrap（如果容器的宽度不足以容纳物品，它们不会包装，而是会溢出）
 
-#### 弹性容器
+::: tip
+在主轴上收缩（收缩成自身宽度），在交叉轴上拉伸（拉伸成最高那个）。
+:::
+
+### 弹性容器
 
 - display: flex使容器扩展可用的整个宽度。与flex相反display: inline-flex，它使容器折叠到内容的宽度。
 
-#### flex-direction
+### flex-direction
 
 一旦声明为 flex 容器，该元素就可以被认为是两个轴。主轴，由flex-direction属性定义。和交叉轴，它垂直于第一个。
 
-该属性有四个值flex-direction：row、row-reverse和。columncolumn-reverse
+该属性有四个值flex-direction：`row`、 `column`、`row-reverse`、 `columncolumn-reverse`
 
 默认值为row，它设置主轴水平，从左到右，横轴垂直截取它，从上到下。类似地，该column值设置垂直轴，从上到下，交叉轴从左到右。两个选项的reverse属性都将主轴反转 180°。交叉轴保持不变。
 
 这些值的弹性项目行为可以在下面观察到：
 
-#### flex-wrap
+![oibRlg](http://timpcfan-site.cdn.bcebos.com/imgs/oibRlg.gif)
+
+### flex-wrap
 
 flex-wrap是当容器中的空间不足以容纳所有弹性项目时处理弹性项目的属性。
 
@@ -114,38 +91,40 @@ flex-wrap是当容器中的空间不足以容纳所有弹性项目时处理弹�
 
 通过为项目设置 300px 宽度，该nowrap选项会输出以下结果：
 
+![yuHKj4](http://timpcfan-site.cdn.bcebos.com/imgs/yuHKj4.png =x300)
+
 其中，每个项目都缩小到大约 70px 以适应容器。
 
-当属性更新为 时wrap，项目的宽度现在实际上将具有其原始值 300 像素。当第一行的宽度不足以容纳 300 像素时，该项目不会溢出容器，而是换行到新行。
+当属性更新为 时wrap，项目的宽度现在实际上将具有其原始值 300 像素。当第一行的宽度不足以容纳 300 像素时，该项目不会溢出容器，而是换行到新行。每一行都应该被认为是一个单独的弹性容器。一个容器中的空间分布不会影响相邻的其他容器。
 
-每一行都应该被认为是一个单独的弹性容器。一个容器中的空间分布不会影响相邻的其他容器。
+![HqmnPV](http://timpcfan-site.cdn.bcebos.com/imgs/HqmnPV.png =x300)
 
 另一种选择是wrap-reverse，它反转交叉轴。flex-direction由属性从上到下设置，wrap-reverse将其转换为从下到上。
 
-#### 弹性流
+### 弹性流
 
 `flex-direction`并且`flex-wrap`可以在单个属性中声明：`flex-flow: [direction] [wrap]`
 
-#### 对齐
+### 对齐
 
 ![](http://timpcfan-site.cdn.bcebos.com/imgs/invnoF.png)
 
 在 Flexbox 中，项目沿轴的对齐和空间分布可以通过四个属性来控制 ：
 
-justify-content：对齐主轴上的所有项目
-align-items：对齐交叉轴上的所有项目
-align-self：在交叉轴上对齐单个项目
-align-content: 控制交叉轴上弯曲线之间的空间
+- justify-content：对齐主轴上的所有项目
+- align-items：对齐交叉轴上的所有项目
+- align-self：在交叉轴上对齐单个项目
+- align-content: 控制交叉轴上弯曲线之间的空间
 
-#### 弹性盒尺寸
+### 弹性盒尺寸
 
-项目的大小和灵活性可以通过三个属性来控制flex-grow：flex-shrink和flex-basis。这三个都作用于主轴。
+项目的大小和灵活性可以通过三个属性来控制flex-grow、flex-shrink和flex-basis。这三个都作用于主轴。
 
-flex-grow: 如果有多余的空间，每个项目应该如何放大
-flex-shrink: 如果没有足够的空间，每个项目应该如何减少
-flex-basis: 在设置上面两个属性之前，项目应该是什么大小
+- flex-grow: 如果有多余的空间，每个项目应该如何放大
+- flex-shrink: 如果没有足够的空间，每个项目应该如何减少
+- flex-basis: 在设置上面两个属性之前，项目应该是什么大小
 
-#### flex-grow
+#### flex-grow 弹性成长
 
 此属性的flex grow factor设置是处理项目大小相对于彼此的比率。
 
@@ -165,7 +144,7 @@ flex-basis: 在设置上面两个属性之前，项目应该是什么大小
 
 ![](http://timpcfan-site.cdn.bcebos.com/imgs/1ftKa2.png)
 
-#### flex-shrink
+#### flex-shrink 弹性收缩
 
 flex-shrink处理项目大小，当没有足够的可用空间将它们全部放入容器中时。因此，它negative free space通过缩小项目来划分项目。
 
@@ -181,7 +160,7 @@ flex-shrink处理项目大小，当没有足够的可用空间将它们全部放
 
 ![](http://timpcfan-site.cdn.bcebos.com/imgs/uAEXro.png)
 
-#### flex-basis
+#### flex-basis 弹性基础
 
 flex-basis是在实际设置可用空间之前检查每个项目应具有的大小的属性。默认值为auto，并且项目宽度由width属性显式设置，或者采用内容宽度。它还接受像素值。
 
@@ -195,17 +174,21 @@ flex-basis是在实际设置可用空间之前检查每个项目应具有的大�
 
 `flex-basis`也接受 value `content`，无论`width`是否设置，计算可用空间的宽度都是项目的内容。如果您不想考虑该计算的项目宽度，请将基础设置为`0`。
 
-#### flex
+#### flex 弹性
 
 flex是 , 和 的简写属性flex-grow,flex-shrink按flex-basis该顺序.
 
 它接受以下预定义值：
 
-initial: 重置为 flexbox 默认值，与 flex: 0 1 auto 相同
-auto: flex-items 可以根据需要增长/缩小，与 flex: 1 1 auto 相同
-none: 使项目不灵活，与 flex: 0 0 auto 相同
-flex: 1: flex-items 具有增长/收缩的能力并且flex-basis设置为零，与 flex: 1 1 0 相同
+- `initial`: 重置为 flexbox 默认值，与 `flex: 0 1 auto` 相同
+- `auto`: flex-items 可以根据需要增长/缩小，与 `flex: 1 1 auto` 相同
+- `none`: 使项目不灵活，与 `flex: 0 0 auto` 相同
+- `flex: 1`: flex-items 具有增长/收缩的能力并且flex-basis设置为零，与 `flex: 1 1 0` 相同
 
+
+## FlexBox 布局 [^2]
+
+[^2]: [弹性盒子 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)
 
 ### 几个例子
 
@@ -488,3 +471,62 @@ footer {
 - 使用`.`符号，让一个格子留空
 
 你可以在文件中尽情发挥你的想象来测试各种网格排版，比如把页脚放在内容之下，或者把侧边栏一直延伸到最底。这种直观的元素放置方式很棒，你在 CSS 中看到的就是实际会出现的排版效果。
+
+
+## CSS 选择器
+
+| 选择器 | 示例 | 示例说明 | CSS |
+| --- | --- | --- | --- |
+| .class | .intro | 选择所有class="intro"的元素 | 1 |
+| #id | #firstname | 选择所有id="firstname"的元素 | 1 |
+| * | * | 选择所有元素 | 2 |
+| element | p | 选择所有`<p>`元素 | 1 |
+| element,element | div,p | 选择所有`<div>`元素和`<p>`元素 | 1 |
+| element element | div p | 选择`<div>`元素内的所有`<p>`元素 | 1 |
+| element>element | div>p | 选择所有父级是 `<div>` 元素的 `<p>` 元素（div的直接儿子，不包含孙子） | 2 |
+| element+element | div+p | 选择所有紧跟在 `<div>` 元素之后的第一个 `<p>` 元素 | 2 |
+| [attribute] | [target] | 选择所有带有target属性元素 | 2 |
+| [attribute=value] | [target=-blank] | 选择所有使用target="-blank"的元素 | 2 |
+| [attribute~=value] | [title~=flower] | 选择标题属性包含单词"flower"的所有元素 | 2 |
+| [attribute|=language] | [lang|=en] | 选择 lang 属性等于 en，或者以 en- 为开头的所有元素 | 2 |
+| :link | a:link | 选择所有未访问链接 | 1 |
+| :visited | a:visited | 选择所有访问过的链接 | 1 |
+| :active | a:active | 选择活动链接 | 1 |
+| :hover | a:hover | 选择鼠标在链接上面时 | 1 |
+| :focus | input:focus | 选择具有焦点的输入元素 | 2 |
+| :first-letter | p:first-letter | 选择每一个`<p>`元素的第一个字母 | 1 |
+| :first-line | p:first-line | 选择每一个`<p>`元素的第一行 | 1 |
+| :first-child | p:first-child | 指定只有当`<p>`元素是其父级的第一个子级的样式。 | 2 |
+| :before | p:before | 在每个`<p>`元素之前插入内容 | 2 |
+| :after | p:after | 在每个`<p>`元素之后插入内容 | 2 |
+| :lang(language) | p:lang(it) | 选择一个lang属性的起始值="it"的所有`<p>`元素 | 2 |
+| element1~element2 | p~ul | 选择p元素之后的每一个ul元素 | 3 |
+| [attribute^=value] | a[src^="https"] | 选择每一个src属性的值以"https"开头的元素 | 3 |
+| [attribute$=value] | a[src$=".pdf"] | 选择每一个src属性的值以".pdf"结尾的元素 | 3 |
+| [attribute*=value] | a[src*="runoob"] | 选择每一个src属性的值包含子字符串"runoob"的元素 | 3 |
+| :first-of-type | p:first-of-type | 选择每个p元素是其父级的第一个p元素 | 3 |
+| :last-of-type | p:last-of-type | 选择每个p元素是其父级的最后一个p元素 | 3 |
+| :only-of-type | p:only-of-type | 选择每个p元素是其父级的唯一p元素 | 3 |
+| :only-child | p:only-child | 选择每个p元素是其父级的唯一子元素 | 3 |
+| :nth-child(n) | p:nth-child(2) | 选择每个p元素是其父级的第二个子元素 | 3 |
+| :nth-last-child(n) | p:nth-last-child(2) | 选择每个p元素的是其父级的第二个子元素，从最后一个子项计数 | 3 |
+| :nth-of-type(n) | p:nth-of-type(2) | 选择每个p元素是其父级的第二个p元素 | 3 |
+| :nth-last-of-type(n) | p:nth-last-of-type(2) | 选择每个p元素的是其父级的第二个p元素，从最后一个子项计数 | 3 |
+| :last-child | p:last-child | 选择每个p元素是其父级的最后一个子级。 | 3 |
+| :root | :root | 选择文档的根元素 | 3 |
+| :empty | p:empty | 选择每个没有任何子级的p元素（包括文本节点） | 3 |
+| :target | #news:target | 选择当前活动的#news元素（包含该锚名称的点击的URL） | 3 |
+| :enabled | input:enabled | 选择每一个已启用的输入元素 | 3 |
+| :disabled | input:disabled | 选择每一个禁用的输入元素 | 3 |
+| :checked | input:checked | 选择每个选中的输入元素 | 3 |
+| :not(selector) | :not(p) | 选择每个并非p元素的元素 | 3 |
+| ::selection | ::selection | 匹配元素中被用户选中或处于高亮状态的部分 | 3 |
+| :out-of-range | :out-of-range | 匹配值在指定区间之外的input元素 | 3 |
+| :in-range | :in-range | 匹配值在指定区间之内的input元素 | 3 |
+| :read-write | :read-write | 用于匹配可读及可写的元素 | 3 |
+| :read-only | :read-only | 用于匹配设置 "readonly"（只读） 属性的元素 | 3 |
+| :optional | :optional | 用于匹配可选的输入元素 | 3 |
+| :required | :required | 用于匹配设置了 "required" 属性的元素 | 3 |
+| :valid | :valid | 用于匹配输入值为合法的元素 | 3 |
+| :invalid | :invalid | 用于匹配输入值为非法的元素 | 3 |
+
