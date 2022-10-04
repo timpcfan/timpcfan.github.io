@@ -176,7 +176,7 @@ flex-basis是在实际设置可用空间之前检查每个项目应具有的大�
 
 #### flex 弹性
 
-flex是 , 和 的简写属性flex-grow,flex-shrink按flex-basis该顺序.
+flex 是 `flex-grow`, `flex-shrink`, `flex-basis` 的简写.
 
 它接受以下预定义值：
 
