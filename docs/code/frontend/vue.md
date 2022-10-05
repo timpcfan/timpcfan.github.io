@@ -454,7 +454,7 @@ Vue.filter('filterA', (msg, arg1, arg2) => {...})  // msg永远是第一个参�
 
 ## vue 组件基础
 
-如何创建 vite 项目：[vue 项目的创建](vue%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%88%9B%E5%BB%BA%204c93df69f97b409eaef1c2a6e7c960e7.md)
+如何创建 vite 项目：[vue 项目的创建](#vue-项目的创建)
 
 ### 组件化开发思想
 
@@ -693,7 +693,7 @@ props 的**好处**：提高了组件的**复用性**。
 
 在封装 vue 组件时，可以把动态的数据项声明为 props 自定义属性。自定义属性可以在当前组件的模板结构中被直接使用。
 
-```jsx
+```jsx {8}
 <template>
     <h3>标题：{{title}}</h3>
     <h5>作者：{{author}}</h5>
@@ -701,7 +701,7 @@ props 的**好处**：提高了组件的**复用性**。
 
 <script>
 export default {
-    **props: ['title', 'author']**, // 父组件传递给my-article组件的数据，必须在props节点中声明
+    props: ['title', 'author'], // 父组件传递给my-article组件的数据，必须在props节点中声明
 }
 </script>
 ```
@@ -723,15 +723,15 @@ props 中未声明的属性，如果传递会被忽视。
 
 组件中如果使用“camelCase（驼峰命名法）”声明了 props 属性的名称，则有两种方式为其绑定属性的值：
 
-```jsx
+```jsx {7-8}
 <script>
 export default {
     props: ['**pubTime**'],
 }
 </script>
 
-<my-article **pubTime**="1989"></my-article>
-<my-article **pub-time**="1989"></my-article>
+<my-article pubTime="1989"></my-article>
+<my-article pub-time="1989"></my-article>
 ```
 
 #### props 验证
@@ -1808,7 +1808,7 @@ const app = createApp(App);
 app.mount("#app");
 ```
 
-[Todos - Vite 项目案例](todos.md)
+[Todos - Vite 项目案例](vue_todos.md)
 
 ### vue-cli 的使用
 

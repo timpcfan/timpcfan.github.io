@@ -15,10 +15,46 @@ tag:
 整理了一些学习 CSS 时的笔记。
 :::
 
+## CSS 布局之 position 篇 [^position]
 
-## Flexbox 基础知识 [^1]
+[^position]: [position - CSS | MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/position)
 
-[^1]: [Flexbox 基础知识_allway2的博客-CSDN博客](https://blog.csdn.net/allway2/article/details/125083126)
+::: tip
+`position` 属性用来描述 HTML 元素如何在文档流中定位。
+:::
+
+### position 属性
+
+position 属性的值有：
+- static：（默认值）根据正常文档流放置。
+- relative：基于正常文档流的位置使用 `top`, `right`, `bottom`, `left` 属性进行偏移。
+- absolute：将元素**移出文档流**，在[==包含块==](css_containing_block.md)内使用 `top`, `right`, `bottom`, `left` 属性进行放置。
+- fixed：将元素**移出文档流**，在**整个视图区域**内使用 `top`, `right`, `bottom`, `left` 属性进行放置。
+- sticky：基于正常文档流的位置放置，并且在滚动屏幕时能粘在画面内，使用 `top`, `right`, `bottom`, `left` 属性进行偏移。
+
+::: warning 巨大的坑
+注意：**包含块**不一定就是直接的父容器！详情请查阅[文档](css_containing_block.md)。
+:::
+
+
+### 指定位置
+
+`top`, `right`, `bottom`, `left` 属性用于指定元素的最终位置。
+
+::: info 这里拿 absolute 模式来举例。
+:::
+
+- top: 元素上边界距离包含块的相对距离。
+- right: 元素右边界距离包含块的相对距离。
+- bottom: 元素下边界距离包含块的相对距离。
+- left: 元素左边界距离包含块的相对距离。
+
+<iframe class="interactive is-default-height" height="370px" width="100%" src="https://interactive-examples.mdn.mozilla.net/pages/css/position.html" title="MDN Web Docs Interactive Example" loading="lazy"></iframe>
+
+
+## CSS 布局之 Flexbox 篇（基础） [^flex1]
+
+[^flex1]: [Flexbox 基础知识_allway2的博客-CSDN博客](https://blog.csdn.net/allway2/article/details/125083126)
 
 ### 介绍
 
@@ -186,9 +222,9 @@ flex 是 `flex-grow`, `flex-shrink`, `flex-basis` 的简写.
 - `flex: 1`: flex-items 具有增长/收缩的能力并且flex-basis设置为零，与 `flex: 1 1 0` 相同
 
 
-## FlexBox 布局 [^2]
+## CSS 布局之 Flexbox 篇（扩展） [^flex2]
 
-[^2]: [弹性盒子 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)
+[^flex2]: [弹性盒子 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Flexbox)
 
 ### 几个例子
 
@@ -347,9 +383,9 @@ flex: 1       1     100px
 :::
 
 
-## Grid 布局
+## CSS 布局之 Grid 篇 [^grid]
 
-[网格 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Grids#flexbox_%E7%BD%91%E6%A0%BC)
+[^grid]: [网格 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Grids#flexbox_%E7%BD%91%E6%A0%BC)
 
 ![](http://timpcfan-site.cdn.bcebos.com/imgs/GwfRmw.png)
 

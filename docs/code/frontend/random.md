@@ -1,4 +1,9 @@
-# 前端技巧收集
+---
+title: 前端开发 HowTo
+icon: any
+order: -1
+article: false
+---
 
 
 ## 如何批量添加iconfont图标 [^1]
@@ -18,6 +23,6 @@ var auto_click = function(i) {
 auto_click(0);
 ```
 
-## 如何自动更新iconfont图标
+## 如何自动更新iconfont图标 
 
 [https://juejin.cn/post/7033842853021220900](https://juejin.cn/post/7033842853021220900)
