@@ -4,6 +4,12 @@ import { arraySidebar } from "vuepress-theme-hope";
 export const code = arraySidebar([
   "",
   {
+    text: "开发基础",
+    link: "basic/",
+    prefix: "basic/",
+    children: "structure",
+  },
+  {
     text: "编程语言",
     link: "language/",
     prefix: "language/",
