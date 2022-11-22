@@ -6,27 +6,16 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 09 Nov 2022 01:22:37 GMT</pubDate>
-    <lastBuildDate>Wed, 09 Nov 2022 01:22:37 GMT</lastBuildDate>
+    <pubDate>Tue, 22 Nov 2022 11:27:00 GMT</pubDate>
+    <lastBuildDate>Tue, 22 Nov 2022 11:27:00 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
-    <category>随笔</category>
     <category>转载</category>
     <category>健康</category>
     <category>笔记</category>
     <category>基础</category>
     <category>前端</category>
     <category>API</category>
-    <item>
-      <title>2022/11/06 - 如何在一周之内完成毕业论文？</title>
-      <link>https://timpcfan.site/note/2022-11-06.html</link>
-      <guid>https://timpcfan.site/note/2022-11-06.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2022/11/06 - 如何在一周之内完成毕业论文？</source>
-      <category>随笔</category>
-      <pubDate>Sun, 06 Nov 2022 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<p>不可能。</p>
-]]></content:encoded>
-    </item>
     <item>
       <title>人体系统调优不完全指南</title>
       <link>https://timpcfan.site/life/health/human-system-optimization.html</link>
@@ -4818,6 +4807,41 @@ Counter<span>(</span><span>{</span><span>'b'</span><span>:</span> <span>4</span>
 <li>删除指定位置的元素：O(1)</li>
 </ul>
 ]]></content:encoded>
+    </item>
+    <item>
+      <title>Python日志 - logging</title>
+      <link>https://timpcfan.site/code/language/python/python-log.html</link>
+      <guid>https://timpcfan.site/code/language/python/python-log.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Python日志 - logging</source>
+      <category>笔记</category>
+      <category>API</category>
+      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
+      <content:encoded><![CDATA[<div><pre><code><span>import</span> logging  <span># 引入logging模块</span>
+<span>import</span> os<span>.</span>path
+<span>import</span> time
+<span># 第一步，创建一个logger</span>
+logger <span>=</span> logging<span>.</span>getLogger<span>(</span><span>)</span>
+logger<span>.</span>setLevel<span>(</span>logging<span>.</span>INFO<span>)</span>  <span># Log等级总开关</span>
+<span># 第二步，创建一个handler，用于写入日志文件</span>
+rq <span>=</span> time<span>.</span>strftime<span>(</span><span>'%Y%m%d%H%M'</span><span>,</span> time<span>.</span>localtime<span>(</span>time<span>.</span>time<span>(</span><span>)</span><span>)</span><span>)</span>
+log_path <span>=</span> os<span>.</span>path<span>.</span>dirname<span>(</span>os<span>.</span>getcwd<span>(</span><span>)</span><span>)</span> <span>+</span> <span>'/Logs/'</span>
+log_name <span>=</span> log_path <span>+</span> rq <span>+</span> <span>'.log'</span>
+logfile <span>=</span> log_name
+fh <span>=</span> logging<span>.</span>FileHandler<span>(</span>logfile<span>,</span> mode<span>=</span><span>'w'</span><span>)</span>
+fh<span>.</span>setLevel<span>(</span>logging<span>.</span>DEBUG<span>)</span>  <span># 输出到file的log等级的开关</span>
+<span># 第三步，定义handler的输出格式</span>
+formatter <span>=</span> logging<span>.</span>Formatter<span>(</span><span>"%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"</span><span>)</span>
+fh<span>.</span>setFormatter<span>(</span>formatter<span>)</span>
+<span># 第四步，将logger添加到handler里面</span>
+logger<span>.</span>addHandler<span>(</span>fh<span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>记录日志：</p>
+<div><pre><code><span># 日志</span>
+logger<span>.</span>debug<span>(</span><span>'this is a logger debug message'</span><span>)</span>
+logger<span>.</span>info<span>(</span><span>'this is a logger info message'</span><span>)</span>
+logger<span>.</span>warning<span>(</span><span>'this is a logger warning message'</span><span>)</span>
+logger<span>.</span>error<span>(</span><span>'this is a logger error message'</span><span>)</span>
+logger<span>.</span>critical<span>(</span><span>'this is a logger critical message'</span><span>)</span>
+</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
     </item>
   </channel>
 </rss>
