@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Mon, 26 Dec 2022 13:44:01 GMT</pubDate>
-    <lastBuildDate>Mon, 26 Dec 2022 13:44:01 GMT</lastBuildDate>
+    <pubDate>Wed, 28 Dec 2022 14:13:11 GMT</pubDate>
+    <lastBuildDate>Wed, 28 Dec 2022 14:13:11 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
@@ -18,10 +18,10 @@
     <category>前端</category>
     <category>API</category>
     <item>
-      <title>2022/12/17 - 新冠日记（更新中）</title>
+      <title>2022/12/17 - 新冠日记</title>
       <link>https://timpcfan.site/note/2022-12-17.html</link>
       <guid>https://timpcfan.site/note/2022-12-17.html</guid>
-      <source url="https://timpcfan.site/rss.xml">2022/12/17 - 新冠日记（更新中）</source>
+      <source url="https://timpcfan.site/rss.xml">2022/12/17 - 新冠日记</source>
       <category>随笔</category>
       <pubDate>Sat, 17 Dec 2022 00:00:00 GMT</pubDate>
       <content:encoded><![CDATA[<p>12月16日抗原检测阳性，标志着我最终确诊了新型冠状肺炎（COVID-19）。这种在2019年首次发现于武汉的病毒，在这三年内折磨着世界各地的人。而我也终于感染上了这传说中的病毒，打算把感染新冠的过程以及这几天的症状全部记录下来，也算是一种纪念，纪念这段传说的终结。</p>
@@ -69,6 +69,8 @@
 <p>今天似乎已经完全好转了，深呼吸也感觉不到肺部有痰，除了起床时喉咙有点干以外，似乎没有什么症状了。</p>
 <h3 id="_2022-12-26-周一" tabindex="-1"> 2022/12/26 周一</h3>
 <p>今天我还是没测抗原，本来昨天感觉已经没事了，但是今天又莫名其妙地有痰，动不动就会咳嗽。好在我已经学会了咳痰的方法了：用力地哈气，感受肺部被挤压，让肺部的痰松动，再咳出来。总之，感觉到有痰的时候，我都使用这个方法清理肺部，直到哈气肺部没有黏糊糊的感觉为止。</p>
+<h3 id="_2022-12-27-周二" tabindex="-1"> 2022/12/27 周二</h3>
+<p>已经完全转阴了，家里人也都基本没事了。这段日记也可以先告一段落了。</p>
 ]]></content:encoded>
       <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/vxADwl.jpg" type="image/jpeg"/>
     </item>
