@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 28 Dec 2022 14:13:11 GMT</pubDate>
-    <lastBuildDate>Wed, 28 Dec 2022 14:13:11 GMT</lastBuildDate>
+    <pubDate>Sun, 05 Mar 2023 13:35:41 GMT</pubDate>
+    <lastBuildDate>Sun, 05 Mar 2023 13:35:41 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
@@ -17,6 +17,22 @@
     <category>基础</category>
     <category>前端</category>
     <category>API</category>
+    <item>
+      <title>2023/03/05 - 漫步操场</title>
+      <link>https://timpcfan.site/note/2023-03-05.html</link>
+      <guid>https://timpcfan.site/note/2023-03-05.html</guid>
+      <source url="https://timpcfan.site/rss.xml">2023/03/05 - 漫步操场</source>
+      <category>随笔</category>
+      <pubDate>Sun, 05 Mar 2023 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/hefEhX.jpeg" alt="" loading="lazy"></p>
+<p>最近每天吃完饭就会在操场散步，消磨饭后这段时间。一边散步一边听书，这两天听的是一本小说叫《巴黎图书馆》。我很喜欢阅读，也很喜欢散步，所以饭后散步听小说是我每天最愉快的时间。我就这样漫无目的地在操场上一圈一圈地漫步着，走得特别慢，心思全在小说情节上，心情也随着小说中人物的心情起伏着。</p>
+<p>学校的夕阳特别美，尽管手机里面已经有无数张类似的照片了，但每次散步都还是忍不住拿出手机对着夕阳的余晖拍上几张。月亮早就升起来了，斜挂在天边。我没戴眼镜无法判断月亮的形状，但似乎挺圆的，估摸着今天应该是十五前后。我绕着操场走，换着角度观察天边的月亮，发现走到跑道正南边的时候，月亮被夹在操场上高耸的照明灯之间，那些灯排列得像一个吃豆人的形状，把月亮吞食掉了。</p>
+<p>我觉得有点好笑，想要照相记录下来，但不知道什么缘故放弃了这个想法。可能是当时听到的小说情节正让我入迷，也有可能是旁边疾走的女生转移了我的注意力。因为我走得真的很慢，习惯了其他人从我身边超过。</p>
+<p>也许是被正在听的小说中的恋爱氛围感染，我挺在意从我身边经过的一位长发少女的。她走路速度很快，她那蓬松的卷发在风中自然地舞动。我想她也是跟我一路人吧，喜欢一个人独处，一个人散步，享受这孤独寂静的氛围。她从我身边经过了好多次，具体次数我没有计算，但我每走一圈都能被她超过一次，我也越来越期待在下一圈中遇到她。因此，我故意放慢步伐，让她更好追上我。</p>
+<p>她从我身边路过无数次，而我却无动于衷，是不是有点可惜。有生以来，我从来没有想过主动搭讪一名女生，但这样的想法今天却突然在我脑中出现。我在脑海中搜寻，是不是前几天散步也有这样的女生从我身边路过？也许有吧，其实没什么印象。我在心里下定决心，如果之后再在散步时遇到她两次我就去主动去跟她搭讪。</p>
+]]></content:encoded>
+      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/hefEhX.jpeg" type="image/jpeg"/>
+    </item>
     <item>
       <title>2022/12/17 - 新冠日记</title>
       <link>https://timpcfan.site/note/2022-12-17.html</link>
@@ -4590,281 +4606,6 @@ sem <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><s
 		sem<span>.</span>release<span>(</span><span>)</span>
 </code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
       <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png" type="image/png"/>
-    </item>
-    <item>
-      <title>Python常用数据结构</title>
-      <link>https://timpcfan.site/code/language/python/python-data-structures.html</link>
-      <guid>https://timpcfan.site/code/language/python/python-data-structures.html</guid>
-      <source url="https://timpcfan.site/rss.xml">Python常用数据结构</source>
-      <category>笔记</category>
-      <category>API</category>
-      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="列表-list" tabindex="-1"> 列表 list</h2>
-<h3 id="列表方法" tabindex="-1"> 列表方法</h3>
-<ul>
-<li>list.append(obj)</li>
-<li>list.count(obj)</li>
-<li>list.extend(seq)</li>
-<li>list.index(obj)</li>
-<li>list.insert(index, obj)</li>
-<li>list.pop([index=-1])</li>
-<li>list.remove(obj)</li>
-<li>list.reverse()</li>
-<li>list.sort(cmp=None, key=None, reverse=False)</li>
-</ul>
-<h3 id="列表脚本操作符" tabindex="-1"> 列表脚本操作符</h3>
-<table>
-<thead>
-<tr>
-<th>Python 表达式</th>
-<th>结果</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>len([1, 2, 3])</td>
-<td>3</td>
-<td>长度</td>
-</tr>
-<tr>
-<td>[1, 2, 3] + [4, 5, 6]</td>
-<td>[1, 2, 3, 4, 5, 6]</td>
-<td>组合</td>
-</tr>
-<tr>
-<td>['Hi!'] * 4</td>
-<td>['Hi!', 'Hi!', 'Hi!', 'Hi!']</td>
-<td>重复</td>
-</tr>
-<tr>
-<td>3 in [1, 2, 3]</td>
-<td>True</td>
-<td>元素是否存在于列表中</td>
-</tr>
-<tr>
-<td>for x in [1, 2, 3]: print x,</td>
-<td>1 2 3</td>
-<td>迭代</td>
-</tr>
-</tbody>
-</table>
-<h3 id="列表截取" tabindex="-1"> 列表截取</h3>
-<table>
-<thead>
-<tr>
-<th>Python 表达式</th>
-<th>结果</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>L[2]</td>
-<td>'Taobao'</td>
-<td>读取列表中第三个元素</td>
-</tr>
-<tr>
-<td>L[-2]</td>
-<td>'Runoob'</td>
-<td>读取列表中倒数第二个元素</td>
-</tr>
-<tr>
-<td>L[1:]</td>
-<td>['Runoob', 'Taobao']</td>
-<td>从第二个元素开始截取列表</td>
-</tr>
-</tbody>
-</table>
-<h2 id="双向队列-deque" tabindex="-1"> 双向队列 deque</h2>
-<div><pre><code><span>class</span> <span>collections</span><span>.</span>deque<span>(</span><span>[</span>iterable<span>[</span><span>,</span> maxlen<span>]</span><span>]</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div></div></div><div><p>注意</p>
-<p>若当作一个<strong>单向队列</strong>，append(x) 与 popleft() 才是一对。。。</p>
-<ul>
-<li>若当作一个<strong>栈</strong>，append(x)与 pop()就是一对</li>
-</ul>
-</div>
-<h3 id="方法" tabindex="-1"> 方法</h3>
-<ul>
-<li>append(x) 添加到右侧</li>
-<li>appendleft(x) 添加到左侧</li>
-<li>pop() 从右侧出队</li>
-<li>popleft() 从左侧出队</li>
-<li>clear()</li>
-<li>copy()</li>
-<li>count(x)</li>
-<li>extend(iter)</li>
-<li>extendleft(iter)</li>
-<li>index(x[, start[, stop]])</li>
-<li>insert(i, x)</li>
-<li>remove(x) 删除从左到右的第一个 x</li>
-<li>reverse()</li>
-<li>rotate(n=1)</li>
-<li>maxlen</li>
-</ul>
-<h3 id="recipes" tabindex="-1"> Recipes</h3>
-<h4 id="_1-用于实现-tail-程序" tabindex="-1"> 1. 用于实现 tail 程序</h4>
-<div><pre><code><span>def</span> <span>tail</span><span>(</span>filename<span>,</span> n<span>=</span><span>10</span><span>)</span><span>:</span>
-    <span>'Return the last n lines of a file'</span>
-    <span>with</span> <span>open</span><span>(</span>filename<span>)</span> <span>as</span> f<span>:</span>
-        <span>return</span> deque<span>(</span>f<span>,</span> n<span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>设置 maxlen=n，可以实现保留文本最后 n 行的功能。</p>
-<h4 id="_2-用于维持一个定长的近期添加元素序列" tabindex="-1"> 2. 用于维持一个定长的近期添加元素序列</h4>
-<div><pre><code><span>def</span> <span>moving_average</span><span>(</span>iterable<span>,</span> n<span>=</span><span>3</span><span>)</span><span>:</span>
-    <span># moving_average([40, 30, 50, 46, 39, 44]) --> 40.0 42.0 45.0 43.0</span>
-    <span># http://en.wikipedia.org/wiki/Moving_average</span>
-    it <span>=</span> <span>iter</span><span>(</span>iterable<span>)</span>
-    d <span>=</span> deque<span>(</span>itertools<span>.</span>islice<span>(</span>it<span>,</span> n<span>-</span><span>1</span><span>)</span><span>)</span>
-    d<span>.</span>appendleft<span>(</span><span>0</span><span>)</span>
-    s <span>=</span> <span>sum</span><span>(</span>d<span>)</span>
-    <span>for</span> elem <span>in</span> it<span>:</span>
-        s <span>+=</span> elem <span>-</span> d<span>.</span>popleft<span>(</span><span>)</span>
-        d<span>.</span>append<span>(</span>elem<span>)</span>
-        <span>yield</span> s <span>/</span> n
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_3-实现一个-round-robin-scheduler" tabindex="-1"> 3. 实现一个 round-robin scheduler</h4>
-<div><pre><code><span>def</span> <span>roundrobin</span><span>(</span><span>*</span>iterables<span>)</span><span>:</span>
-    <span>"roundrobin('ABC', 'D', 'EF') --> A D E B F C"</span>
-    iterators <span>=</span> deque<span>(</span><span>map</span><span>(</span><span>iter</span><span>,</span> iterables<span>)</span><span>)</span>
-    <span>while</span> iterators<span>:</span>
-        <span>try</span><span>:</span>
-            <span>while</span> <span>True</span><span>:</span>
-                <span>yield</span> <span>next</span><span>(</span>iterators<span>[</span><span>0</span><span>]</span><span>)</span>
-                iterators<span>.</span>rotate<span>(</span><span>-</span><span>1</span><span>)</span>
-        <span>except</span> StopIteration<span>:</span>
-            <span># Remove an exhausted iterator.</span>
-            iterators<span>.</span>popleft<span>(</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h4 id="_4-删除第-n-个元素" tabindex="-1"> 4. 删除第 n 个元素</h4>
-<p>可以使用 rotate(n)来轻松删除第 n 个元素</p>
-<div><pre><code><span>def</span> <span>delete_nth</span><span>(</span>d<span>,</span> n<span>)</span><span>:</span>
-    d<span>.</span>rotate<span>(</span><span>-</span>n<span>)</span>
-    d<span>.</span>popleft<span>(</span><span>)</span>
-    d<span>.</span>rotate<span>(</span>n<span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><h2 id="最小堆-heapq" tabindex="-1"> 最小堆 heapq</h2>
-<p><strong>函 数</strong>                                                        <strong>描 述</strong></p>
-<p>heappush(heap, x)                                将 x 压入堆中</p>
-<p>heappop(heap)                                      从堆中弹出最小的元素</p>
-<p>heapify(heap)                                         让列表具备堆特征</p>
-<p>heapreplace(heap, x)                            弹出最小的元素，并将 x 压入堆中</p>
-<p>nlargest(n, iter, key=None)                                      返回 iter 中 n 个最大的元素</p>
-<p>nsmallest(n, iter, key=None)                                   返回 iter 中 n 个最小的元素</p>
-<p>merge(*iters, key=None, reverse=False) 合并多个有序列表形成单独一个有序列表</p>
-<div><pre><code><span>>></span><span>></span> <span>from</span> heapq <span>import</span> <span>*</span>
-<span>>></span><span>></span> <span>from</span> random <span>import</span> shuffle
-<span>>></span><span>></span> data <span>=</span> <span>list</span><span>(</span><span>range</span><span>(</span><span>10</span><span>)</span><span>)</span>
-<span>>></span><span>></span> shuffle<span>(</span>data<span>)</span>
-<span>>></span><span>></span> heap <span>=</span> <span>[</span><span>]</span>
-<span>>></span><span>></span> <span>for</span> n <span>in</span> data<span>:</span>
-<span>.</span><span>.</span><span>.</span> heappush<span>(</span>heap<span>,</span> n<span>)</span>
-<span>.</span><span>.</span><span>.</span>
-<span>>></span><span>></span> heap
-<span>[</span><span>0</span><span>,</span> <span>1</span><span>,</span> <span>3</span><span>,</span> <span>6</span><span>,</span> <span>2</span><span>,</span> <span>8</span><span>,</span> <span>4</span><span>,</span> <span>7</span><span>,</span> <span>9</span><span>,</span> <span>5</span><span>]</span>
-<span>>></span><span>></span> heappush<span>(</span>heap<span>,</span> <span>0.5</span><span>)</span>
-<span>>></span><span>></span> heap
-<span>[</span><span>0</span><span>,</span> <span>0.5</span><span>,</span> <span>3</span><span>,</span> <span>6</span><span>,</span> <span>1</span><span>,</span> <span>8</span><span>,</span> <span>4</span><span>,</span> <span>7</span><span>,</span> <span>9</span><span>,</span> <span>5</span><span>,</span> <span>2</span><span>]</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="python-如何实现最大堆" tabindex="-1"> <strong>python 如何实现最大堆？</strong></h3>
-<div><pre><code><span># 最简单的方案就是，给你的堆的元素加一个值，使值逆序排列。以下是示例代码。</span>
-<span>import</span> heapq
-sss <span>=</span> <span>'abecgfidhjk'</span>
-ll <span>=</span> <span>list</span><span>(</span>sss<span>)</span>
-heapq<span>.</span>heapify<span>(</span>ll<span>)</span>
-<span>print</span><span>(</span>ll<span>)</span>
-<span># ['a', 'b', 'e', 'c', 'g', 'f', 'i', 'd', 'h', 'j', 'k']</span>
-<span># 此时若想得到大顶堆</span>
-newl <span>=</span> <span>[</span><span>(</span><span>-</span>i<span>,</span> ll<span>[</span>i<span>]</span><span>)</span> <span>for</span> i <span>in</span> <span>range</span><span>(</span><span>len</span><span>(</span>ll<span>)</span><span>)</span><span>]</span>
-<span>#print(newl)</span>
-heapq<span>.</span>heapify<span>(</span>newl<span>)</span>
-<span># 此时已经按照第一个值变成了小顶堆，即变成了逆序</span>
-max_heap <span>=</span> <span>list</span><span>(</span><span>)</span>
-<span>while</span> newl<span>:</span>
-    _<span>,</span> s <span>=</span> heapq<span>.</span>heappop<span>(</span>newl<span>)</span>
-    max_heap<span>.</span>append<span>(</span>s<span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="计数器-counter" tabindex="-1"> 计数器 Counter</h2>
-<div><pre><code><span>class</span> <span>collections</span><span>.</span>Counter<span>(</span><span>[</span>iterable<span>-</span><span>or</span><span>-</span>mapping<span>]</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div></div></div><p>Counter 是一个 dict 的子类，存着每个元素出现的次数，若访问不存在的元素会返回 0。</p>
-<div><pre><code>c <span>=</span> Counter<span>(</span><span>)</span>                           <span># a new, empty counter</span>
-c <span>=</span> Counter<span>(</span><span>'gallahad'</span><span>)</span>                 <span># a new counter from an iterable</span>
-c <span>=</span> Counter<span>(</span><span>{</span><span>'red'</span><span>:</span> <span>4</span><span>,</span> <span>'blue'</span><span>:</span> <span>2</span><span>}</span><span>)</span>      <span># a new counter from a mapping</span>
-c <span>=</span> Counter<span>(</span>cats<span>=</span><span>4</span><span>,</span> dogs<span>=</span><span>8</span><span>)</span>             <span># a new counter from keyword args</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div></div></div><p>直接以字典的方式去访问 Counter</p>
-<div><pre><code>c<span>[</span><span>'cats'</span><span>]</span>         <span># return 4</span>
-c<span>[</span><span>'cats'</span><span>]</span> <span>+=</span> <span>1</span>    <span># add one more cat</span>
-c<span>[</span><span>'pigs'</span><span>]</span>         <span># missing value will return 0</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p><strong>elements()</strong> 返回一个 iterator 根据每个元素的数量来访问所有元素（会忽略数量为 0 或负的元素）</p>
-<div><pre><code><span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>4</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>0</span><span>,</span> d<span>=</span><span>-</span><span>2</span><span>)</span>
-<span>>></span><span>></span> <span>sorted</span><span>(</span>c<span>.</span>elements<span>(</span><span>)</span><span>)</span>
-<span>[</span><span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'a'</span><span>,</span> <span>'b'</span><span>,</span> <span>'b'</span><span>]</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div></div></div><p>*<strong>*most_common**</strong>([<em>n</em>]) 返回一个 tuple 列表，包含按元素数量排序的最常见的元素列表</p>
-<div><pre><code><span>>></span><span>></span> Counter<span>(</span><span>'abracadabra'</span><span>)</span><span>.</span>most_common<span>(</span><span>3</span><span>)</span>
-<span>[</span><span>(</span><span>'a'</span><span>,</span> <span>5</span><span>)</span><span>,</span> <span>(</span><span>'b'</span><span>,</span> <span>2</span><span>)</span><span>,</span> <span>(</span><span>'r'</span><span>,</span> <span>2</span><span>)</span><span>]</span>
-</code></pre><div aria-hidden="true"><div></div><div></div></div></div><p>*<strong>*subtract**</strong>([<em>iterable-or-mapping</em>]) 两个 Counter 可以相减</p>
-<div><pre><code><span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>4</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>0</span><span>,</span> d<span>=</span><span>-</span><span>2</span><span>)</span>
-<span>>></span><span>></span> d <span>=</span> Counter<span>(</span>a<span>=</span><span>1</span><span>,</span> b<span>=</span><span>2</span><span>,</span> c<span>=</span><span>3</span><span>,</span> d<span>=</span><span>4</span><span>)</span>
-<span>>></span><span>></span> c<span>.</span>subtract<span>(</span>d<span>)</span>
-<span>>></span><span>></span> c
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>3</span><span>,</span> <span>'b'</span><span>:</span> <span>0</span><span>,</span> <span>'c'</span><span>:</span> <span>-</span><span>3</span><span>,</span> <span>'d'</span><span>:</span> <span>-</span><span>6</span><span>}</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div></div></div><p>*<strong>*fromkeys**</strong>(<em>iterable</em>) 没有对 Counter 实现该方法（dict 的类方法，用于根据 dict 的键生成一个新的 dict）</p>
-<p>*<strong>*update**</strong>([<em>iterable-or-mapping</em>]) 与 dict 的 update 一样</p>
-<p>其他的一些操作：</p>
-<div><pre><code><span>sum</span><span>(</span>c<span>.</span>values<span>(</span><span>)</span><span>)</span>                 <span># total of all counts</span>
-c<span>.</span>clear<span>(</span><span>)</span>                       <span># reset all counts</span>
-<span>list</span><span>(</span>c<span>)</span>                         <span># list unique elements</span>
-<span>set</span><span>(</span>c<span>)</span>                          <span># convert to a set</span>
-<span>dict</span><span>(</span>c<span>)</span>                         <span># convert to a regular dictionary</span>
-c<span>.</span>items<span>(</span><span>)</span>                       <span># convert to a list of (elem, cnt) pairs</span>
-Counter<span>(</span><span>dict</span><span>(</span>list_of_pairs<span>)</span><span>)</span>    <span># convert from a list of (elem, cnt) pairs</span>
-c<span>.</span>most_common<span>(</span><span>)</span><span>[</span><span>:</span><span>-</span>n<span>-</span><span>1</span><span>:</span><span>-</span><span>1</span><span>]</span>       <span># n least common elements</span>
-<span>+</span>c                              <span># remove zero and negative counts</span>
-
-<span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>3</span><span>,</span> b<span>=</span><span>1</span><span>)</span>
-<span>>></span><span>></span> d <span>=</span> Counter<span>(</span>a<span>=</span><span>1</span><span>,</span> b<span>=</span><span>2</span><span>)</span>
-<span>>></span><span>></span> c <span>+</span> d                       <span># add two counters together:  c[x] + d[x]</span>
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>4</span><span>,</span> <span>'b'</span><span>:</span> <span>3</span><span>}</span><span>)</span>
-<span>>></span><span>></span> c <span>-</span> d                       <span># subtract (keeping only positive counts)</span>
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
-<span>>></span><span>></span> c <span>&amp;</span> d                       <span># intersection:  min(c[x], d[x])</span>
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>1</span><span>,</span> <span>'b'</span><span>:</span> <span>1</span><span>}</span><span>)</span>
-<span>>></span><span>></span> c <span>|</span> d                       <span># union:  max(c[x], d[x])</span>
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>3</span><span>,</span> <span>'b'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
-
-<span>>></span><span>></span> c <span>=</span> Counter<span>(</span>a<span>=</span><span>2</span><span>,</span> b<span>=</span><span>-</span><span>4</span><span>)</span>
-<span>>></span><span>></span> <span>+</span>c
-Counter<span>(</span><span>{</span><span>'a'</span><span>:</span> <span>2</span><span>}</span><span>)</span>
-<span>>></span><span>></span> <span>-</span>c
-Counter<span>(</span><span>{</span><span>'b'</span><span>:</span> <span>4</span><span>}</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="随机队列-randomizedqueue" tabindex="-1"> 随机队列 RandomizedQueue</h2>
-<div><p>相关信息</p>
-<p>自创数据结构，在工作中使用</p>
-</div>
-<div><pre><code><span>class</span> <span>RandomizedQueue</span><span>:</span>
-    <span>def</span> <span>__init__</span><span>(</span>self<span>,</span> _iter<span>=</span><span>[</span><span>]</span><span>)</span><span>:</span>
-        self<span>.</span>arr <span>=</span> <span>[</span><span>*</span>_iter<span>]</span>
-    <span>def</span> <span>append</span><span>(</span>self<span>,</span> val<span>)</span><span>:</span>
-        self<span>.</span>arr<span>.</span>append<span>(</span>val<span>)</span>
-    <span>def</span> <span>remove</span><span>(</span>self<span>,</span> idx<span>)</span><span>:</span>
-        <span>if</span> idx <span>>=</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>:</span>
-            <span>return</span>
-        r <span>=</span> self<span>.</span>arr<span>[</span>idx<span>]</span>
-        self<span>.</span>arr<span>[</span>idx<span>]</span> <span>=</span> self<span>.</span>arr<span>[</span><span>-</span><span>1</span><span>]</span>  <span># 将最后一个元素移动到删除的元素位置</span>
-        self<span>.</span>arr<span>.</span>pop<span>(</span><span>)</span>
-        <span>return</span> r
-    <span>def</span> <span>getRandom</span><span>(</span>self<span>)</span><span>:</span>
-        <span>if</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span> <span>==</span> <span>0</span><span>:</span>
-            <span>return</span>
-        <span>return</span> self<span>.</span>arr<span>[</span><span>int</span><span>(</span>random<span>.</span>random<span>(</span><span>)</span> <span>*</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>)</span><span>]</span>
-    <span>def</span> <span>popRandom</span><span>(</span>self<span>)</span><span>:</span>
-        <span>if</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span> <span>==</span> <span>0</span><span>:</span>
-            <span>return</span>
-        idx <span>=</span> <span>int</span><span>(</span>random<span>.</span>random<span>(</span><span>)</span> <span>*</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span><span>)</span>
-        <span>return</span> self<span>.</span>remove<span>(</span>idx<span>)</span>
-    <span>def</span> <span>__len__</span><span>(</span>self<span>)</span><span>:</span>
-        <span>return</span> <span>len</span><span>(</span>self<span>.</span>arr<span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><ul>
-<li>入队：O(1)</li>
-<li>获取随机元素：O(1)</li>
-<li>随机出队：O(1)</li>
-<li>删除指定位置的元素：O(1)</li>
-</ul>
-]]></content:encoded>
     </item>
   </channel>
 </rss>
