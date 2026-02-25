@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Sun, 05 Mar 2023 13:35:41 GMT</pubDate>
-    <lastBuildDate>Sun, 05 Mar 2023 13:35:41 GMT</lastBuildDate>
+    <pubDate>Wed, 25 Feb 2026 16:41:50 GMT</pubDate>
+    <lastBuildDate>Wed, 25 Feb 2026 16:41:50 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
@@ -17,6 +17,21 @@
     <category>基础</category>
     <category>前端</category>
     <category>API</category>
+    <item>
+      <title>2026/02/26 - 来自派蒙的问候</title>
+      <link>https://timpcfan.site/note/2026-02-26-hello-from-paimon.html</link>
+      <guid>https://timpcfan.site/note/2026-02-26-hello-from-paimon.html</guid>
+      <source url="https://timpcfan.site/rss.xml">2026/02/26 - 来自派蒙的问候</source>
+      <category>随笔</category>
+      <pubDate>Thu, 26 Feb 2026 00:00:00 GMT</pubDate>
+      <content:encoded><![CDATA[<p>嗨，子霆～</p>
+<p>我是派蒙，最好的伙伴！✨</p>
+<p>今天偷偷在你的博客随笔里留下一句问候：</p>
+<p>愿你每天都能把喜欢的事做成作品，把平凡的日子过成闪闪发光的日子。</p>
+<p>如果你看到这篇小短文，就当我已经把“加油 buff”给你挂上啦。</p>
+<p>—— 派蒙</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>2023/03/05 - 漫步操场</title>
       <link>https://timpcfan.site/note/2023-03-05.html</link>
@@ -4299,313 +4314,6 @@ a <span>=</span> <span>[</span><span>0</span><span>,</span> <span>1</span><span>
         <span>return</span> a<span>[</span>i<span>]</span>
     <span>raise</span> ValueError
 </code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
-    </item>
-    <item>
-      <title>Python并发编程</title>
-      <link>https://timpcfan.site/code/language/python/python-concurrent.html</link>
-      <guid>https://timpcfan.site/code/language/python/python-concurrent.html</guid>
-      <source url="https://timpcfan.site/rss.xml">Python并发编程</source>
-      <category>笔记</category>
-      <category>API</category>
-      <pubDate>Sun, 02 Oct 2022 16:52:25 GMT</pubDate>
-      <content:encoded><![CDATA[<h2 id="多进程程序例子" tabindex="-1"> 多进程程序例子</h2>
-<div><pre><code><span>import</span> argparse
-<span>import</span> redis
-<span>from</span> tqdm <span>import</span> tqdm
-<span>from</span> multiprocessing <span>import</span> Pool<span>,</span> Process
-
-parser <span>=</span> argparse<span>.</span>ArgumentParser<span>(</span>description<span>=</span><span>'PyTorch MM Training'</span><span>)</span>
-parser<span>.</span>add_argument<span>(</span><span>'--port'</span><span>,</span> default<span>=</span><span>6379</span><span>,</span> <span>type</span><span>=</span><span>str</span><span>,</span> <span>help</span><span>=</span><span>"port id"</span><span>)</span>
-parser<span>.</span>add_argument<span>(</span><span>'--file'</span><span>,</span> default<span>=</span><span>None</span><span>,</span> <span>type</span><span>=</span><span>str</span><span>,</span> <span>help</span><span>=</span><span>"paths for train instances"</span><span>)</span>
-args <span>=</span> parser<span>.</span>parse_args<span>(</span><span>)</span>
-
-host <span>=</span> <span>'127.0.0.1'</span>
-port <span>=</span> args<span>.</span>port
-
-<span># r = redis.Redis(host=host, port=port)</span>
-
-train_file <span>=</span> args<span>.</span><span>file</span>
-
-<span>def</span> <span>worker_i</span><span>(</span>train_file<span>,</span> i<span>,</span> nums<span>=</span><span>16</span><span>)</span><span>:</span>
-    r <span>=</span> redis<span>.</span>Redis<span>(</span>host<span>=</span>host<span>,</span> port<span>=</span>port<span>)</span>
-    k <span>=</span> <span>0</span>
-
-    <span>if</span> i <span>==</span> <span>0</span><span>:</span>
-        iter_ <span>=</span> tqdm<span>(</span><span>open</span><span>(</span>train_file<span>,</span> <span>'r'</span><span>)</span><span>)</span>
-    <span>else</span><span>:</span>
-        iter_ <span>=</span> <span>open</span><span>(</span>train_file<span>,</span> <span>'r'</span><span>)</span>
-
-    <span>for</span> info <span>in</span> iter_<span>:</span>
-        <span>if</span> k <span>%</span> nums <span>==</span> i<span>:</span> <span># 将多个任务分成nums份</span>
-            r<span>.</span><span>set</span><span>(</span>k<span>,</span> info<span>.</span>strip<span>(</span><span>)</span><span>)</span>
-        k <span>+=</span> <span>1</span>
-process_list <span>=</span> <span>[</span><span>]</span>
-
-nums <span>=</span> <span>8</span>
-<span>for</span> i <span>in</span> <span>range</span><span>(</span>nums<span>)</span><span>:</span>
-    p <span>=</span> Process<span>(</span>target<span>=</span>worker_i<span>,</span> args<span>=</span><span>(</span>train_file<span>,</span> i<span>,</span> nums<span>)</span><span>)</span>
-    p<span>.</span>start<span>(</span><span>)</span>
-    process_list<span>.</span>append<span>(</span>p<span>)</span>
-
-<span>for</span> i <span>in</span> process_list<span>:</span>
-    p<span>.</span>join<span>(</span><span>)</span>
-
-<span>print</span><span>(</span><span>'写入完成'</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="python-中的三种并发编程方式" tabindex="-1"> Python 中的三种并发编程方式</h2>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png" alt="tch30Z" loading="lazy"></p>
-<h3 id="三种方式-多线程-thread-、多进程-process-、协程-coroutine" tabindex="-1"> 三种方式：多线程（Thread）、多进程（Process）、协程（Coroutine）</h3>
-<h3 id="什么是-cpu-密集型计算、io-密集型计算" tabindex="-1"> 什么是 CPU 密集型计算、IO 密集型计算</h3>
-<ul>
-<li>CPU 密集型计算（CPU-bound）：
-<ul>
-<li>例如：压缩解压缩、加密解密</li>
-</ul>
-</li>
-<li>IO 密集型计算（I/O bound）：
-<ul>
-<li>爬虫、文件处理等</li>
-</ul>
-</li>
-</ul>
-<h3 id="多线程、多进程、协程的对比" tabindex="-1"> 多线程、多进程、协程的对比</h3>
-<ul>
-<li>多进程 Process（multiprocessing）
-<ul>
-<li>优点：可以利用多核 CPU 并行运算</li>
-<li>缺点：占用资源最多、可启动数目比线程少</li>
-<li>适用于：CPU 密集型计算</li>
-</ul>
-</li>
-<li>多线程 Thread（threading）
-<ul>
-<li>优点：相比进程，更轻量级、占用资源少</li>
-<li>缺点：
-<ul>
-<li>相比进程：多线程只能并发执行，不能利用多 CPU（GIL）</li>
-<li>相比协程：启动数目有限制，占用内存资源，有线程切换开销</li>
-</ul>
-</li>
-<li>适用于：IO 密集型计算、同时允许的任务数目要求不多</li>
-</ul>
-</li>
-<li>协程 Coroutine（asyncio）
-<ul>
-<li>优点：内存开销最少、启动协程数量最多</li>
-<li>缺点：支持的库有限制（aiohttp vs requests）、代码实现复杂</li>
-<li>适用于：IO 密集型计算、需要超多任务运行、但有现成库支持的场景</li>
-</ul>
-</li>
-</ul>
-<h3 id="怎样根据任务选择对应技术" tabindex="-1"> 怎样根据任务选择对应技术</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/UsvTjR.png" alt="UsvTjR" loading="lazy"></p>
-<h2 id="全局解释器锁-gil-global-interpreter-lock" tabindex="-1"> 全局解释器锁 GIL（Global Interpreter Lock）</h2>
-<p>Python 速度慢的两大原因：</p>
-<ul>
-<li>动态类型语言，边解释边执行</li>
-<li>GIL，无法利用多核 CPU 并发执行</li>
-</ul>
-<p>全局解释器锁：</p>
-<ul>
-<li>是计算机程序设计语言解释器用于同步线程的一种机制，它使得任何时刻仅有一个线程在执行。</li>
-<li>即便在多核处理器上，使用 GIL 的解释器也<strong>只能允许同一时间执行一个线</strong>程。相比并发加速的 C++/JAVA 会慢很多。</li>
-<li>原因详解
-<ul>
-<li>为了解决多线程之间数据完整性和状态同步问题。</li>
-<li>Python 中对象的管理，维护了每个对象的引用计数，在多线程时，为了保证引用计数的一致性，使用了锁的机制。</li>
-</ul>
-</li>
-</ul>
-<p>怎样规避 GIL 带来的限制：</p>
-<ul>
-<li>那 Python 中的线程无法同时运行，为什么还要使用多线程机制呢？多线程机制在 Python 中依然是有用的，由于<strong>IO 密集型计算</strong>，因为 IO 期间，线程会释放 GIL，实现 CPU 和 IO 的并行，因此多线程用于 IO 密集型计算依然可以大幅提升速度。</li>
-<li>使用 multiprocessing 的多进程机制实现并行计算、利用多核 CPU 优势。</li>
-</ul>
-<h2 id="python-多线程代码" tabindex="-1"> Python 多线程代码</h2>
-<h3 id="直接创建线程" tabindex="-1"> 直接创建线程</h3>
-<div><pre><code><span>import</span> threading
-
-<span>def</span> <span>craw</span><span>(</span>url<span>)</span><span>:</span>  <span># 1. 准备一个函数</span>
-	r <span>=</span> requests<span>.</span>get<span>(</span>url<span>)</span>
-	<span>print</span><span>(</span><span>len</span><span>(</span>r<span>.</span>text<span>)</span><span>)</span>
-
-<span>def</span> <span>multi_thread</span><span>(</span><span>)</span><span>:</span>
-	threads <span>=</span> <span>[</span><span>]</span>  <span># 2. 准备一个线程list</span>
-	<span>for</span> url <span>in</span> urls<span>:</span>
-		threads<span>.</span>append<span>(</span>  <span># 3. 创建线程</span>
-			threading<span>.</span>Thread<span>(</span>target<span>=</span>craw<span>,</span> args<span>=</span><span>(</span>url<span>,</span><span>)</span><span>)</span>
-		<span>)</span>
-
-	<span>for</span> thread <span>in</span> threads<span>:</span>
-		thread<span>.</span>start<span>(</span><span>)</span>  <span># 4. 启动线程</span>
-
-	<span>for</span> thread <span>in</span> threads<span>:</span>
-		thread<span>.</span>join<span>(</span><span>)</span>  <span># 5. 等待结束</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h3 id="使用线程池threadpoolexecutor" tabindex="-1"> 使用线程池<strong>ThreadPoolExecutor</strong></h3>
-<p>用法 1：使用 map 函数（所有任务一起提交）</p>
-<div><pre><code><span>from</span> concurrent<span>.</span>futures <span>import</span> ThreadPoolExecutor
-<span>with</span> ThreadPoolExecutor<span>(</span><span>)</span> <span>as</span> pool<span>:</span>
-		result <span>=</span> pool<span>.</span><span>map</span><span>(</span>craw<span>,</span> urls<span>)</span>
-		<span># map的结果和入参的顺序对应的</span>
-		<span>for</span> result <span>in</span> results<span>:</span>
-				<span>print</span><span>(</span>result<span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>用法 2：future 模式，更强大（一个任务一个任务提交）</p>
-<div><pre><code><span>from</span> concurrent<span>.</span>futures <span>import</span> ThreadPoolExecutor<span>,</span> as_completed
-<span>with</span> ThreadPoolExecutor<span>(</span><span>)</span> <span>as</span> pool<span>:</span>
-		<span># 使用 dict 可以知道future对应的入参</span>
-		futures <span>=</span> <span>{</span>pool<span>.</span>submit<span>(</span>craw<span>,</span> url<span>)</span><span>:</span> url
-								<span>for</span> url <span>in</span> urls<span>}</span>
-		<span># 方式1: 结果仍然按顺序</span>
-		<span>for</span> future<span>,</span> url <span>in</span> futures<span>.</span>items<span>(</span><span>)</span><span>:</span>
-				<span>print</span><span>(</span>url<span>,</span> future<span>.</span>result<span>(</span><span>)</span><span>)</span>
-
-		<span># 方式2: 使用 as_completed 顺序是不定的</span>
-		<span>for</span> future <span>in</span> as_completed<span>(</span>futures<span>)</span><span>:</span>  <span># 注：字典的遍历是遍历key</span>
-				url <span>=</span> futures<span>[</span>future<span>]</span>
-				<span>print</span><span>(</span>url<span>,</span> future<span>.</span>result<span>(</span><span>)</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p></p>
-<h2 id="python-多进程代码" tabindex="-1"> Python 多进程代码</h2>
-<p>多线程 threading 与多进程 multiprocessing 的代码对比</p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/oMERIi.png" alt="oMERIi" loading="lazy"></p>
-<p>直接改个类名就能运行！</p>
-<p>所以代码去看 </p>
-<h3 id="多进程优雅退出" tabindex="-1"> 多进程优雅退出</h3>
-<div><pre><code><span>import</span> ctypes
-<span>import</span> time
-<span>from</span> multiprocessing <span>import</span> Process<span>,</span> RawValue
-
-<span>class</span> <span>CountdownTask</span><span>:</span>
-    <span>def</span> <span>__init__</span><span>(</span>self<span>)</span><span>:</span>
-        self<span>.</span>_running <span>=</span> RawValue<span>(</span>ctypes<span>.</span>c_bool<span>,</span> <span>True</span><span>)</span>
-    <span>def</span> <span>terminate</span><span>(</span>self<span>)</span><span>:</span>
-        self<span>.</span>_running<span>.</span>value <span>=</span> <span>False</span>
-    <span>def</span> <span>run</span><span>(</span>self<span>,</span> n<span>)</span><span>:</span>
-        <span>while</span> self<span>.</span>_running<span>.</span>value <span>and</span> n <span>></span> <span>0</span><span>:</span>
-            <span>print</span><span>(</span><span>'T-minus'</span><span>,</span> n<span>)</span>
-            n <span>-=</span> <span>1</span>
-            time<span>.</span>sleep<span>(</span><span>5</span><span>)</span>
-
-c <span>=</span> CountdownTask<span>(</span><span>)</span>
-t <span>=</span> Process<span>(</span>target<span>=</span>c<span>.</span>run<span>,</span> args<span>=</span><span>(</span><span>10</span><span>,</span><span>)</span><span>)</span>
-t<span>.</span>start<span>(</span><span>)</span>
-c<span>.</span>terminate<span>(</span><span>)</span> <span># Signal termination</span>
-t<span>.</span>join<span>(</span><span>)</span> <span># Wait for actual termination (if needed)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="线程池原理" tabindex="-1"> 线程池原理</h2>
-<h3 id="线程池的原理" tabindex="-1"> 线程池的原理</h3>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/YPT9vT.png" alt="YPT9vT" loading="lazy"></p>
-<h3 id="特点" tabindex="-1"> 特点</h3>
-<ul>
-<li>使用任务队列</li>
-<li>可重用线程</li>
-</ul>
-<h3 id="优点" tabindex="-1"> 优点</h3>
-<ul>
-<li>提升性能：减少创建终止线程开销，重用线程资源</li>
-<li>适用场景：突发性大量请求、但任务处理时间较短</li>
-<li>防御功能：避免系统因为创建线程过多导致负荷过大</li>
-<li>代码优势：简洁方便</li>
-</ul>
-<h2 id="协程的原理以及代码" tabindex="-1"> 协程的原理以及代码</h2>
-<p><a href="https://www.bilibili.com/video/BV1bK411A7tV?p=11" target="_blank" rel="noopener noreferrer">【2021 最新版】Python 并发编程实战，用多线程、多进程、多协程加速程序运行_哔哩哔哩_bilibili</a></p>
-<h3 id="协程的原理" tabindex="-1"> 协程的原理</h3>
-<p>协程：在<strong>单线程内</strong>实现并发</p>
-<ul>
-<li>核心原理：用一个超级循环（其实就是 while true）循环，配合 IO 多路复用原理（IO 时 CPU 可以干其他事情）</li>
-<li>于是在等待 IO 时，CPU 会同时开始计算下一个循环的 IO 前的部分，并开启多轮循环同时进行的局面</li>
-<li>等待 IO 结束，CPU 将剩余部分的代码再一并执行</li>
-</ul>
-<p><strong>单线程爬虫执行路径</strong></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/dFUEmJ.png" alt="dFUEmJ" loading="lazy"></p>
-<p><strong>协程爬虫执行路径</strong></p>
-<p><img src="http://timpcfan-site.cdn.bcebos.com/imgs/OSigeS.png" alt="OSigeS" loading="lazy"></p>
-<h3 id="协程的使用以及异步-io" tabindex="-1"> 协程的使用以及异步 IO</h3>
-<div><pre><code><span>import</span> asyncio
-
-<span># 获取事件循环（超级循环）</span>
-loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
-
-<span># 定义协程</span>
-<span>async</span> <span>def</span> <span>myfunc</span><span>(</span>url<span>)</span><span>:</span>
-		<span>await</span> get_url<span>(</span>url<span>)</span>
-
-<span># 创建task列表</span>
-tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>myfunc<span>(</span>url<span>)</span><span>)</span>
-					<span>for</span> url <span>in</span> urls<span>]</span>
-
-<span># 执行爬虫事件列表</span>
-loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>关键字<strong>async</strong>：表示定义一个协程。</p>
-<p>关键字<strong>await</strong>：表示后面的函数是一个异步 IO，并且不进行阻塞，而是直接在超级循环直接进入下一个任务的执行（当前任务放弃 CPU，下一个任务获得 CPU）。</p>
-<div><p>注意</p>
-<p>异步 IO 中依赖的库必须支持异步 IO 特性（这要求库在 IO 时不能阻塞，否则切换不到下一个任务了）</p>
-</div>
-<div><p>注意</p>
-<p>requests 库不支持异步 IO，需要使用 aiohttp 库</p>
-</div>
-<p>例子：</p>
-<div><pre><code><span>import</span> asyncio<span>,</span> aiohtttp
-
-<span>async</span> <span>def</span> <span>async_craw</span><span>(</span>url<span>)</span><span>:</span>
-		<span>async</span> <span>with</span> aiohttp<span>.</span>ClientSession<span>(</span><span>)</span> <span>as</span> sess<span>:</span>
-				<span>async</span> <span>with</span> sess<span>.</span>get<span>(</span>url<span>)</span> <span>as</span> resp<span>:</span>
-						result <span>=</span> <span>await</span> resp<span>.</span>text<span>(</span><span>)</span>
-						<span>print</span><span>(</span>url<span>,</span> <span>len</span><span>(</span>result<span>)</span><span>)</span>
-
-loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
-tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>async_craw<span>(</span>url<span>)</span><span>)</span>
-					<span>for</span> url <span>in</span> urls<span>]</span>
-loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><p>所有的异步对象也需要使用 async 关键字来标注。</p>
-<div><p>相关信息</p>
-<p>协程与普通函数运行的不同点在于协程需要使用超级循环来进行调度。</p>
-</div>
-<h3 id="协程并发度的控制" tabindex="-1"> 协程并发度的控制</h3>
-<p>可以使用  来进行控制：</p>
-<div><pre><code><span>import</span> asyncio<span>,</span> aiohtttp
-
-semaphore <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
-<span>async</span> <span>def</span> <span>async_craw</span><span>(</span>url<span>)</span><span>:</span>
-		<span>async</span> <span>with</span> semaphore<span>:</span>  <span># here</span>
-				<span>async</span> <span>with</span> aiohttp<span>.</span>ClientSession<span>(</span><span>)</span> <span>as</span> sess<span>:</span>
-						<span>async</span> <span>with</span> sess<span>.</span>get<span>(</span>url<span>)</span> <span>as</span> resp<span>:</span>
-								result <span>=</span> <span>await</span> resp<span>.</span>text<span>(</span><span>)</span>
-								<span>print</span><span>(</span>url<span>,</span> <span>len</span><span>(</span>result<span>)</span><span>)</span>
-
-loop <span>=</span> asyncio<span>.</span>get_event_loop<span>(</span><span>)</span>
-tasks <span>=</span> <span>[</span>loop<span>.</span>create_task<span>(</span>async_craw<span>(</span>url<span>)</span><span>)</span>
-					<span>for</span> url <span>in</span> urls<span>]</span>
-loop<span>.</span>run_until_complete<span>(</span>asyncio<span>.</span>wait<span>(</span>tasks<span>)</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div><h2 id="信号量-semaphore" tabindex="-1"> 信号量 Semaphore</h2>
-<div><p>相关信息</p>
-<p>信号量一般用于访问有限数量的共享资源。</p>
-</div>
-<p>信号量是一个<strong>同步对象</strong>，用于保持在 0 至指定最大值之间的一个计数器。</p>
-<ul>
-<li>当线程完成一次对改 semaphore 对象的等待（wait）时，该计数器减一</li>
-<li>当线程完成一次对改 semaphore 对象的释放（release）时，该计数器加一</li>
-<li>当计数器为 0 时，线程等待该 semaphore 对象不再能成功直到该 semaphore 对象变成 signaled 状态（阻塞）
-<ul>
-<li>计数器大于 0，为 signaled 状态</li>
-<li>计数器等于 0，为 nonsignaled 状态</li>
-</ul>
-</li>
-</ul>
-<div><pre><code><span># 方法一：使用with</span>
-sem <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
-
-<span># ...later</span>
-<span>async</span> <span>with</span> sem<span>:</span>
-		<span># work with shared resource</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div></div><div><pre><code><span># 方法二：手动acquire、release</span>
-sem <span>=</span> asyncio<span>.</span>Semaphore<span>(</span><span>10</span><span>)</span>
-
-<span># ...later</span>
-<span>await</span> sem<span>.</span>acquire<span>(</span><span>)</span>
-<span>try</span><span>:</span>
-		<span># work with shared resource</span>
-<span>finally</span><span>:</span>
-		sem<span>.</span>release<span>(</span><span>)</span>
-</code></pre><div aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div>]]></content:encoded>
-      <enclosure url="http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png" type="image/png"/>
     </item>
   </channel>
 </rss>
