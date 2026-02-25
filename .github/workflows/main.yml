@@ -30,6 +30,10 @@ jobs:
           node-version: 16
           cache: pnpm
 
+      - name: Configure npm registry
+        run: |
+          pnpm config set registry https://registry.npmmirror.com
+
       - name: Install dependencies
         run: pnpm install
 
