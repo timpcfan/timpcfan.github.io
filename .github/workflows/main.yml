@@ -3,55 +3,51 @@ name: docs build
 on:
   push:
     branches:
-      # 确保这是你正在使用的分支名称
       - main
+
+permissions:
+  contents: write
 
 jobs:
   LearnData-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          # 获取所有标记和分支的所有历史记录（updatetime 必须，否则每次都会变化）
           fetch-depth: 0
-          # 如果你文档需要 Git 子模块，取消注释下一行
-          # submodules: true
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 7
           run_install: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 24
           cache: pnpm
 
       - name: Configure npm registry
-        run: |
-          pnpm config set registry https://registry.npmmirror.com
+        run: pnpm config set registry https://registry.npmmirror.com
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build Docs
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |
-          pnpm add vuepress@2.0.0-beta.49 vuepress-theme-hope@2.0.0-beta.91 @vuepress/plugin-google-analytics@2.0.0-beta.49 @vuepress/plugin-search@2.0.0-beta.49 @vuepress/plugin-docsearch@2.0.0-beta.49
           pnpm docs:build
+          > docs/.vuepress/dist/.nojekyll
 
-      - name: Deploy
+      - name: Deploy GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          # 这是文档部署到的分支名称
           branch: gh-pages
           folder: docs/.vuepress/dist
 
-      # 将页面更新到 Vercel 对应仓库（timpcfan.site）
       - name: Deploy to blog-vercel
         if: success()
         uses: peaceiris/actions-gh-pages@v4

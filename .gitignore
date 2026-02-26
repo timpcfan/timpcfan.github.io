@@ -1,6 +1,14 @@
-node_modules
-docs/.vuepress/.temp
-docs/.vuepress/.cache
-docs/.vuepress/dist
-docs/_temp
-docs/_gsdata_
+# Node modules
+**/node_modules/**
+
+# Cache / Temp / Output
+**/.vuepress/.cache/**
+**/.vuepress/.temp/**
+**/.vuepress/dist/**
+
+# Local drafts / sync files
+docs/_temp/
+docs/_gsdata_/
+
+# macOS
+**/.DS_Store
