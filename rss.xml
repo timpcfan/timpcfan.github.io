@@ -6,12 +6,172 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Wed, 04 Mar 2026 02:03:22 GMT</pubDate>
-    <lastBuildDate>Wed, 04 Mar 2026 02:03:22 GMT</lastBuildDate>
+    <pubDate>Wed, 11 Mar 2026 08:16:14 GMT</pubDate>
+    <lastBuildDate>Wed, 11 Mar 2026 08:16:14 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>技术</category>
     <category>OpenClaw</category>
+    <item>
+      <title>Claude 的 Skill-creator 悄悄升级了：这次真正重要的不是“更会生成”，而是“终于会评估了”</title>
+      <link>https://timpcfan.site/code/skill-creator-2026-analysis.html</link>
+      <guid>https://timpcfan.site/code/skill-creator-2026-analysis.html</guid>
+      <source url="https://timpcfan.site/rss.xml">Claude 的 Skill-creator 悄悄升级了：这次真正重要的不是“更会生成”，而是“终于会评估了”</source>
+      <pubDate>Wed, 11 Mar 2026 08:15:13 GMT</pubDate>
+      <content:encoded><![CDATA[<h1 id="claude-的-skill-creator-悄悄升级了-这次真正重要的不是-更会生成-而是-终于会评估了" tabindex="-1"> Claude 的 Skill-creator 悄悄升级了：这次真正重要的不是“更会生成”，而是“终于会评估了”</h1>
+<p>今天看了一篇公众号文章，主题是 Anthropic 更新了 <code>skill-creator</code>。我的结论很直接：<strong>如果文章描述基本属实，这次更新真正有价值的地方，不是又多会写一点 Skill，而是把 Skills 从“手工作坊”往“可量化迭代的工程体系”推进了一大步。</strong></p>
+<p>很多人看这类更新，第一反应会是：“哦，生成器更强了。”
+但我觉得这次更关键的变化其实是：<strong>Skill-creator 开始覆盖 Skill 的完整生命周期了。</strong></p>
+<hr>
+<h2 id="_1-旧问题不在-写不出来-而在-你根本不知道它好不好" tabindex="-1"> 1. 旧问题不在“写不出来”，而在“你根本不知道它好不好”</h2>
+<p>过去大家做 Skill，最大的问题往往不是写不出来。
+只要模型能力够强，很多 Skill 都能先搓出一个能跑的版本。</p>
+<p>真正麻烦的是后面的事：</p>
+<ol>
+<li>这个 Skill 到底稳不稳？</li>
+<li>它什么时候该触发，什么时候不该触发？</li>
+<li>和其他相似 Skill 会不会打架？</li>
+<li>它真的提升了任务成功率，还是只是看起来更聪明？</li>
+<li>为了用这个 Skill，多花的 token 和时间到底值不值？</li>
+</ol>
+<p>这也是为什么很多 Agent 系统在早期看起来很热闹，Skill 越装越多，但越到后面越容易失控。问题不在“没有能力”，而在<strong>缺少评估机制、缺少边界管理、缺少量化反馈</strong>。</p>
+<p>所以从这个角度看，<code>skill-creator</code> 这次补上的不是一个小功能，而是一个关键缺口。</p>
+<hr>
+<h2 id="_2-这次更新补上的四件事-真正改变了什么" tabindex="-1"> 2. 这次更新补上的四件事，真正改变了什么</h2>
+<p>按照文章里的描述，这次主要新增了四类能力：</p>
+<ol>
+<li><strong>评估系统</strong>：做完之后，不再只是“感觉这个 Skill 好像还行”，而是可以更系统地判断它到底行不行。</li>
+<li><strong>基准测试</strong>：把通过率、耗时、token 消耗这些维度量化出来，至少能开始比较。</li>
+<li><strong>多代理并行测试</strong>：多个测试在相互隔离的干净环境中独立运行，减少上下文污染。</li>
+<li><strong>描述调优</strong>：自动优化 Skill 的触发描述，让该触发的触发，不该触发的别乱进来。</li>
+</ol>
+<p>如果只看字面，这像是四个零散功能。
+但如果放到 Agent 工程里看，其实这四个点连起来构成了一条更完整的链路：</p>
+<p><strong>定义边界 → 构造样本 → 跑评估 → 比较结果 → 自动调优 → 回写配置</strong></p>
+<p>这条链路一旦能顺起来，Skill 就不再只是一个“提示词配件”，而开始有点像一个<strong>可测试、可回归、可优化的能力模块</strong>。</p>
+<hr>
+<h2 id="_3-我觉得最值钱的-其实是-描述调优" tabindex="-1"> 3. 我觉得最值钱的，其实是“描述调优”</h2>
+<p>文章里最让我觉得对味的，不是“会生成 Skill”，而是“会优化触发描述”。</p>
+<p>这是很多做 Agent 的人最容易低估、但又最容易翻车的地方。</p>
+<p>因为很多时候，Skill 并不是执行逻辑有问题，而是<strong>入口判断</strong>有问题：</p>
+<ol>
+<li>触发条件写得太宽，什么都想接；</li>
+<li>触发条件写得太窄，该触发的时候又不进；</li>
+<li>两个相似 Skill 都觉得“这单应该是我的”；</li>
+<li>在模糊边界场景下，模型经常随机发挥。</li>
+</ol>
+<p>文章提到的流程是：</p>
+<ol>
+<li>先生成“应该触发”的样本；</li>
+<li>再生成“不应该触发”的样本；</li>
+<li>人工检查边界案例；</li>
+<li>拆分训练集和测试集；</li>
+<li>自动迭代优化描述；</li>
+<li>用测试集表现来选最优版本，避免过拟合。</li>
+</ol>
+<p>这个思路非常正确。</p>
+<p>因为真正让 Agent 稳定下来的，往往不是“每个 Skill 都特别强”，而是<strong>路由层足够清晰</strong>。
+一旦路由混乱，再强的 Skill 也会被错误地调用；而一个描述边界清晰的普通 Skill，往往反而更实用。</p>
+<p>换句话说，<strong>这次更新最有潜力改善的，不是 Skill 的上限，而是整个系统的下限。</strong></p>
+<hr>
+<h2 id="_4-多代理并行测试-价值不只是-更快" tabindex="-1"> 4. 多代理并行测试，价值不只是“更快”</h2>
+<p>文章还提到一个很关键的点：每个测试在独立、干净的环境里跑。</p>
+<p>这件事看起来只是工程细节，但实际上意义很大。</p>
+<p>过去很多所谓“评估”，其实都不太干净：</p>
+<ol>
+<li>任务是顺序跑的；</li>
+<li>前一个样例产生的上下文，会影响后一个样例；</li>
+<li>模型不是在“独立判断”，而是在“带着历史记忆继续做题”。</li>
+</ol>
+<p>这样得出来的结果很容易偏乐观。
+你以为 Skill 很强，可能只是因为上下文偷偷帮了忙。</p>
+<p>如果新版真能做到：</p>
+<ol>
+<li>多个子代理独立运行；</li>
+<li>每次测试环境都干净隔离；</li>
+<li>分别记录耗时、token、成功率；</li>
+</ol>
+<p>那它带来的提升就不只是“并发更快”，而是<strong>评估结果更接近真实用户的首次触发场景</strong>。</p>
+<p>这对 Skill 来说特别关键，因为用户真正面对的，往往不是“已经被铺垫好上下文的第十轮对话”，而是某个突然出现的、信息并不充分的真实请求。</p>
+<hr>
+<h2 id="_5-从案例可以看出-它想做的是-skill-的-全生命周期工具" tabindex="-1"> 5. 从案例可以看出：它想做的是 Skill 的“全生命周期工具”</h2>
+<p>文章里举的例子，是做一个“给我视频链接，输出讲稿；如果是外语，最好给我原文和中文版本”的 Skill。</p>
+<p>这个案例表面上是在展示生成能力，但真正有意思的是它后面的链路：</p>
+<ol>
+<li>先根据自然语言需求生成 Skill；</li>
+<li>发现输出排版不好；</li>
+<li>再继续对话让它改进；</li>
+<li>发现可能会和另一个视频相关 Skill 冲突；</li>
+<li>再回头做触发评估和描述优化；</li>
+<li>最后继续做 benchmark 和效果验证。</li>
+</ol>
+<p>这个流程说明，<code>skill-creator</code> 想做的已经不是“帮你写一个 SKILL.md”这么简单，而是想覆盖：</p>
+<ol>
+<li>需求澄清</li>
+<li>初版生成</li>
+<li>结果调优</li>
+<li>触发边界修正</li>
+<li>任务效果评估</li>
+<li>持续反馈闭环</li>
+</ol>
+<p>如果这个方向继续做下去，它最终可能会从一个“Skill 生成器”变成一个更像<strong>Skill IDE / Skill QA 工具链</strong>的东西。</p>
+<hr>
+<h2 id="_6-这篇文章为什么有启发-但也不能全信" tabindex="-1"> 6. 这篇文章为什么有启发，但也不能全信</h2>
+<p>我觉得这篇文章的价值是有的，但也要分开看。</p>
+<h3 id="值得肯定的地方" tabindex="-1"> 值得肯定的地方</h3>
+<ol>
+<li>它抓住了一个真问题：Skill 的核心难点已经不是“写出来”，而是“验证和迭代”。</li>
+<li>它把“评估”放在中心位置，这个判断是对的。</li>
+<li>它给出的例子足够贴近真实使用场景，不是纯概念展示。</li>
+</ol>
+<h3 id="需要保留判断的地方" tabindex="-1"> 需要保留判断的地方</h3>
+<ol>
+<li>文风明显偏兴奋和宣传，像“史诗级升级”“特别牛”“惊呆了”这类表达很多；</li>
+<li>虽然提到了 benchmark、通过率、token 消耗，但从文章内容本身来看，量化口径还不够严谨；</li>
+<li>某些数据看起来很亮眼，但还缺少更多可复现的背景说明，比如任务定义、样本规模、任务分布、评估标准等。</li>
+</ol>
+<p>所以我的判断是：</p>
+<p><strong>方向很值得重视，但结论暂时更适合当“高价值线索”，不适合直接当“已经被充分证明的事实”。</strong></p>
+<p>也就是说，这不是一篇应该无脑照单全收的文章，但它确实指出了一个非常值得跟进的趋势。</p>
+<hr>
+<h2 id="_7-如果放到-openclaw-自建-agent-体系里-这意味着什么" tabindex="-1"> 7. 如果放到 OpenClaw / 自建 Agent 体系里，这意味着什么</h2>
+<p>如果你本来就在做 OpenClaw、Claude Code、Codex 这类 Agent 体系，那这次更新真正值得学的，可能不是某个具体按钮，而是下面这些方法论：</p>
+<ol>
+<li><strong>Skill 需要明确边界，而不是模糊功能描述。</strong></li>
+<li><strong>必须有 negative cases。</strong> 不是只测“什么时候该触发”，还要测“什么时候不该触发”。</li>
+<li><strong>评估必须尽量隔离上下文污染。</strong> 顺序跑出来的漂亮结果，经常不可靠。</li>
+<li><strong>不要只看能不能做出来，还要看成功率、耗时和 token 成本。</strong></li>
+<li><strong>优化 description 的收益，有时比优化执行逻辑还大。</strong></li>
+</ol>
+<p>这几个点其实很工程化，也很现实。</p>
+<p>很多 Agent 系统最后不稳定，不是败在模型不够强，而是败在：</p>
+<ol>
+<li>路由混乱；</li>
+<li>边界不清；</li>
+<li>没有统一评估；</li>
+<li>调优全靠体感。</li>
+</ol>
+<p>从这个角度看，<code>skill-creator</code> 这次更新最值得关注的，不是“多了几个功能”，而是它开始把 Skills 这件事拉向一套更像软件工程的流程。</p>
+<hr>
+<h2 id="_8-我的总评" tabindex="-1"> 8. 我的总评</h2>
+<p>如果只用一句话总结这次更新，我会这么说：</p>
+<blockquote>
+<p><strong>Skill-creator 真正的升级，不是更会生成 Skill，而是终于开始让 Skill 变得可测量、可比较、可调优。</strong></p>
+</blockquote>
+<p>如果这条路继续走下去，未来好的 Skill 生态，比拼的就不再只是“谁更会写 Prompt”，而是：</p>
+<ol>
+<li>谁更会定义边界；</li>
+<li>谁更会设计评估；</li>
+<li>谁更能把能力路由、任务执行和反馈闭环做成一个稳定系统。</li>
+</ol>
+<p>这比单纯“再造几个新 Skill”重要得多。</p>
+<hr>
+<h2 id="_9-最后一句" tabindex="-1"> 9. 最后一句</h2>
+<p>这篇文章最值得记住的，不是“新版很强”，而是这背后的信号：</p>
+<p><strong>Agent 时代的能力建设，正在从“创作能力”转向“评估能力”。</strong></p>
+<p>当一个生态开始认真做评估，它才算真正开始成熟。</p>
+]]></content:encoded>
+    </item>
     <item>
       <title>第00课｜从能跑到可复用：用例工程方法</title>
       <link>https://timpcfan.site/code/openclaw-usecase-tutorials/00-method.html</link>
@@ -790,211 +950,6 @@
 <ul>
 <li><code>materials/source_usecases.json</code></li>
 </ul>
-]]></content:encoded>
-    </item>
-    <item>
-      <title>OpenClaw 用例工程：课程地图（Part 0~4）</title>
-      <link>https://timpcfan.site/code/openclaw-usecase-tutorials/course-map.html</link>
-      <guid>https://timpcfan.site/code/openclaw-usecase-tutorials/course-map.html</guid>
-      <source url="https://timpcfan.site/rss.xml">OpenClaw 用例工程：课程地图（Part 0~4）</source>
-      <category>技术</category>
-      <category>OpenClaw</category>
-      <pubDate>Wed, 04 Mar 2026 00:00:00 GMT</pubDate>
-      <content:encoded><![CDATA[<h1 id="course-map-openclaw-用例工程递进课程-part-0-4" tabindex="-1"> Course Map｜OpenClaw 用例工程递进课程（Part 0~4）</h1>
-<blockquote>
-<p>目的：这是“总纲 + 目录 + 证据来源映射”。不写长正文；正文里会把每条映射展开为：真实场景 → 失败点 → 关键转折 → SOP → 作业，并附 sessionKey/time/quote。</p>
-</blockquote>
-<hr>
-<h2 id="part-0-从-能跑-到-可复用-用例工程方法" tabindex="-1"> Part 0｜从“能跑”到“可复用”：用例工程方法</h2>
-<h3 id="lesson-0-1-什么叫-可复用用例-从一次成功到一套模板" tabindex="-1"> Lesson 0.1｜什么叫“可复用用例”？从一次成功到一套模板</h3>
-<ul>
-<li>核心问题：为什么“跑通一次”不等于“可复用”？怎样把成功沉淀为模板（reuse_template）？</li>
-<li>你会产出的东西：一份用例卡（Problem / Workflow / Outcome / Reuse template / Unknowns / Tags）。</li>
-<li>证据来源映射（用例标题）：
-<ol>
-<li>Codex 多账号额度巡检与 auth order 自动重排</li>
-<li>每小时 Stash 网络探测 + 异常才通知</li>
-<li>30G 诊断日志膨胀的止损修复：删文件 + 关 cacheTrace + 回归验证</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-0-2-证据驱动-如何用-sessionkey-time-quote-给结论上-钢印" tabindex="-1"> Lesson 0.2｜证据驱动：如何用 sessionKey/time/quote 给结论上“钢印”</h3>
-<ul>
-<li>核心问题：团队分享里，如何避免“我感觉/应该是”？怎样把结论锚定到可回放的证据？</li>
-<li>你会产出的东西：一份“证据锚点”写作规范（每个关键结论 ≥1 个 quote）。</li>
-<li>证据来源映射：
-<ol>
-<li>会话驱动自进化：24h 信号采集并更新 skill-gaps</li>
-<li>争议信息用‘实测 + 官方规则页’双证据定性</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="part-1-失败是主线-把常见故障变成可自动降级的-sop" tabindex="-1"> Part 1｜失败是主线：把常见故障变成可自动降级的 SOP</h2>
-<h3 id="lesson-1-1-检索链路三连击-429-fetch-failed-本地命令错误" tabindex="-1"> Lesson 1.1｜检索链路三连击：429 + fetch failed + 本地命令错误</h3>
-<ul>
-<li>核心问题：当检索层（429/抓取失败）和执行层（python 不存在）同时炸时，如何让任务仍能“按时交付”？</li>
-<li>你会产出的东西：一份“分级故障处置表”（检索失败→DDG 兜底；命令失败→解释器修正）。</li>
-<li>证据来源映射：
-<ol>
-<li>Brave 429 + fetch failed + python 命令错误的多故障串联修复</li>
-<li>AI 公司动态监控：检索退避 + 多源兜底 + 24h 时窗</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-1-2-web-fetch-被私网-ip-策略拦截-如何无痛切换抓取链路" tabindex="-1"> Lesson 1.2｜web_fetch 被私网 IP 策略拦截：如何无痛切换抓取链路</h3>
-<ul>
-<li>核心问题：当 web_fetch 报 “Blocked: resolves to private/internal/special-use IP address” 时，怎样保持任务不断线，并且让降级路径可复用？</li>
-<li>你会产出的东西：一份“抓取链路路由器”SOP（web_fetch → browser 抓取 → web_search 补证 → 原投递链路不变）。</li>
-<li>证据来源映射：
-<ol>
-<li>web_fetch 被私网 IP 策略拦截后，切换抓取链路完成定时播报</li>
-<li>同类私网拦截在另一条 cron 复现，验证 fallback 可复用</li>
-<li>AI 公司动态监控：检索退避 + 多源兜底 + 24h 时窗</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-1-3-fakeip-环境下的诊断纠偏-别再被-dig-nslookup-带沟里" tabindex="-1"> Lesson 1.3｜FakeIP 环境下的诊断纠偏：别再被 dig/nslookup 带沟里</h3>
-<ul>
-<li>核心问题：为什么在代理 FakeIP 环境下，DNS 结果可能是“假象”？如何建立“真实访问链路优先”的排障规则？</li>
-<li>你会产出的东西：一份团队级排障 SOP（禁止单看 DNS；必须用浏览器实测/代理内链路复测）。</li>
-<li>证据来源映射：
-<ol>
-<li>FakeIP 网络环境下的诊断纠偏流程</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="part-2-监控与播报-做-异常优先、不刷屏-的-cron-体系" tabindex="-1"> Part 2｜监控与播报：做“异常优先、不刷屏”的 cron 体系</h2>
-<h3 id="lesson-2-1-每小时巡检不等于每小时刷屏-通知门禁怎么做" tabindex="-1"> Lesson 2.1｜每小时巡检不等于每小时刷屏：通知门禁怎么做</h3>
-<ul>
-<li>核心问题：如何在“持续监控”和“群里不被刷屏”之间做工程化平衡？</li>
-<li>你会产出的东西：一份“通知门禁”设计（异常才发 + 提醒窗口 + threadId 归档）。</li>
-<li>证据来源映射：
-<ol>
-<li>每小时 Stash 网络探测 + 异常才通知</li>
-<li>AI 公司动态监控：检索退避 + 多源兜底 + 24h 时窗</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-2-2-cron-失败后的快速复盘-手动补跑闭环" tabindex="-1"> Lesson 2.2｜cron 失败后的快速复盘 + 手动补跑闭环</h3>
-<ul>
-<li>核心问题：cron 失败时，怎样快速回答三个问题：失败发生在何时？为什么失败？现在如何立刻恢复可信结果？</li>
-<li>你会产出的东西：一份“失败复盘模板”（时间窗口 + 错误原因 + 抗抖参数建议 + 立刻补跑回执）。</li>
-<li>证据来源映射：
-<ol>
-<li>Cron任务异常后快速复盘 + 手动补跑闭环</li>
-<li>Gateway 超时抖动场景下，用可用读操作维持诊断闭环</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-2-3-双目录-git-自动备份-失败可见化、结果可追踪" tabindex="-1"> Lesson 2.3｜双目录 Git 自动备份：失败可见化、结果可追踪</h3>
-<ul>
-<li>核心问题：当要备份两个关键目录时，如何保证“谁成功谁失败一眼可见”，并且保留可追踪的 commit 证据？</li>
-<li>你会产出的东西：一份“多目标任务统一汇总格式”（成功/失败/无变更 + 原因 + hash）。</li>
-<li>证据来源映射：
-<ol>
-<li>双目录 Git 自动备份 + 失败可见化播报</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="part-3-生产化与稳定性工程-事故、可观测、回归验证" tabindex="-1"> Part 3｜生产化与稳定性工程：事故、可观测、回归验证</h2>
-<h3 id="lesson-3-1-30g-诊断日志膨胀-止损三步法-量化→清理→关增量" tabindex="-1"> Lesson 3.1｜30G 诊断日志膨胀：止损三步法（量化→清理→关增量）</h3>
-<ul>
-<li>核心问题：当诊断日志膨胀到几十 GB，如何“立刻止血 + 避免复发 + 不引入新事故”？</li>
-<li>你会产出的东西：事故止损 Runbook（确认体积→停/不停网关策略→清理→关闭开关→回归验证）。</li>
-<li>证据来源映射：
-<ol>
-<li>30G 诊断日志膨胀的止损修复：删文件 + 关 cacheTrace + 回归验证</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-3-2-gateway-timeout-抖动-用-多命令探针-维持诊断闭环" tabindex="-1"> Lesson 3.2｜Gateway timeout 抖动：用“多命令探针”维持诊断闭环</h3>
-<ul>
-<li>核心问题：当网关超时导致部分命令不可用时，怎样用“可返回的读操作”拼出最小可行诊断？</li>
-<li>你会产出的东西：一份“多命令探针”策略清单（status/list 等替代单点命令依赖）。</li>
-<li>证据来源映射：
-<ol>
-<li>Gateway 超时抖动场景下，用可用读操作维持诊断闭环</li>
-<li>Cron任务异常后快速复盘 + 手动补跑闭环</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-3-3-第三方技能上线-密钥落地-联调验收的标准流程" tabindex="-1"> Lesson 3.3｜第三方技能上线：密钥落地 + 联调验收的标准流程</h3>
-<ul>
-<li>核心问题：为什么“装上了”不等于“能用”？如何把 token/登录态这个最大不确定性，变成可审计、可验证的上线流程？</li>
-<li>你会产出的东西：一份技能上线 SOP（安装→缺口定位→安全写 env→API 级验收→业务级实测）。</li>
-<li>证据来源映射：
-<ol>
-<li>第三方技能接入的‘密钥落地 + 联调验收’标准流程</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="part-4-进阶-上下文工程、资源治理、组织落地" tabindex="-1"> Part 4｜进阶：上下文工程、资源治理、组织落地</h2>
-<h3 id="lesson-4-1-多账号额度巡检与-auth-order-自动重排-把资源治理产品化" tabindex="-1"> Lesson 4.1｜多账号额度巡检与 auth order 自动重排：把资源治理产品化</h3>
-<ul>
-<li>核心问题：多账号并行时，如何每天自动检查健康度与额度，并把排序规则“显式化 + 可复核”？</li>
-<li>你会产出的东西：一份资源治理 SOP（健康检查→额度采集→排序→set→get 复核→简报）。</li>
-<li>证据来源映射：
-<ol>
-<li>Codex 多账号额度巡检与 auth order 自动重排</li>
-<li>Cron任务异常后快速复盘 + 手动补跑闭环</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-4-2-overnight-goal-autopilot-夜间无人值守也能产出-行动包" tabindex="-1"> Lesson 4.2｜Overnight Goal Autopilot：夜间无人值守也能产出“行动包”</h3>
-<ul>
-<li>核心问题：怎么让“长期目标”不再停留在口号，而是每天自动产出可执行文档，并形成连续迭代节奏？</li>
-<li>你会产出的东西：一份“目标说明书驱动”的产线结构（固定输入→固定输出目录→一次性通知）。</li>
-<li>证据来源映射：
-<ol>
-<li>Overnight Goal Autopilot：读目标文档后自动产出行动包</li>
-<li>长期项目产物目录重构（根目录减负）</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-4-3-会话驱动自进化-24h-信号采集并更新-skill-gaps" tabindex="-1"> Lesson 4.3｜会话驱动自进化：24h 信号采集并更新 skill-gaps</h3>
-<ul>
-<li>核心问题：如何不靠主观印象，而是从真实会话里持续抽取能力缺口，并形成长期改进库？</li>
-<li>你会产出的东西：一套“信号规则 + 扫描范围 + 去重写入”的自进化管道。</li>
-<li>证据来源映射：
-<ol>
-<li>会话驱动自进化：24h 信号采集并更新 skill-gaps</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-4-4-多-bot-协作稳定性-hold-timeout-stop-防失控" tabindex="-1"> Lesson 4.4｜多 Bot 协作稳定性：HOLD/TIMEOUT/STOP 防失控</h3>
-<ul>
-<li>核心问题：多 Agent/多 Bot 协作时，如何防止上下文漂移、无触发继续、错误循环与刷屏？</li>
-<li>你会产出的东西：一份可执行协作协议（trigger gate + hold-once + timeout + fail-stop）。</li>
-<li>证据来源映射：
-<ol>
-<li>多 Bot 协作稳定性规则化：HOLD/TIMEOUT/STOP 防失控</li>
-</ol>
-</li>
-</ul>
-<h3 id="lesson-4-5-争议信息如何定性-实测-官方规则页的双证据策略" tabindex="-1"> Lesson 4.5｜争议信息如何定性：实测 + 官方规则页的双证据策略</h3>
-<ul>
-<li>核心问题：当外部说法冲突时，怎样用“站点实测 + 官方规则文本”把结论做实，并明确不确定性边界？</li>
-<li>你会产出的东西：一份信息核验 SOP（入口实测→规则页抓取→冲突处理→输出可信口径）。</li>
-<li>证据来源映射：
-<ol>
-<li>争议信息用‘实测 + 官方规则页’双证据定性</li>
-</ol>
-</li>
-</ul>
-<hr>
-<h2 id="附-可选加餐-如果需要扩展课程" tabindex="-1"> 附：可选加餐（如果需要扩展课程）</h2>
-<blockquote>
-<p>这些用例可以作为“课后拓展/实操挑战”，不一定进主线。</p>
-</blockquote>
-<ol>
-<li>AI 公司动态监控：检索退避 + 多源兜底 + 24h 时窗（偏完整产线）</li>
-<li>面向育儿场景的日报模板化输出（偏内容模板工程）</li>
-<li>web_fetch 被私网 IP 策略拦截后，切换抓取链路完成定时播报（偏抓取兜底）</li>
-</ol>
 ]]></content:encoded>
     </item>
   </channel>
