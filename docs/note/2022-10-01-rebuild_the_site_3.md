@@ -24,6 +24,6 @@ tag:
 
 说一下具体的方案吧，这次建站是参考 rockbenben 大佬的 [LearnData](https://github.com/rockbenben/LearnData) 项目的方案，使用 [vuepress](https://v2.vuepress.vuejs.org/) + [vuepress-theme-hope](https://vuepress-theme-hope.github.io/v2/) 将 markdown 笔记渲染成静态网站，再使用 Github Pages 以及 Vercel 部署静态网站。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/J6Xjax.jpg)
+![](https://img.timpcfan.site/imgs/J6Xjax.jpg)
 
 这个方案的缺点就是发布新文章稍显繁琐吧，需要按照指定格式创建一个新 markdown 文件，并且 push 到 Github 上面。而不像 WordPress 那样可以直接在网站上面新建并编辑啥的，另外传图片的话也比较麻烦，我想还是整个好用的图床吧。

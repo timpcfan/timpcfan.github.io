@@ -136,7 +136,7 @@ Git 的分支也非常轻量。它们只是简单地指向某个提交纪录 —
 
 在将分支和提交记录结合起来后，我们会看到两者如何协作。现在只要记住使用分支其实就相当于在说：“我想基于这个提交以及它所有的父提交进行新的工作。”
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/FjFb0t.gif =x300)
+![](https://img.timpcfan.site/imgs/FjFb0t.gif =x300)
 
 ### Git Merge
 
@@ -146,7 +146,7 @@ Git 的分支也非常轻量。它们只是简单地指向某个提交纪录 —
 
 右图为将main 与 bugFix 进行合并，main移动指针指向新的结果。之后可以 `git checkout bugFix; git merge main` 会将bugFix指针直接移动到 C4，因为 C4 继承于 C2，已经包含了 C2的所有信息。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/0c2tyq.png =x300)
+![](https://img.timpcfan.site/imgs/0c2tyq.png =x300)
 
 ### Git Rebase
 
@@ -160,7 +160,7 @@ Rebase 的优势就是可以创造更线性的提交历史，这听上去有些�
 
 咱们这次用 `git rebase` 实现此目标
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Ot8Kis.gif =x300)
+![](https://img.timpcfan.site/imgs/Ot8Kis.gif =x300)
 
 怎么样？！现在 bugFix 分支上的工作在 main 的最顶端，同时我们也得到了一个更线性的提交序列。
 
@@ -191,7 +191,7 @@ HEAD -> main -> C1
 
 HEAD 指向 main， main 指向 C1
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Vu5FYW.png =x300)
+![](https://img.timpcfan.site/imgs/Vu5FYW.png =x300)
 
 ### 相对引用
 
@@ -218,7 +218,7 @@ HEAD 指向 main， main 指向 C1
 
 现在咱们切换到 main 的父节点
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/oHYiQr.png =x300)
+![](https://img.timpcfan.site/imgs/oHYiQr.png =x300)
 
 ### “~”操作符
 
@@ -252,7 +252,7 @@ HEAD 指向 main， main 指向 C1
 
 Git 把 main 分支移回到 `C1`；现在我们的本地代码库根本就不知道有 `C2` 这个提交了。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/FATkLc.png =x300)
+![](https://img.timpcfan.site/imgs/FATkLc.png =x300)
 
 ### Git Revert
 
@@ -264,7 +264,7 @@ Git 把 main 分支移回到 `C1`；现在我们的本地代码库根本就不�
 
 revert 之后就可以把你的更改推送到远程仓库与别人分享啦。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/dMf2k4.png =x300)
+![](https://img.timpcfan.site/imgs/dMf2k4.png =x300)
 
 ## Git 相关概念：整理提交记录
 
@@ -286,7 +286,7 @@ revert 之后就可以把你的更改推送到远程仓库与别人分享啦。
 
 这就是了！我们只需要提交记录 `C2` 和 `C4`，所以 Git 就将被它们抓过来放到当前分支下了。 就是这么简单!
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/UkaXXr.gif =x300)
+![](https://img.timpcfan.site/imgs/UkaXXr.gif =x300)
 
 ### 交互式的 rebase
 
@@ -308,7 +308,7 @@ revert 之后就可以把你的更改推送到远程仓库与别人分享啦。
 
 接下来咱们看个实例
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/y9HpbZ.gif)
+![](https://img.timpcfan.site/imgs/y9HpbZ.gif)
 
 ## Git 相关概念：一些小技巧
 
@@ -327,8 +327,8 @@ revert 之后就可以把你的更改推送到远程仓库与别人分享啦。
 
 来达到目的。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/d4WhjT.png =x300) &nbsp;
-![](http://timpcfan-site.cdn.bcebos.com/imgs/uOu6XQ.png =x300)
+![](https://img.timpcfan.site/imgs/d4WhjT.png =x300) &nbsp;
+![](https://img.timpcfan.site/imgs/uOu6XQ.png =x300)
 
 ### 提交的技巧 #1
 
@@ -375,7 +375,7 @@ git tag v1 C1
 
 很容易吧！我们将这个标签命名为 `v1`，并且明确地让它指向提交记录 `C1`，如果你不指定提交记录，Git 会用 `HEAD` 所指向的位置。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/B84z6y.png =x300)
+![](https://img.timpcfan.site/imgs/B84z6y.png =x300)
 
 ### Git Describe
 
@@ -397,7 +397,7 @@ Git Describe 能帮你在提交历史中移动了多次以后找到方向；当�
 
 当 `ref` 提交记录上有某个标签时，则只输出标签名称
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/nlsthb.png =x300)
+![](https://img.timpcfan.site/imgs/nlsthb.png =x300)
 
 ### 多分支 rebase
 
@@ -417,6 +417,6 @@ Git 默认选择合并提交的“第一个”父提交，在操作符 `^` 后
 
 废话不多说，举个例子。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/GzTuD6.png)
+![](https://img.timpcfan.site/imgs/GzTuD6.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/5UVgNg.png)
+![](https://img.timpcfan.site/imgs/5UVgNg.png)

@@ -61,31 +61,31 @@ tag:
 
 四种卡片模板：
 
-[四种卡片模板](http://timpcfan-site.cdn.bcebos.com/imgs/zulC7R.apkg)
+[四种卡片模板](https://img.timpcfan.site/imgs/zulC7R.apkg)
 
 政治记忆库（需要使用CrowdAnki插件导入，需重置学习记录）：
 
-[政治.zip](http://timpcfan-site.cdn.bcebos.com/imgs/jDfMkX.zip)
+[政治.zip](https://img.timpcfan.site/imgs/jDfMkX.zip)
 
 政治刷题设置：
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/ZDN9fe.png)
+![](https://img.timpcfan.site/imgs/ZDN9fe.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/pRNyrv.png)
+![](https://img.timpcfan.site/imgs/pRNyrv.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/mtwa2v.png)
+![](https://img.timpcfan.site/imgs/mtwa2v.png)
 
 密集复习型（数学难点用）：
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/4TwZ0G.png)
+![](https://img.timpcfan.site/imgs/4TwZ0G.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/fPvi41.png)
+![](https://img.timpcfan.site/imgs/fPvi41.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Vw3A2p.png)
+![](https://img.timpcfan.site/imgs/Vw3A2p.png)
 
 关于各个参数的具体含义参见：[http://www.ankichina.net/manual/anki](http://www.ankichina.net/manual/anki)
 
 我用到的所有插件：
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/nH7M3T.png)
+![](https://img.timpcfan.site/imgs/nH7M3T.png)
 

@@ -19,7 +19,7 @@ article: false
 - 边框区
 - 外边距区
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/vFXIfB.jpg)
+![](https://img.timpcfan.site/imgs/vFXIfB.jpg)
 
 ::: info
 一个元素的包含块==不一定是他的父元素的内容区==。

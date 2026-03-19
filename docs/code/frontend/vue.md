@@ -25,7 +25,7 @@ Vue (读音 /vjuː/，类似于  view) 是一套用于构建用户界面的渐�
 
 ## vue 简介
 
-![AYFU9u](http://timpcfan-site.cdn.bcebos.com/imgs/AYFU9u.png)
+![AYFU9u](https://img.timpcfan.site/imgs/AYFU9u.png)
 
 官方给 vue 的定位是前端框架，因为它提供了构建用户界面的一整套解决方案（俗称 vue 全家桶）
 
@@ -58,9 +58,9 @@ MVVM 是 vue 实现**数据驱动视图**和**双向数据绑定**的核心原�
 - Model：当前页面渲染时所依赖的数据源
 - ViewModel：表示 vue 的实例，它是 MVVM 的核心，连接 View 与 Model
 
-![mZ91S3](http://timpcfan-site.cdn.bcebos.com/imgs/mZ91S3.png)
+![mZ91S3](https://img.timpcfan.site/imgs/mZ91S3.png)
 
-![qF2xKn](http://timpcfan-site.cdn.bcebos.com/imgs/qF2xKn.png)
+![qF2xKn](https://img.timpcfan.site/imgs/qF2xKn.png)
 
 ### vue 的版本
 
@@ -528,7 +528,7 @@ h1 {
 
 组件之间可以进行相互的引用，例如：
 
-![SieVd6](http://timpcfan-site.cdn.bcebos.com/imgs/SieVd6.png)
+![SieVd6](https://img.timpcfan.site/imgs/SieVd6.png)
 
 vue 中组件的引用原则：先注册后使用。
 
@@ -884,7 +884,7 @@ computed: {
 
 :::
 
-![6LdgWa](http://timpcfan-site.cdn.bcebos.com/imgs/6LdgWa.png)
+![6LdgWa](https://img.timpcfan.site/imgs/6LdgWa.png)
 
 #### 自定义事件的使用
 
@@ -962,7 +962,7 @@ methods: {
 
 ### 组件上的 v-model
 
-![hQRD5V](http://timpcfan-site.cdn.bcebos.com/imgs/hQRD5V.png)
+![hQRD5V](https://img.timpcfan.site/imgs/hQRD5V.png)
 
 v-model 是双向数据绑定指令，当需要**维护组件内外数据的同步**时，可以在组件上使用 v-model 指令。
 
@@ -973,7 +973,7 @@ v-model 是双向数据绑定指令，当需要**维护组件内外数据的同�
 
 #### 在组件上使用 v-model 的步骤
 
-![xb4bel](http://timpcfan-site.cdn.bcebos.com/imgs/xb4bel.png)
+![xb4bel](https://img.timpcfan.site/imgs/xb4bel.png)
 
 ```jsx
 <template>
@@ -1074,7 +1074,7 @@ watch: {
 
 ### 组件的生命周期
 
-![hEeD6v](http://timpcfan-site.cdn.bcebos.com/imgs/hEeD6v.png)
+![hEeD6v](https://img.timpcfan.site/imgs/hEeD6v.png)
 
 组件的生命周期：组件从 **创建** → **运行**（渲染）→ **销毁** 的整个过程，强调的是一个时间段。
 
@@ -1107,15 +1107,15 @@ watch: {
 2. 子 → 父
 3. 父 ↔  子
 
-![X1WYvK](http://timpcfan-site.cdn.bcebos.com/imgs/X1WYvK.png)
+![X1WYvK](https://img.timpcfan.site/imgs/X1WYvK.png)
 
-![gRIHQf](http://timpcfan-site.cdn.bcebos.com/imgs/gRIHQf.png)
+![gRIHQf](https://img.timpcfan.site/imgs/gRIHQf.png)
 
-![TktxFT](http://timpcfan-site.cdn.bcebos.com/imgs/TktxFT.png)
+![TktxFT](https://img.timpcfan.site/imgs/TktxFT.png)
 
 #### 兄弟组件的数据共享
 
-![DWEqdA](http://timpcfan-site.cdn.bcebos.com/imgs/DWEqdA.png)
+![DWEqdA](https://img.timpcfan.site/imgs/DWEqdA.png)
 
 ##### 1. 安装 mit
 
@@ -1177,21 +1177,21 @@ export default {
 
 可以使用 provide 和 inject 实现后代组件之间的数据共享。
 
-![5QQbjj](http://timpcfan-site.cdn.bcebos.com/imgs/5QQbjj.png)
+![5QQbjj](https://img.timpcfan.site/imgs/5QQbjj.png)
 
-![dM8Wma](http://timpcfan-site.cdn.bcebos.com/imgs/dM8Wma.png)
+![dM8Wma](https://img.timpcfan.site/imgs/dM8Wma.png)
 
 上述的方法不是响应式的，改变了父组件的值，子孙组件没有变化，要使用 computed 函数修改：
 
-![WLpXE4](http://timpcfan-site.cdn.bcebos.com/imgs/WLpXE4.png)
+![WLpXE4](https://img.timpcfan.site/imgs/WLpXE4.png)
 
-![gPCKax](http://timpcfan-site.cdn.bcebos.com/imgs/gPCKax.png)
+![gPCKax](https://img.timpcfan.site/imgs/gPCKax.png)
 
 #### vuex——终极的组件之间数据共享方案
 
 vuex 可以让组件之间的数据共享变得高效、清晰、且易于维护。
 
-![0HtmYq](http://timpcfan-site.cdn.bcebos.com/imgs/0HtmYq.png)
+![0HtmYq](https://img.timpcfan.site/imgs/0HtmYq.png)
 
 创建一个共享的 store，存取数据都通过 store，实现不同组件之间的数据共享。
 
@@ -1204,7 +1204,7 @@ vuex 可以让组件之间的数据共享变得高效、清晰、且易于维护
 
 #### 如何全局配置 axios？
 
-![CwAmsY](http://timpcfan-site.cdn.bcebos.com/imgs/CwAmsY.png)
+![CwAmsY](https://img.timpcfan.site/imgs/CwAmsY.png)
 
 ```jsx
 // main.js
@@ -1305,7 +1305,7 @@ methods: {
 
 :::
 
-![vZewR9](http://timpcfan-site.cdn.bcebos.com/imgs/vZewR9.png)
+![vZewR9](https://img.timpcfan.site/imgs/vZewR9.png)
 
 可以把插槽认为是组件封装期间，为用户预留的**内容的占位符**。
 
@@ -1338,14 +1338,14 @@ methods: {
 
 如果在封装组件时需要预留多个插槽节点，则需要为每个`<slot>`插槽指定具体的 name 名称。这种带有具体名称的插槽叫做“具名插槽”。
 
-![nWdPi4](http://timpcfan-site.cdn.bcebos.com/imgs/nWdPi4.png)
+![nWdPi4](https://img.timpcfan.site/imgs/nWdPi4.png)
 
 ::: info
 没有 name 名称的插槽会有隐含的名称叫做“default”
 
 :::
 
-![eGacvB](http://timpcfan-site.cdn.bcebos.com/imgs/eGacvB.png)
+![eGacvB](https://img.timpcfan.site/imgs/eGacvB.png)
 
 ::: info
 `v-slot:`可以简写为`#`，即`v-slot:header` → `#header`
@@ -1354,7 +1354,7 @@ methods: {
 
 #### 作用域插槽
 
-![I0YDN5](http://timpcfan-site.cdn.bcebos.com/imgs/I0YDN5.png)
+![I0YDN5](https://img.timpcfan.site/imgs/I0YDN5.png)
 
 省略了插槽的 props 属性的介绍，有缘再见吧。
 
@@ -1385,7 +1385,7 @@ vue 官方提供了 v-for, v-model 等常用的内置指令。除此之外，vue
 3. 前端路由监听到了 Hash 地址的变化
 4. 前端路由把当前 Hash 地址对应的组件渲染到浏览器中
 
-![HbwSnR](http://timpcfan-site.cdn.bcebos.com/imgs/HbwSnR.png)
+![HbwSnR](https://img.timpcfan.site/imgs/HbwSnR.png)
 
 #### 实现简易的前端路由
 
@@ -1565,7 +1565,7 @@ const router = createRouter({  // 3.
 
 通过路由实现组件的嵌套展示，叫做嵌套路由。
 
-![um5ec9](http://timpcfan-site.cdn.bcebos.com/imgs/um5ec9.png)
+![um5ec9](https://img.timpcfan.site/imgs/um5ec9.png)
 
 1. 声明子路由链接和子路由占位符（声明在子组件内部即可）
 
@@ -1692,7 +1692,7 @@ this.$router.push({
 
 导航守卫可以控制路由的访问权限。
 
-![iSrYhO](http://timpcfan-site.cdn.bcebos.com/imgs/iSrYhO.png)
+![iSrYhO](https://img.timpcfan.site/imgs/iSrYhO.png)
 
 ### 如何声明全局导航守卫
 
@@ -1770,9 +1770,9 @@ npm run dev  # 启动项目
 
 ### vite 的基本使用
 
-![ZG3kP3](http://timpcfan-site.cdn.bcebos.com/imgs/ZG3kP3.png)
+![ZG3kP3](https://img.timpcfan.site/imgs/ZG3kP3.png)
 
-![yITax7](http://timpcfan-site.cdn.bcebos.com/imgs/yITax7.png)
+![yITax7](https://img.timpcfan.site/imgs/yITax7.png)
 
 #### vite 项目的运行流程
 
@@ -1818,22 +1818,22 @@ app.mount("#app");
 
 1. 运行 `vue ui` 命令，自动在浏览器中打开创建项目的可视化面板。
 
-![CALMwI](http://timpcfan-site.cdn.bcebos.com/imgs/CALMwI.png)
+![CALMwI](https://img.timpcfan.site/imgs/CALMwI.png)
 
 2. 填写项目名称
 3. 在预设页面选择手动配置项目
 
-![xHZnib](http://timpcfan-site.cdn.bcebos.com/imgs/xHZnib.png =x300)
+![xHZnib](https://img.timpcfan.site/imgs/xHZnib.png =x300)
 
 4. 在功能页面勾选需要安装的功能
 
-![rwl84Y](http://timpcfan-site.cdn.bcebos.com/imgs/rwl84Y.png)
+![rwl84Y](https://img.timpcfan.site/imgs/rwl84Y.png)
 
 5. 在配置页面勾选 vue 的版本和需要的预处理器
 
-![cl0cMR](http://timpcfan-site.cdn.bcebos.com/imgs/cl0cMR.png)
+![cl0cMR](https://img.timpcfan.site/imgs/cl0cMR.png)
 
-![WSUYun](http://timpcfan-site.cdn.bcebos.com/imgs/WSUYun.png)
+![WSUYun](https://img.timpcfan.site/imgs/WSUYun.png)
 
 #### 基于命令行创建 vue 项目
 
@@ -2025,7 +2025,7 @@ module.exports = defineConfig({
 })
 ```
 
-![1Ku8ff](http://timpcfan-site.cdn.bcebos.com/imgs/1Ku8ff.png)
+![1Ku8ff](https://img.timpcfan.site/imgs/1Ku8ff.png)
 
 ## 部署 vue 项目到 docker
 

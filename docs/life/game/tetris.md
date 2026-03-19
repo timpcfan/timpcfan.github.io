@@ -13,7 +13,7 @@ tag:
 
 ### 键位
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/KOuUXn.jpg)
+![](https://img.timpcfan.site/imgs/KOuUXn.jpg)
 
 ### 对于不同的战术
 
@@ -64,11 +64,11 @@ Tspin消除2行的火力就等于普通消除4行。
 
 ## 如何堆叠整齐
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/s9yFBv.jpg)
+![](https://img.timpcfan.site/imgs/s9yFBv.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/TfzumV.jpg)
+![](https://img.timpcfan.site/imgs/TfzumV.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/EylXyr.jpg)
+![](https://img.timpcfan.site/imgs/EylXyr.jpg)
 
 ## Tspin
 
@@ -84,11 +84,11 @@ Tspin根据其消除的行数分为几类：
 
 ### Tspin double
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/kNMH0B.jpg =x150)
+![](https://img.timpcfan.site/imgs/kNMH0B.jpg =x150)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/w3hWsc.gif)
+![](https://img.timpcfan.site/imgs/w3hWsc.gif)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/5Jl0S9.gif)
+![](https://img.timpcfan.site/imgs/5Jl0S9.gif)
 
 
 
@@ -96,15 +96,15 @@ Tspin根据其消除的行数分为几类：
 
 初始Tspin triple
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg)
+![](https://img.timpcfan.site/imgs/ALKlUk.jpg)
 
 Tspin triple捐赠
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/AVyIog.jpg)
+![](https://img.timpcfan.site/imgs/AVyIog.jpg)
 
 如何操作
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/DrAyHr.jpg)
+![](https://img.timpcfan.site/imgs/DrAyHr.jpg)
 
 ::: tip
 就是要摆出一个F的形状！！！（没有格子的部分）
@@ -114,23 +114,23 @@ Tspin triple捐赠
 
 ### 使用SZ来连续搭T槽
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/RnDucI.jpg)
+![](https://img.timpcfan.site/imgs/RnDucI.jpg)
 
 当有两个高度差时，右边放一个Z，上面放一个S当屋顶
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/dOUTCw.png)
+![](https://img.timpcfan.site/imgs/dOUTCw.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/34tSFV.gif)
+![](https://img.timpcfan.site/imgs/34tSFV.gif)
 
 ### 楼梯捐赠
 
 有4级阶梯的地形，搭一个Z就可以形成T槽
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Fwlnm3.jpg)
+![](https://img.timpcfan.site/imgs/Fwlnm3.jpg)
 
 之后再搭个屋顶
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/cquWGH.jpg)
+![](https://img.timpcfan.site/imgs/cquWGH.jpg)
 
 ::: tip 好处都有啥？
 既可以平整地形，也可以打出伤害
@@ -140,39 +140,39 @@ Tspin triple捐赠
 
 有3格宽的空地
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/cQldFu.png)
+![](https://img.timpcfan.site/imgs/cQldFu.png)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/SiMiqH.gif)
+![](https://img.timpcfan.site/imgs/SiMiqH.gif)
 
 ### STMB-cave（三宽捐赠）
 
 条件：左右高度相同，中间有三格空地
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/JDYdz9.jpg)
+![](https://img.timpcfan.site/imgs/JDYdz9.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/pssJJS.png)
+![](https://img.timpcfan.site/imgs/pssJJS.png)
 
 已经有了T槽的地形，在盖屋顶时，如果两边等高可以考虑STMB来形成2连T槽
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Tz2mD5.png)
+![](https://img.timpcfan.site/imgs/Tz2mD5.png)
 
 ## Zspin与Sspin
 
 ### 1 无东西顶住
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/GP5RlB.jpg)
+![](https://img.timpcfan.site/imgs/GP5RlB.jpg)
 
 该位置逆时针旋转进入
 
 ### 2 有东西顶住
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/AuX479.jpg)
+![](https://img.timpcfan.site/imgs/AuX479.jpg)
 
 该位置顺时针旋转进入
 
 ### S块同理
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/oDNxDi.jpg)
+![](https://img.timpcfan.site/imgs/oDNxDi.jpg)
 
 此情况逆时针进入
 
@@ -181,7 +181,7 @@ Tspin triple捐赠
 
 ### 消除o
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/WdMjjg.jpg)
+![](https://img.timpcfan.site/imgs/WdMjjg.jpg)
 
 1、将Z插下去，将O放右边，恢复原样
 
@@ -189,27 +189,27 @@ Tspin triple捐赠
 
 3、把J插进去，右边放T，把O放中间
 
-  ![](http://timpcfan-site.cdn.bcebos.com/imgs/x7XVzC.jpg)
+  ![](https://img.timpcfan.site/imgs/x7XVzC.jpg)
 
 4、把I插进去，右边放L或J，再放O
 
-  ![](http://timpcfan-site.cdn.bcebos.com/imgs/HNDp4Y.jpg)
+  ![](https://img.timpcfan.site/imgs/HNDp4Y.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/0a3m2W.jpg)
+![](https://img.timpcfan.site/imgs/0a3m2W.jpg)
 
 这种地形，可以把L,Z,T放进去
 
 ### 组合
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/qTDBUC.jpg)
+![](https://img.timpcfan.site/imgs/qTDBUC.jpg)
 
 J插进去，Sspin进去，L插进去，Zspin进去
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/eg23w3.jpg)
+![](https://img.timpcfan.site/imgs/eg23w3.jpg)
 
 J插进去，S直接竖着下来（不spin），Zspin进去
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/bGJsVT.jpg)
+![](https://img.timpcfan.site/imgs/bGJsVT.jpg)
 
 ::: tip
 使用T方块的时候要注意下一个SZ方块是哪个（因为会改变朝向）
@@ -217,9 +217,9 @@ J插进去，S直接竖着下来（不spin），Zspin进去
 
 ## T3塔
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/sG3fT6.jpg)
+![](https://img.timpcfan.site/imgs/sG3fT6.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/K2iomi.jpg)
+![](https://img.timpcfan.site/imgs/K2iomi.jpg)
 
 ## LST堆叠
 
@@ -231,11 +231,11 @@ J插进去，S直接竖着下来（不spin），Zspin进去
 
 如果I先来，一般都能搭出定式来
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Y6mnoa.png)
+![](https://img.timpcfan.site/imgs/Y6mnoa.png)
 
 ### 开局Tspin triple
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/ALKlUk.jpg)
+![](https://img.timpcfan.site/imgs/ALKlUk.jpg)
 
 
 

@@ -83,7 +83,7 @@ Flexbox 控制一次仅在一维（行或列）中的定位。对于二维控件
 
 上述 div 的默认行为，尊重正常的 html 文档流，是从上到下、从左到右呈现并占据整个正文宽度，因为它的display属性默认为block.
 
-![4USqRq](http://timpcfan-site.cdn.bcebos.com/imgs/4USqRq.jpg =x300)
+![4USqRq](https://img.timpcfan.site/imgs/4USqRq.jpg =x300)
 
 
 ### 弹性item
@@ -93,7 +93,7 @@ Flexbox 控制一次仅在一维（行或列）中的定位。对于二维控件
 - 它们将显示在一行中，因为 `flex-direction` 默认为 `row`
 - 它们将从左到右显示
 - 项目**不会拉伸**以适应整个宽度（主轴），但它们会收缩以做到这一点。
-  ![AsUQoe](http://timpcfan-site.cdn.bcebos.com/imgs/AsUQoe.gif)
+  ![AsUQoe](https://img.timpcfan.site/imgs/AsUQoe.gif)
 - 项目**拉伸**以适应交叉轴（本例中的高度）。
 - 如果物品有不同的高度，它们将伸展到最高的一个高度
 - flex-basis默认为auto（项目宽度将由其内容设置）
@@ -117,7 +117,7 @@ Flexbox 控制一次仅在一维（行或列）中的定位。对于二维控件
 
 这些值的弹性项目行为可以在下面观察到：
 
-![oibRlg](http://timpcfan-site.cdn.bcebos.com/imgs/oibRlg.gif)
+![oibRlg](https://img.timpcfan.site/imgs/oibRlg.gif)
 
 ### flex-wrap
 
@@ -127,13 +127,13 @@ flex-wrap是当容器中的空间不足以容纳所有弹性项目时处理弹�
 
 通过为项目设置 300px 宽度，该nowrap选项会输出以下结果：
 
-![yuHKj4](http://timpcfan-site.cdn.bcebos.com/imgs/yuHKj4.png =x300)
+![yuHKj4](https://img.timpcfan.site/imgs/yuHKj4.png =x300)
 
 其中，每个项目都缩小到大约 70px 以适应容器。
 
 当属性更新为 时wrap，项目的宽度现在实际上将具有其原始值 300 像素。当第一行的宽度不足以容纳 300 像素时，该项目不会溢出容器，而是换行到新行。每一行都应该被认为是一个单独的弹性容器。一个容器中的空间分布不会影响相邻的其他容器。
 
-![HqmnPV](http://timpcfan-site.cdn.bcebos.com/imgs/HqmnPV.png =x300)
+![HqmnPV](https://img.timpcfan.site/imgs/HqmnPV.png =x300)
 
 另一种选择是wrap-reverse，它反转交叉轴。flex-direction由属性从上到下设置，wrap-reverse将其转换为从下到上。
 
@@ -143,7 +143,7 @@ flex-wrap是当容器中的空间不足以容纳所有弹性项目时处理弹�
 
 ### 对齐
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/invnoF.png)
+![](https://img.timpcfan.site/imgs/invnoF.png)
 
 在 Flexbox 中，项目沿轴的对齐和空间分布可以通过四个属性来控制 ：
 
@@ -166,19 +166,19 @@ flex-wrap是当容器中的空间不足以容纳所有弹性项目时处理弹�
 
 默认值为 0，表示如果有可用空间，则将其放在最后一项之后。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/55rRLZ.png)
+![](https://img.timpcfan.site/imgs/55rRLZ.png)
 
 在上面的示例中，direction设置为row，并且每个弹性项目width都设置为60px。由于容器很980px宽，因此有680px可用空间。该空间称为positive free space。
 
 通过设置flex-grow为1，正的可用空间量在弹性项目之间平均分配。每个项目的宽度将增加136px，总计196px。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/5trUDz.png)
+![](https://img.timpcfan.site/imgs/5trUDz.png)
 
 通过`flex-grow: 2`应用于第三个项目，它获得的可用正可用空间量是`286px`其余项目的两倍，`173px`。
 
 下图显示了`flex-grow`属性设置为其内容值的项目。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/1ftKa2.png)
+![](https://img.timpcfan.site/imgs/1ftKa2.png)
 
 #### flex-shrink 弹性收缩
 
@@ -186,15 +186,15 @@ flex-shrink处理项目大小，当没有足够的可用空间将它们全部放
 
 下一张图片显示了980px装有五个300px宽物品的容器。由于没有空间容纳1500px所需，默认flex shrink factor值1使每个项目均匀收缩到196px。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Y3Pm8q.png)
+![](https://img.timpcfan.site/imgs/Y3Pm8q.png)
 
 通过`flex-shrink: 2`为第三项设置比率，它会比其他项小两倍。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/Wcu0xX.png)
+![](https://img.timpcfan.site/imgs/Wcu0xX.png)
 
 本节中的最后一张图片显示了将其内容值保存为 flex 收缩率的每个项目。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/uAEXro.png)
+![](https://img.timpcfan.site/imgs/uAEXro.png)
 
 #### flex-basis 弹性基础
 
@@ -202,11 +202,11 @@ flex-basis是在实际设置可用空间之前检查每个项目应具有的大�
 
 下面的 gif 显示了一个800px宽容器和五个设置为flex-basis: 160px. 这告诉浏览器：理想情况下，有足够的空间来放置所有项目，尊重它们的160px宽度，并且没有正/负的可用空间。如果没有足够的空间，由于flex-shrink默认为1，所有项目都被均匀收缩。如果有多余的空间，则flex-grow默认为0，并且空白空间位于最后一项之后。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/SKURrp.png)
+![](https://img.timpcfan.site/imgs/SKURrp.png)
 
 下一个 gif 显示项目 1 设置为`flex-shrink: 10`，项目 4 设置为`flex-grow: 10`。对于负的可用空间，项目 1 的宽度减少了 10 倍。对于正的可用空间，项目 4 的宽度是其他项目的 10 倍。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/B184OW.png)
+![](https://img.timpcfan.site/imgs/B184OW.png)
 
 `flex-basis`也接受 value `content`，无论`width`是否设置，计算可用空间的宽度都是项目的内容。如果您不想考虑该计算的项目宽度，请将基础设置为`0`。
 
@@ -244,7 +244,7 @@ flex 是 `flex-grow`, `flex-shrink`, `flex-basis` 的简写.
 <div class="CenterMe">Hello, I'm centered with Flexbox!</div>
 ```
 
-![K3PDPP](http://timpcfan-site.cdn.bcebos.com/imgs/K3PDPP.png)
+![K3PDPP](https://img.timpcfan.site/imgs/K3PDPP.png)
 
 #### 例子：偏移
 
@@ -272,7 +272,7 @@ flex 是 `flex-grow`, `flex-shrink`, `flex-basis` 的简写.
 </div>
 ```
 
-![9jnlas](http://timpcfan-site.cdn.bcebos.com/imgs/9jnlas.png)
+![9jnlas](https://img.timpcfan.site/imgs/9jnlas.png)
 
 #### 例子：反序
 
@@ -292,7 +292,7 @@ flex-direction: row-reverse
 
 反之，如果Flexbox的方向是`column`，则主轴就是纵轴，而交叉轴为横轴。
 
-![OioNsa](http://timpcfan-site.cdn.bcebos.com/imgs/OioNsa.png)
+![OioNsa](https://img.timpcfan.site/imgs/OioNsa.png)
 
 #### 沿着交叉轴对齐
 
@@ -346,7 +346,7 @@ Flexbox(FlexWrapper)的宽度为100% */
 }
 ```
 
-![Iqs9fg](http://timpcfan-site.cdn.bcebos.com/imgs/Iqs9fg.png)
+![Iqs9fg](https://img.timpcfan.site/imgs/Iqs9fg.png)
 
 ### flex属性
 
@@ -387,7 +387,7 @@ flex: 1       1     100px
 
 [^grid]: [网格 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn/CSS/CSS_layout/Grids#flexbox_%E7%BD%91%E6%A0%BC)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/GwfRmw.png)
+![](https://img.timpcfan.site/imgs/GwfRmw.png)
 
 一个网格通常具有许多的**列（column）**与**行（row）**，以及行与行、列与列之间的间隙，这个间隙一般被称为**沟槽（gutter）**。
 
@@ -448,7 +448,7 @@ grid-column-gap: 20px;  /* 列间距 */
 
 定义完网格之后，每行每列的边界（网格线的边缘）都有一个索引，可以使用这些线来定位放置元素。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/xHBtux.png)
+![](https://img.timpcfan.site/imgs/xHBtux.png)
 
 ```css
 grid-column-start: 1  /* 列的开始边界 */

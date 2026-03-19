@@ -16,7 +16,7 @@ tag:
 # 系统设计入门
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/4rzy8D.png">
+  <img src="https://img.timpcfan.site/imgs/4rzy8D.png">
   <br/>
 </p>
 
@@ -55,7 +55,7 @@ tag:
 > 每个章节都包含着更多的资源的链接。
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/trSJRx.png">
+  <img src="https://img.timpcfan.site/imgs/trSJRx.png">
   <br/>
 </p>
 
@@ -63,7 +63,7 @@ tag:
 
 > 基于你面试的时间线（短、中、长）去复习那些推荐的主题。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/bQjZIt.png)
+![](https://img.timpcfan.site/imgs/bQjZIt.png)
 
 **问：对于面试来说，我需要知道这里的所有知识点吗？**
 
@@ -182,49 +182,49 @@ tag:
 
 [查看实践与解答](pastebin.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/gCRLTI.png)
+![](https://img.timpcfan.site/imgs/gCRLTI.png)
 
 ### 设计 Twitter 时间线和搜索 (或者 Facebook feed 和搜索)
 
 [查看实践与解答](twitter.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/X82Bri.png)
+![](https://img.timpcfan.site/imgs/X82Bri.png)
 
 ### 设计一个网页爬虫
 
 [查看实践与解答](web_crawler.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/gHJYnF.png)
+![](https://img.timpcfan.site/imgs/gHJYnF.png)
 
 ### 设计 Mint.com
 
 [查看实践与解答](mint.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/8IA620.png)
+![](https://img.timpcfan.site/imgs/8IA620.png)
 
 ### 为一个社交网络设计数据结构
 
 [查看实践与解答](social_graph.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/FIuPES.png)
+![](https://img.timpcfan.site/imgs/FIuPES.png)
 
 ### 为搜索引擎设计一个 key-value 储存
 
 [查看实践与解答](query_cache.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/1toaVx.png)
+![](https://img.timpcfan.site/imgs/1toaVx.png)
 
 ### 设计按类别分类的 Amazon 销售排名
 
 [查看实践与解答](sales_rank.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/fxgGVS.png)
+![](https://img.timpcfan.site/imgs/fxgGVS.png)
 
 ### 在 AWS 上设计一个百万用户级别的系统
 
 [查看实践与解答](scaling_aws.md)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/NdAfr9.png)
+![](https://img.timpcfan.site/imgs/NdAfr9.png)
 
 ## 面向对象设计的面试问题及解答
 
@@ -316,7 +316,7 @@ tag:
 ### CAP 理论
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/nMNgXq.png">
+  <img src="https://img.timpcfan.site/imgs/nMNgXq.png">
   <br/>
   <strong><a href="http://robertgreiner.com/2014/08/cap-theorem-revisited">来源：再看 CAP 理论</a></strong>
 </p>
@@ -410,7 +410,7 @@ DNS 和 email 等系统使用的是此种方式。最终一致性在高可用性
 ## 域名系统
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/GosmRV.jpg">
+  <img src="https://img.timpcfan.site/imgs/GosmRV.jpg">
   <br/>
   <strong><a href="http://www.slideshare.net/srikrupa5/dns-security-presentation-issa">来源：DNS 安全介绍</a></strong>
 </p>
@@ -448,7 +448,7 @@ DNS 和 email 等系统使用的是此种方式。最终一致性在高可用性
 ## 内容分发网络（CDN）
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/IPEWdV.jpg">
+  <img src="https://img.timpcfan.site/imgs/IPEWdV.jpg">
   <br/>
   <strong><a href="https://www.creative-artworks.eu/why-use-a-content-delivery-network-cdn/">来源：为什么使用 CDN</a></strong>
 </p>
@@ -487,7 +487,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 ## 负载均衡器
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/eH0pZ3.png">
+  <img src="https://img.timpcfan.site/imgs/eH0pZ3.png">
   <br/>
   <strong><a href="http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html">来源：可扩展的系统设计模式</a></strong>
 </p>
@@ -556,7 +556,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 ## 反向代理（web 服务器）
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/99lNyZ.png">
+  <img src="https://img.timpcfan.site/imgs/99lNyZ.png">
   <br/>
   <strong><a href="https://upload.wikimedia.org/wikipedia/commons/6/67/Reverse_proxy_h2g2bob.svg">资料来源：维基百科</a></strong>
   <br/>
@@ -599,7 +599,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 ## 应用层
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/Vn6Dxd.png">
+  <img src="https://img.timpcfan.site/imgs/Vn6Dxd.png">
   <br/>
   <strong><a href="http://lethain.com/introduction-to-architecting-systems-for-scale/#platform_layer">资料来源：可缩放系统构架介绍</a></strong>
 </p>
@@ -636,7 +636,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 ## 数据库
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/Yphy9o.png">
+  <img src="https://img.timpcfan.site/imgs/Yphy9o.png">
   <br/>
   <strong><a href="https://www.youtube.com/watch?v=w95murBkYmU">资料来源：扩展你的用户数到第一个一千万</a></strong>
 </p>
@@ -657,7 +657,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 关系型数据库扩展包括许多技术：**主从复制**、**主主复制**、**联合**、**分片**、**非规范化**和 **SQL 调优**。
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/J9ekTj.png">
+  <img src="https://img.timpcfan.site/imgs/J9ekTj.png">
   <br/>
   <strong><a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">资料来源：可扩展性、可用性、稳定性、模式</a></strong>
 </p>
@@ -672,7 +672,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 - 参考[不利之处：复制](#不利之处复制)中，主从复制和主主复制**共同**的问题。
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/SqrqxL.png">
+  <img src="https://img.timpcfan.site/imgs/SqrqxL.png">
   <br/>
   <strong><a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">资料来源：可扩展性、可用性、稳定性、模式</a></strong>
 </p>
@@ -704,7 +704,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 #### 联合
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/d4lFbX.png">
+  <img src="https://img.timpcfan.site/imgs/d4lFbX.png">
   <br/>
   <strong><a href="https://www.youtube.com/watch?v=w95murBkYmU">资料来源：扩展你的用户数到第一个一千万</a></strong>
 </p>
@@ -725,7 +725,7 @@ CDN 拉取是当第一个用户请求该资源时，从服务器上拉取资源�
 #### 分片
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/Cl5xCU.png">
+  <img src="https://img.timpcfan.site/imgs/Cl5xCU.png">
   <br/>
   <strong><a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">资料来源：可扩展性、可用性、稳定性、模式</a></strong>
 </p>
@@ -869,7 +869,7 @@ MongoDB 和 CouchDB 等一些文档类型存储还提供了类似 SQL 语言的�
 #### 列型存储
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/6Ys6ur.png">
+  <img src="https://img.timpcfan.site/imgs/6Ys6ur.png">
   <br/>
   <strong><a href="http://blog.grio.com/2015/11/sql-nosql-a-brief-history.html">资料来源: SQL 和 NoSQL，一个简短的历史</a></strong>
 </p>
@@ -892,7 +892,7 @@ Google 发布了第一个列型存储数据库 [Bigtable](http://www.read.seas.h
 #### 图数据库
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/PLUwzS.png">
+  <img src="https://img.timpcfan.site/imgs/PLUwzS.png">
   <br/>
   <strong><a href="https://en.wikipedia.org/wiki/File:GraphDatabase_PropertyGraph.png">资料来源：图数据库</a></strong>
 </p>
@@ -920,7 +920,7 @@ Google 发布了第一个列型存储数据库 [Bigtable](http://www.read.seas.h
 ### SQL 还是 NoSQL
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/lwTe70.png">
+  <img src="https://img.timpcfan.site/imgs/lwTe70.png">
   <br/>
   <strong><a href="https://www.infoq.com/articles/Transition-RDBMS-NoSQL/">资料来源：从 RDBMS 转换到 NoSQL</a></strong>
 </p>
@@ -962,7 +962,7 @@ Google 发布了第一个列型存储数据库 [Bigtable](http://www.read.seas.h
 ## 缓存
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/jzJC80.png">
+  <img src="https://img.timpcfan.site/imgs/jzJC80.png">
   <br/>
   <strong><a href="http://horicky.blogspot.com/2010/10/scalable-system-design-patterns.html">资料来源：可扩展的系统设计模式</a></strong>
 </p>
@@ -1033,7 +1033,7 @@ Redis 有下列附加功能：
 #### 缓存模式
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/Iyf6Ae.png">
+  <img src="https://img.timpcfan.site/imgs/Iyf6Ae.png">
   <br/>
   <strong><a href="http://www.slideshare.net/tmatyashovsky/from-cache-to-in-memory-data-grid-introduction-to-hazelcast">资料来源：从缓存到内存数据网格</a></strong>
 </p>
@@ -1069,7 +1069,7 @@ def get_user(self, user_id):
 #### 直写模式
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/u7NGom.png">
+  <img src="https://img.timpcfan.site/imgs/u7NGom.png">
   <br/>
   <strong><a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">资料来源：可扩展性、可用性、稳定性、模式</a></strong>
 </p>
@@ -1104,7 +1104,7 @@ def set_user(user_id, values):
 #### 回写模式
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/H3SU47.png">
+  <img src="https://img.timpcfan.site/imgs/H3SU47.png">
   <br/>
   <strong><a href="http://www.slideshare.net/jboner/scalability-availability-stability-patterns/">资料来源：可扩展性、可用性、稳定性、模式</a></strong>
 </p>
@@ -1122,7 +1122,7 @@ def set_user(user_id, values):
 #### 刷新
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/U2BLz3.png">
+  <img src="https://img.timpcfan.site/imgs/U2BLz3.png">
   <br/>
   <strong><a href=http://www.slideshare.net/tmatyashovsky/from-cache-to-in-memory-data-grid-introduction-to-hazelcast>资料来源：从缓存到内存数据网格</a></strong>
 </p>
@@ -1154,7 +1154,7 @@ def set_user(user_id, values):
 ## 异步
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/GeFaAf.png">
+  <img src="https://img.timpcfan.site/imgs/GeFaAf.png">
   <br/>
   <strong><a href=http://lethain.com/introduction-to-architecting-systems-for-scale/#platform_layer>资料来源：可缩放系统构架介绍</a></strong>
 </p>
@@ -1200,7 +1200,7 @@ def set_user(user_id, values):
 ## 通讯
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/qTBwox.jpg">
+  <img src="https://img.timpcfan.site/imgs/qTBwox.jpg">
   <br/>
   <strong><a href=http://www.escotal.com/osilayer.html>资料来源：OSI 7层模型</a></strong>
 </p>
@@ -1233,7 +1233,7 @@ HTTP 是依赖于较低级协议（如 **TCP** 和 **UDP**）的应用层协议�
 ### 传输控制协议（TCP）
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/QI2nvi.jpg">
+  <img src="https://img.timpcfan.site/imgs/QI2nvi.jpg">
   <br/>
   <strong><a href="http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1/">资料来源：如何制作多人游戏</a></strong>
 </p>
@@ -1257,7 +1257,7 @@ TCP 对于需要高可靠性但时间紧迫的应用程序很有用。比如包�
 ### 用户数据报协议（UDP）
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/oUNCQg.jpg">
+  <img src="https://img.timpcfan.site/imgs/oUNCQg.jpg">
   <br/>
   <strong><a href="http://www.wildbunny.co.uk/blog/2012/10/09/how-to-make-a-multi-player-game-part-1">资料来源：如何制作多人游戏</a></strong>
 </p>
@@ -1286,7 +1286,7 @@ UDP 可靠性更低但适合用在网络电话、视频聊天，流媒体和实�
 ### 远程过程调用协议（RPC）
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/ZY4SYg.png">
+  <img src="https://img.timpcfan.site/imgs/ZY4SYg.png">
   <br/>
   <strong><a href="http://www.puncsky.com/blog/2016/02/14/crack-the-system-design-interview">Source: Crack the system design interview</a></strong>
 </p>
@@ -1508,7 +1508,7 @@ Notes
 > 关于现实中真实的系统是怎么设计的文章。
 
 <p align="center">
-  <img src="http://timpcfan-site.cdn.bcebos.com/imgs/YonmRt.png">
+  <img src="https://img.timpcfan.site/imgs/YonmRt.png">
   <br/>
   <strong><a href="https://www.infoq.com/presentations/Twitter-Timeline-Scalability">Source: Twitter timelines at scale</a></strong>
 </p>

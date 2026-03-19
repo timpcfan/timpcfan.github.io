@@ -58,7 +58,7 @@ print('写入完成')
 
 ## Python 中的三种并发编程方式
 
-![tch30Z](http://timpcfan-site.cdn.bcebos.com/imgs/tch30Z.png)
+![tch30Z](https://img.timpcfan.site/imgs/tch30Z.png)
 
 ### 三种方式：多线程（Thread）、多进程（Process）、协程（Coroutine）
 
@@ -88,7 +88,7 @@ print('写入完成')
 
 ### 怎样根据任务选择对应技术
 
-![UsvTjR](http://timpcfan-site.cdn.bcebos.com/imgs/UsvTjR.png)
+![UsvTjR](https://img.timpcfan.site/imgs/UsvTjR.png)
 
 ## 全局解释器锁 GIL（Global Interpreter Lock）
 
@@ -172,7 +172,7 @@ with ThreadPoolExecutor() as pool:
 
 多线程 threading 与多进程 multiprocessing 的代码对比
 
-![oMERIi](http://timpcfan-site.cdn.bcebos.com/imgs/oMERIi.png)
+![oMERIi](https://img.timpcfan.site/imgs/oMERIi.png)
 
 直接改个类名就能运行！
 
@@ -207,7 +207,7 @@ t.join() # Wait for actual termination (if needed)
 
 ### 线程池的原理
 
-![YPT9vT](http://timpcfan-site.cdn.bcebos.com/imgs/YPT9vT.png)
+![YPT9vT](https://img.timpcfan.site/imgs/YPT9vT.png)
 
 ### 特点
 
@@ -235,11 +235,11 @@ t.join() # Wait for actual termination (if needed)
 
 **单线程爬虫执行路径**
 
-![dFUEmJ](http://timpcfan-site.cdn.bcebos.com/imgs/dFUEmJ.png)
+![dFUEmJ](https://img.timpcfan.site/imgs/dFUEmJ.png)
 
 **协程爬虫执行路径**
 
-![OSigeS](http://timpcfan-site.cdn.bcebos.com/imgs/OSigeS.png)
+![OSigeS](https://img.timpcfan.site/imgs/OSigeS.png)
 
 ### 协程的使用以及异步 IO
 

@@ -23,7 +23,7 @@ tag:
 
 ### 符的计算
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/rbvbZx.jpg)
+![](https://img.timpcfan.site/imgs/rbvbZx.jpg)
 
 基本符+和牌+听牌+雀头+面子（5个部分）
 
@@ -44,9 +44,9 @@ tag:
 - 亲家荣和得点6A，自摸从子三家处各得2A点
 - 子家荣和得点4A，自摸从亲家得点2A，从其他子家处各得A点
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/J9B6ut.jpg)
+![](https://img.timpcfan.site/imgs/J9B6ut.jpg)
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/b9d4IC.jpg)
+![](https://img.timpcfan.site/imgs/b9d4IC.jpg)
 
 ### 得点速算
 
@@ -118,7 +118,7 @@ tag:
 
 ### 手牌书面表示法
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/rLhMQT.jpg)
+![](https://img.timpcfan.site/imgs/rLhMQT.jpg)
 
 - 1-9m: 表示万子（9m表示9万）
 - 1-9p: 表示饼子（7p表示7饼）
@@ -168,11 +168,11 @@ tag:
 
 通常摸到靠近现有面子的牌都可以改良成更好的牌型：
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/5xi665.jpg)
+![](https://img.timpcfan.site/imgs/5xi665.jpg)
 
 ### 一些四张听牌型
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/X652GR.jpg)
+![](https://img.timpcfan.site/imgs/X652GR.jpg)
 
 ### 一些常见的三面听
 
@@ -188,7 +188,7 @@ tag:
 
 67888xx → 678 88 xx | 67 888 xx → 听 x 8 5（共7张）
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/YQ3adF.jpg)
+![](https://img.timpcfan.site/imgs/YQ3adF.jpg)
 
 ### 毁天灭地五面听
 
@@ -205,14 +205,14 @@ tag:
 - 一般会想把两个对子都留下
 - 比较搭子的部位，拆掉最弱的搭子
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/KgbaKH.jpg)
+![](https://img.timpcfan.site/imgs/KgbaKH.jpg)
 
 - 总共有三个对子：
 - 一般会拆其中一对（三对拆一对）
 - 比较搭子部位，拆掉最强搭子的对子
 - （把补强牌留给弱搭子）
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/6nq7Y2.jpg)
+![](https://img.timpcfan.site/imgs/6nq7Y2.jpg)
 
 有三个对子，3m 7p 8s，其中88s不是搭子，拆掉会使得向听倒退，677p是好型两面搭子，但334567m是更强的搭子，因此这里要拆掉3m。
 
@@ -228,7 +228,7 @@ tag:
 
 早巡阶段打过的数牌，外侧的牌比较安全
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/DpkS4i.jpg)
+![](https://img.timpcfan.site/imgs/DpkS4i.jpg)
 
 例如：早巡有人打过8m，那么就会认为9m比较安全
 

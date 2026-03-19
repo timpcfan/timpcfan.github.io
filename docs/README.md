@@ -3,7 +3,7 @@
 home: true
 layout: Blog
 icon: home
-bgImage: http://timpcfan-site.cdn.bcebos.com/imgs/G6UPhn.jpg
+bgImage: https://img.timpcfan.site/imgs/G6UPhn.jpg
 title: 主页
 heroImage: /avatar_self.webp
 heroText: TrystanLei

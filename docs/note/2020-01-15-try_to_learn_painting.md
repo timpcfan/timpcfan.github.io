@@ -23,11 +23,11 @@ tag:
 
 经过不懈努力加上老师的抢救，我的画的成品如下。
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/TuvqK7.jpeg)
+![](https://img.timpcfan.site/imgs/TuvqK7.jpeg)
 
 妹妹的画是这样的：
 
-![](http://timpcfan-site.cdn.bcebos.com/imgs/g0fScZ.jpeg)
+![](https://img.timpcfan.site/imgs/g0fScZ.jpeg)
 
 非常漂亮。
 
