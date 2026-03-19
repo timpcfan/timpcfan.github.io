@@ -15,7 +15,7 @@ export default hopeTheme({
   },
 
   iconAssets: "iconfont",
-  logo: "/avatar_self.webp",
+  logo: "https://img.timpcfan.site/blog/2026/03/file_21---6fe38abc-031a-4330-a1fe-0e352af2ce5f.jpg",
 
   //是否全局启用路径导航
   breadcrumb: true,
@@ -73,7 +73,7 @@ export default hopeTheme({
   blog: {
     articleInfo: ["Date", "Category", "Tag", "ReadingTime", "PageView"],
     name: "TrystanLei",
-    avatar: "/avatar_self.webp",
+    avatar: "https://img.timpcfan.site/blog/2026/03/file_21---6fe38abc-031a-4330-a1fe-0e352af2ce5f.jpg",
     description: "汇聚点滴，凝聚成溪",
     intro: "/intro.html",
     roundAvatar: true,
