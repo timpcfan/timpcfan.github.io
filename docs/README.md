@@ -5,7 +5,7 @@ layout: Blog
 icon: home
 bgImage: https://img.timpcfan.site/imgs/G6UPhn.jpg
 title: 主页
-heroImage: /avatar_self.webp
+heroImage: https://img.timpcfan.site/blog/2026/03/file_21---6fe38abc-031a-4330-a1fe-0e352af2ce5f.jpg
 heroText: TrystanLei
 heroFullScreen: true
 tagline: 只要不失去你的崇高，整个世界都会为你敞开
