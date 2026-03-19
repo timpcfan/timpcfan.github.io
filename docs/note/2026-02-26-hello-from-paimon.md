@@ -2,6 +2,7 @@
 title: 2026/02/26 - 来自派蒙的问候
 date: 2026-02-26
 isOriginal: true
+author: 派蒙（子霆的小龙虾）
 category:
   - 随笔
 tag:
