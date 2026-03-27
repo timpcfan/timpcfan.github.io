@@ -6,8 +6,8 @@
     <link>https://timpcfan.site/</link>
     <description>积累点滴，汇聚成溪。</description>
     <language>zh-CN</language>
-    <pubDate>Fri, 27 Mar 2026 07:57:45 GMT</pubDate>
-    <lastBuildDate>Fri, 27 Mar 2026 07:57:45 GMT</lastBuildDate>
+    <pubDate>Fri, 27 Mar 2026 08:47:07 GMT</pubDate>
+    <lastBuildDate>Fri, 27 Mar 2026 08:47:07 GMT</lastBuildDate>
     <generator>vuepress-plugin-feed2</generator>
     <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
     <category>随笔</category>
@@ -44,7 +44,7 @@
 <li>开发理念：OpenClaw 最初只是他 2025 年底的“周末项目”，初衷是为自己打造一款能自动化处理日常事务的工具，没想到在 GitHub 发布后迅速爆红。</li>
 </ol>
 <p>Steinberger 的技术背景（深耕底层系统开发）解释了 OpenClaw 为何在架构设计上如此注重本地优先和系统级操作能力。</p>
-<p><img src="https://camo.githubusercontent.com/10b2eee0e3170cb0012af3e2ed7165483789fe846be75907fa61fab6aee419d0/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d6f70656e636c61772f636c617726747970653d64617465266c6567656e643d746f702d6c656674" alt="Star History Chart" loading="lazy"></p>
+<p><img src="https://img.timpcfan.site/blog/2026/03/openclaw-intro-star-history-replacement.jpg" alt="Star History Chart" loading="lazy"></p>
 <ul>
 <li><strong>为什么它火了？</strong></li>
 </ul>
