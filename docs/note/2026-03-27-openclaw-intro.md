@@ -31,7 +31,7 @@ tag:
 
 Steinberger 的技术背景（深耕底层系统开发）解释了 OpenClaw 为何在架构设计上如此注重本地优先和系统级操作能力。
 
-![Star History Chart](https://camo.githubusercontent.com/10b2eee0e3170cb0012af3e2ed7165483789fe846be75907fa61fab6aee419d0/68747470733a2f2f6170692e737461722d686973746f72792e636f6d2f7376673f7265706f733d6f70656e636c61772f636c617726747970653d64617465266c6567656e643d746f702d6c656674)
+![Star History Chart](https://img.timpcfan.site/blog/2026/03/openclaw-intro-star-history-replacement.jpg)
 
 - **为什么它火了？**
 
